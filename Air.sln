@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{03AAE447-71F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Integration.Ryanair", "src\Air.Integration.Ryanair\Air.Integration.Ryanair.csproj", "{B6832255-26FF-4E57-987A-CEF3E40A80FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Module.Fares", "src\Air.ContextFare\Air.Module.Fares.csproj", "{63B1088C-D59F-425A-92C8-D6E3E455A27F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Interface.CLI", "src\Air.Interface.CLI\Air.Interface.CLI.csproj", "{75B3C5AB-9507-4C6A-B6BC-2C81DB02CB8D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{77A19DDD-9D43-4750-8035-D5CF9EFA39C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Integration.Ryanair.Tests", "test\Air.Integration.Ryanair.Tests\Air.Integration.Ryanair.Tests.csproj", "{0B18CDE9-14ED-4BEC-8B12-C2D062798539}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Module.Fares", "src\Air.Module.Fares\Air.Module.Fares.csproj", "{57738472-005D-435D-862E-DD53C6ED2FCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +25,6 @@ Global
 		{B6832255-26FF-4E57-987A-CEF3E40A80FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6832255-26FF-4E57-987A-CEF3E40A80FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6832255-26FF-4E57-987A-CEF3E40A80FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{63B1088C-D59F-425A-92C8-D6E3E455A27F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63B1088C-D59F-425A-92C8-D6E3E455A27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63B1088C-D59F-425A-92C8-D6E3E455A27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63B1088C-D59F-425A-92C8-D6E3E455A27F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75B3C5AB-9507-4C6A-B6BC-2C81DB02CB8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75B3C5AB-9507-4C6A-B6BC-2C81DB02CB8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75B3C5AB-9507-4C6A-B6BC-2C81DB02CB8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -37,14 +33,18 @@ Global
 		{0B18CDE9-14ED-4BEC-8B12-C2D062798539}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B18CDE9-14ED-4BEC-8B12-C2D062798539}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B18CDE9-14ED-4BEC-8B12-C2D062798539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57738472-005D-435D-862E-DD53C6ED2FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57738472-005D-435D-862E-DD53C6ED2FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57738472-005D-435D-862E-DD53C6ED2FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57738472-005D-435D-862E-DD53C6ED2FCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B6832255-26FF-4E57-987A-CEF3E40A80FC} = {03AAE447-71F0-4929-84CE-A763F991CA24}
-		{63B1088C-D59F-425A-92C8-D6E3E455A27F} = {03AAE447-71F0-4929-84CE-A763F991CA24}
 		{75B3C5AB-9507-4C6A-B6BC-2C81DB02CB8D} = {03AAE447-71F0-4929-84CE-A763F991CA24}
 		{0B18CDE9-14ED-4BEC-8B12-C2D062798539} = {77A19DDD-9D43-4750-8035-D5CF9EFA39C0}
+		{57738472-005D-435D-862E-DD53C6ED2FCE} = {03AAE447-71F0-4929-84CE-A763F991CA24}
 	EndGlobalSection
 EndGlobal
