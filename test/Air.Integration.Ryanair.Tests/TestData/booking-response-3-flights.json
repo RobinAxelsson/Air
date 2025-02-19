@@ -1,0 +1,182 @@
+{
+    "termsOfUse": "https://www.ryanair.com/ie/en/corporate/terms-of-use=AGREED",
+    "currency": "SEK",
+    "currPrecision": 2,
+    "routeGroup": "CITY",
+    "tripType": "OTHER",
+    "upgradeType": "PLUS",
+    "trips": [
+        {
+            "origin": "GOT",
+            "originName": "Gottenburg Landvetter",
+            "destination": "STN",
+            "destinationName": "London (Stansted)",
+            "routeGroup": "CITY",
+            "tripType": "OTHER",
+            "upgradeType": "PLUS",
+            "dates": [
+                {
+                    "dateOut": "2025-04-10T00:00:00.000",
+                    "flights": [
+                        {
+                            "faresLeft": 2,
+                            "flightKey": "FR~ 965~ ~~GOT~04/10/2025 10:45~STN~04/10/2025 11:40~~",
+                            "infantsLeft": 18,
+                            "regularFare": {
+                                "fareKey": "FITGUW4MOQG3OFNDMQK47FI6UU4QS6CAYN5K2DKRMMFV66O77RGHB6LFLBH455Q3CD3MTXTILOBJBKE34S4PT2JFFADYYPO6EYWW46RXYLSKPSYC27ZDFLUFPE2C4V44Z4J6YNKGX5G3KQU7YFT6Q563SUTXFTFTDDD7NCZOKBU5UEAONI72IMNNZ75LE3H3D66Y4ITXRDH4ATELPKH4ODBZYXNDS5POZTTTVJ2DT5VTWQSROB2N2UXSVVZP3ZDRDM73BXDSWQ3DKV3QJ6SC2PDW4J4KGPM2ROFKHSPS4SBQCCHEDEUBA4GJC7EIRLOBEPXWNADTBH6PS",
+                                "fares": [
+                                    {
+                                        "type": "ADT",
+                                        "amount": 846.15,
+                                        "count": 1,
+                                        "hasDiscount": false,
+                                        "publishedFare": 846.15,
+                                        "discountInPercent": 0,
+                                        "hasPromoDiscount": false,
+                                        "discountAmount": 0.0,
+                                        "hasBogof": false,
+                                        "isPrime": false
+                                    }
+                                ]
+                            },
+                            "operatedBy": "",
+                            "segments": [
+                                {
+                                    "segmentNr": 0,
+                                    "origin": "GOT",
+                                    "destination": "STN",
+                                    "flightNumber": "FR 965",
+                                    "time": [
+                                        "2025-04-10T10:45:00.000",
+                                        "2025-04-10T11:40:00.000"
+                                    ],
+                                    "timeUTC": [
+                                        "2025-04-10T08:45:00.000Z",
+                                        "2025-04-10T10:40:00.000Z"
+                                    ],
+                                    "duration": "01:55"
+                                }
+                            ],
+                            "flightNumber": "FR 965",
+                            "time": [
+                                "2025-04-10T10:45:00.000",
+                                "2025-04-10T11:40:00.000"
+                            ],
+                            "timeUTC": [
+                                "2025-04-10T08:45:00.000Z",
+                                "2025-04-10T10:40:00.000Z"
+                            ],
+                            "duration": "01:55"
+                        }
+                    ]
+                },
+                {
+                    "dateOut": "2025-04-11T00:00:00.000",
+                    "flights": [
+                        {
+                            "faresLeft": 5,
+                            "flightKey": "FR~ 965~ ~~GOT~04/11/2025 10:50~STN~04/11/2025 11:45~~",
+                            "infantsLeft": 18,
+                            "regularFare": {
+                                "fareKey": "AFKN235A5AXWTJDJOR5RAQO52AOP5PNAZEL5OLBM67ONKDDP54UQU2XDUP25SQJIO727RJYP4JDNDWHGRBTKOIST4ICPYP6JB3PQOJL557FV5PSGVQA2QDDIDILGSTY4XQB7SMOAKCGRRNPR4YUQGD6QAFHDQETVF5534HRRQ2PNU2BXKUAQJMZB64TYYRRRYBG56TOE3CDLYWIF7B2M5CHOFT7A57BP4JGKFSHWBJNJCYNDCU6DQIC5WAY3KLED4VTHN5EKZBFGB4P46E6BGZU6QBW62D63VILPIOQDHTCE2ZE3C6QVHD6CJV7HTGMDAEZDJDYTBNIHQGSUOMG2P7Y75N7ND6GQO7FRORI",
+                                "fares": [
+                                    {
+                                        "type": "ADT",
+                                        "amount": 1492.8,
+                                        "count": 1,
+                                        "hasDiscount": true,
+                                        "publishedFare": 1599.0000,
+                                        "discountInPercent": 0,
+                                        "hasPromoDiscount": false,
+                                        "discountAmount": 106.2,
+                                        "hasBogof": false,
+                                        "isPrime": false
+                                    }
+                                ]
+                            },
+                            "operatedBy": "",
+                            "segments": [
+                                {
+                                    "segmentNr": 0,
+                                    "origin": "GOT",
+                                    "destination": "STN",
+                                    "flightNumber": "FR 965",
+                                    "time": [
+                                        "2025-04-11T10:50:00.000",
+                                        "2025-04-11T11:45:00.000"
+                                    ],
+                                    "timeUTC": [
+                                        "2025-04-11T08:50:00.000Z",
+                                        "2025-04-11T10:45:00.000Z"
+                                    ],
+                                    "duration": "01:55"
+                                }
+                            ],
+                            "flightNumber": "FR 965",
+                            "time": [
+                                "2025-04-11T10:50:00.000",
+                                "2025-04-11T11:45:00.000"
+                            ],
+                            "timeUTC": [
+                                "2025-04-11T08:50:00.000Z",
+                                "2025-04-11T10:45:00.000Z"
+                            ],
+                            "duration": "01:55"
+                        },
+                        {
+                            "faresLeft": -1,
+                            "flightKey": "FR~ 967~ ~~GOT~04/11/2025 19:55~STN~04/11/2025 20:50~~",
+                            "infantsLeft": 18,
+                            "regularFare": {
+                                "fareKey": "VCZGFX7MQO7QOBUQOZYNBQF4LVPTRVEDMUL26WFLTBXCTSFRFAD4HBYEUGKWNAKPTF7THP4BTJHNJJCSH67LJUZZ3SU72L4GL6NNP43PXYHPJB7KYFN42X4XNMIW2IJZFSNWOTRLA67OQ2F6DOIL2NV5NUHAHINNZ4BHD5RAW6W6ATEZ47KCGFSSSZ6ZUZ4P2XILSTR3XRJTXML5XANWT3ITHJDFGA4KNG6MX5R36IO42D5DLNYP4AWTY67QZVETLYCBXDIOPODIU5SMLZY3YSWLSIZNLZBWFKHHB233JMTLGVS2WEU2GDDYXAH65QT63EJZNLYCF7QF6",
+                                "fares": [
+                                    {
+                                        "type": "ADT",
+                                        "amount": 1466.79,
+                                        "count": 1,
+                                        "hasDiscount": false,
+                                        "publishedFare": 1466.79,
+                                        "discountInPercent": 0,
+                                        "hasPromoDiscount": false,
+                                        "discountAmount": 0.0,
+                                        "hasBogof": false,
+                                        "isPrime": false
+                                    }
+                                ]
+                            },
+                            "operatedBy": "",
+                            "segments": [
+                                {
+                                    "segmentNr": 0,
+                                    "origin": "GOT",
+                                    "destination": "STN",
+                                    "flightNumber": "FR 967",
+                                    "time": [
+                                        "2025-04-11T19:55:00.000",
+                                        "2025-04-11T20:50:00.000"
+                                    ],
+                                    "timeUTC": [
+                                        "2025-04-11T17:55:00.000Z",
+                                        "2025-04-11T19:50:00.000Z"
+                                    ],
+                                    "duration": "01:55"
+                                }
+                            ],
+                            "flightNumber": "FR 967",
+                            "time": [
+                                "2025-04-11T19:55:00.000",
+                                "2025-04-11T20:50:00.000"
+                            ],
+                            "timeUTC": [
+                                "2025-04-11T17:55:00.000Z",
+                                "2025-04-11T19:50:00.000Z"
+                            ],
+                            "duration": "01:55"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "serverTimeUTC": "2025-02-18T10:26:27.235Z"
+}

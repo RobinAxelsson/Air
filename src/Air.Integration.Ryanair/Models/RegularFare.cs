@@ -1,0 +1,12 @@
+﻿using System.Text.Json.Serialization;
+
+namespace Air.Integration.Ryanair.Models;
+
+internal class RegularFare
+{
+    [JsonPropertyName("fareKey")]
+    public string FareKey { get; set; }
+
+    [JsonPropertyName("fares")]
+    public List<Fare> Fares { get; set; }
+}
