@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Air.Integration.Ryanair\Air.Integration.Ryanair.csproj" />
+    <ProjectReference Include="..\Air.Module.Fares\Air.Module.Fares.csproj" />
   </ItemGroup>
 
 </Project>

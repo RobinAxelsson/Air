@@ -1,6 +1,6 @@
 ﻿using Air.Module.Fares.Enum;
 
-namespace Air.Module.Fares.Messages
+namespace Air.Module.Fares.Persistance.Dtos
 {
     public record QueryFares
     {

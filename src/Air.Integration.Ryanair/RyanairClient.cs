@@ -3,7 +3,7 @@ using System.Text.Json;
 using Air.Integration.Ryanair.Results;
 using Air.Integration.Ryanair.Services;
 
-namespace Ryanair;
+namespace Air.Integration.Ryanair;
 
 public class RyanairClient
 {
@@ -19,7 +19,8 @@ public class RyanairClient
         _httpClient.BaseAddress = new Uri("https://www.ryanair.com/");
     }
 
-    private static string GetRequestUrl(string origin, string destination, string dateOut){
+    private static string GetRequestUrl(string origin, string destination, string dateOut)
+    {
         return $"api/booking/v4/sv-se/availability?" +
             $"ADT=2&TEEN=0&CHD=0&INF=0&Origin={origin}&Destination={destination}&promoCode=" +
             $"&IncludeConnectingFlights=false&DateOut={dateOut}&DateIn=" +

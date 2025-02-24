@@ -1,4 +1,6 @@
-﻿namespace Air.Integration.Ryanair.Results
+﻿using Air.Integration.Ryanair.ResourceModel;
+
+namespace Air.Integration.Ryanair.Results
 {
     public class RyanairFareResult
     {

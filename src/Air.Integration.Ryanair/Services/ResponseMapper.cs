@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using Air.Integration.Ryanair.Models;
+using Air.Integration.Ryanair.ResourceModel;
 using Air.Integration.Ryanair.Results;
 
 [assembly: InternalsVisibleTo("Air.Integration.Ryanair.Tests")]

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Integration.Ryanair.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Module.Fares", "src\Air.Module.Fares\Air.Module.Fares.csproj", "{57738472-005D-435D-862E-DD53C6ED2FCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Module.Email", "src\Air.Module.Email\Air.Module.Email.csproj", "{C3982145-4CB4-45FA-A41A-E93BA80A4831}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{57738472-005D-435D-862E-DD53C6ED2FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57738472-005D-435D-862E-DD53C6ED2FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57738472-005D-435D-862E-DD53C6ED2FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3982145-4CB4-45FA-A41A-E93BA80A4831}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3982145-4CB4-45FA-A41A-E93BA80A4831}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3982145-4CB4-45FA-A41A-E93BA80A4831}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3982145-4CB4-45FA-A41A-E93BA80A4831}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,5 +52,6 @@ Global
 		{75B3C5AB-9507-4C6A-B6BC-2C81DB02CB8D} = {03AAE447-71F0-4929-84CE-A763F991CA24}
 		{0B18CDE9-14ED-4BEC-8B12-C2D062798539} = {77A19DDD-9D43-4750-8035-D5CF9EFA39C0}
 		{57738472-005D-435D-862E-DD53C6ED2FCE} = {03AAE447-71F0-4929-84CE-A763F991CA24}
+		{C3982145-4CB4-45FA-A41A-E93BA80A4831} = {03AAE447-71F0-4929-84CE-A763F991CA24}
 	EndGlobalSection
 EndGlobal
