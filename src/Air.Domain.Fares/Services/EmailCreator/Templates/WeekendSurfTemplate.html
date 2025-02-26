@@ -1,0 +1,30 @@
+@model Air.Domain.Fares.Services.EmailCreator.ViewModels.WeekendSurfViewModel
+<html>
+<head>
+	<style>
+		body { font-family: Arial, sans-serif; }
+		.container { max-width: 600px; margin: auto; padding: 20px; }
+		.header { font-size: 24px; font-weight: bold; }
+		.fare-info { margin-top: 20px; }
+		.fare-info p { font-size: 18px; }
+		.highlight { color: #d9534f; font-weight: bold; }
+	</style>
+</head>
+<body>
+	<div class='container'>
+		<div class='header'>Cheapest Flight from Gothenburg to Lisbon</div>
+		<div class='fare-info'>
+			@if (Model != null)
+			{
+				<p>Airline: <span class='highlight'>@Model.Airline</span></p>
+				<p>Price: <span class='highlight'>@Model.Price</span></p>
+				<p>Departure: <span class='highlight'>@Model.DepartureDate.ToString("yyyy-MM-dd")</span></p>
+			}
+			else
+			{
+				<p>No flights available.</p>
+			}
+		</div>
+	</div>
+</body>
+</html>

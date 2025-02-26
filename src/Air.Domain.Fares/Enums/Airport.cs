@@ -1,0 +1,10 @@
+namespace Air.Domain.Fares.Enums
+{
+    public enum Airport
+    {
+        Unknown = 0,
+        STN = 1,
+        GOT = 2,
+        LIS = 3
+    }
+}

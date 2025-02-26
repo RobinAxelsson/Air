@@ -1,8 +1,7 @@
 ﻿using System.Text.Json;
-using Air.Module.Email;
-using Air.Module.Fares;
+using Air.Domain.Fares;
 
-namespace Air.UI.CLI;
+namespace Air.Interface.CLI;
 internal class Program
 {
     private static async Task<int> Main(string[] args)
@@ -33,9 +32,7 @@ internal class Program
             return 1;
         }
 
-        var faresModule = new FareModule();
-        var emailModule = new EmailModule();
-
+        var faresModule = new FaresFacade();
 
         string command = args[0];
         switch (command)
@@ -63,13 +60,13 @@ internal class Program
                 break;
 
             case "create-emails":
-                emailModule.SendEmails(year, week);
+                await faresModule.CreateEmails(year, week);
                 Console.WriteLine("Sending emails...");
                 break;
 
             case "send-emails":
                 Console.WriteLine("Sending emails...");
-                emailModule.SendEmails(year, week);
+                await faresModule.SendEmails(year, week);
                 break;
 
             default:
