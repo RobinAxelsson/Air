@@ -6,20 +6,18 @@ using System.Diagnostics.CodeAnalysis;
 namespace Air.Domain.Fares.Exceptions
 {
     [ExcludeFromCodeCoverage]
-    public sealed class ConfigurationSettingException : AirFaresTechnicalBaseException
+    public abstract class AirFaresTechnicalBaseException : AirFaresBaseException
     {
-        public override string Reason => "Configuration Setting Missing";
-
-        public ConfigurationSettingException()
+        protected AirFaresTechnicalBaseException()
         {
         }
 
-        public ConfigurationSettingException(string message)
+        protected AirFaresTechnicalBaseException(string message)
             : base(message)
         {
         }
 
-        public ConfigurationSettingException(string message, Exception inner)
+        protected AirFaresTechnicalBaseException(string message, Exception inner)
             : base(message, inner)
         {
         }

@@ -1,21 +1,17 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
-
-using Air.Domain.Fares.ConfigurationProviders;
-using Air.Domain.Fares.SegregatedInterfaces;
-using Air.Domain.Fares.Services.Ryanair;
-
-internal abstract class ServiceLocatorBase : IHttpMessageHandlerProvider
+namespace Domain.Fares;
+internal abstract class ServiceLocatorBase
 {
-    public RyanairServiceGateway CreateImdbServiceGateway()
-    {
-        return CreateImdbServiceGatewayCore();
-    }
+    //public RyanairClient CreateImdbServiceGateway()
+    //{
+    //    return CreateImdbServiceGatewayCore();
+    //}
 
-    public ConfigurationProviderBase CreateConfigurationProvider()
-    {
-        return CreateConfigurationProviderCore();
-    }
+    //public ConfigurationProviderBase CreateConfigurationProvider()
+    //{
+    //    return CreateConfigurationProviderCore();
+    //}
 
     public HttpMessageHandler CreateHttpMessageHandler()
     {
@@ -24,7 +20,7 @@ internal abstract class ServiceLocatorBase : IHttpMessageHandlerProvider
 
     protected abstract HttpMessageHandler CreateHttpMessageHandlerCore();
 
-    protected abstract ConfigurationProviderBase CreateConfigurationProviderCore();
+    //protected abstract ConfigurationProviderBase CreateConfigurationProviderCore();
 
-    protected abstract RyanairServiceGateway CreateImdbServiceGatewayCore();
+    //protected abstract RyanairClient CreateImdbServiceGatewayCore();
 }

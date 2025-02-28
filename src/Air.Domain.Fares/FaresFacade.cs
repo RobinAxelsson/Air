@@ -1,17 +1,58 @@
-﻿namespace Air.Domain.Fares;
+﻿using Air.Domain.Fares.DataLayer;
+using Air.Domain.Fares.Models;
+using Air.Domain.Fares.Services.Ryanair;
+using Air.Domain.Fares.Services.Ryanair.ResourceModel;
+
+namespace Air.Domain.Fares;
 
 public sealed class FaresFacade
 {
-    public async Task CreateEmails(int year, int week) => throw new NotImplementedException();
-    public async Task CreateWeekendSurfReport(int weekNumber, int year) => throw new NotImplementedException();
-    public async Task<object> GetWeekendSurfReport(int weekNumber, int year) => throw new NotImplementedException();
-    public async Task SendEmails(int year, int week) => throw new NotImplementedException();
-    public async Task UpdateSurfFares(int weekNumber, int year)
+    private readonly Func<HttpMessageHandler> _httpMessageHandlerFactory;
+
+    public FaresFacade() : this(HttpMessageHandlerFactory) { }
+
+    internal FaresFacade(Func<HttpMessageHandler> httpMessageHandlerFactory)
     {
-        //Uses ryan air client to get the fares to surf destinations for the weekend from the given weekNumber and year
-        //Get dates
-        //Get destinations - first only GOT and Lisbon
-        //Get origin and destination
-        throw new NotImplementedException();
+        _httpMessageHandlerFactory = httpMessageHandlerFactory;
+    }
+
+    public async Task SyncSurfFares()
+    {
+        var ryanairClient = new RyanairClient(_httpMessageHandlerFactory);
+
+        var result = await ryanairClient.GetRyanairFare("STN", "LIS", "2025-03-05");
+
+        var flightFares = MapToFlightFare(result.Fares);
+
+        await PersistFlightFares(flightFares);
+    }
+
+    private static HttpMessageHandler HttpMessageHandlerFactory()
+    {
+        return new SocketsHttpHandler()
+        {
+            PooledConnectionLifetime = TimeSpan.FromMinutes(15),
+        };
+    }
+
+    private async Task PersistFlightFares(IEnumerable<FlightFare> flightFares)
+    {
+        using var dbContext = new AirDbContext();
+        await dbContext.FlightFares.AddRangeAsync(flightFares);
+        await dbContext.SaveChangesAsync();
+    }
+
+    private IEnumerable<FlightFare> MapToFlightFare(RyanairFare[] fares)
+    {
+        return fares.Select(x => new FlightFare
+        {
+            Arrival = x.Arrival,
+            Currency = x.Currency,
+            Departure = x.Departure,
+            Destination = x.Destination,
+            Fare = x.Amount,
+            FlightNumber = x.FlightNumber,
+            Origin = x.Origin
+        });
     }
 }

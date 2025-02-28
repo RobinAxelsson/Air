@@ -6,20 +6,18 @@ using System.Diagnostics.CodeAnalysis;
 namespace Air.Domain.Fares.Exceptions
 {
     [ExcludeFromCodeCoverage]
-    public abstract class FareModuleBaseException : Exception
+    public abstract class AirFaresBusinessBaseException : AirFaresBaseException
     {
-        public abstract string Reason { get; }
-
-        protected FareModuleBaseException()
+        protected AirFaresBusinessBaseException()
         {
         }
 
-        protected FareModuleBaseException(string message)
+        protected AirFaresBusinessBaseException(string message)
             : base(message)
         {
         }
 
-        protected FareModuleBaseException(string message, Exception inner)
+        protected AirFaresBusinessBaseException(string message, Exception inner)
             : base(message, inner)
         {
         }

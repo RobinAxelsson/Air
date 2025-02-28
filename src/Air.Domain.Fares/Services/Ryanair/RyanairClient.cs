@@ -1,12 +1,11 @@
 ﻿using System.Text.Json;
-using Air.Domain.Fares.SegregatedInterfaces;
 using Air.Domain.Fares.Services.Ryanair.Dtos;
 using Air.Domain.Fares.Services.Ryanair.Helpers;
 using Air.Domain.Fares.Services.Ryanair.Models;
 
 namespace Air.Domain.Fares.Services.Ryanair;
 
-internal class RyanairServiceGateway
+internal class RyanairClient
 {
     private readonly HttpClient _httpClient;
     private static readonly JsonSerializerOptions s_jsonSerializerOptions = new()
@@ -14,9 +13,9 @@ internal class RyanairServiceGateway
         PropertyNameCaseInsensitive = true
     };
 
-    public RyanairServiceGateway(IHttpMessageHandlerProvider httpMessageHandlerProvider)
+    public RyanairClient(Func<HttpMessageHandler> httpMessageHandlerFactory)
     {
-        _httpClient = new HttpClient(httpMessageHandlerProvider.CreateHttpMessageHandler());
+        _httpClient = new HttpClient(httpMessageHandlerFactory());
         _httpClient.BaseAddress = new Uri("https://www.ryanair.com/");
     }
 

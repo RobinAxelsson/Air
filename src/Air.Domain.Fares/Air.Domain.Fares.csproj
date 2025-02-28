@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Services\EmailCreator\Templates\WeekendSurfTemplate.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Services\EmailCreator\Templates\WeekendSurfTemplate.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Compile Remove="Extensions\**" />
+    <Compile Remove="SegregatedInterfaces\**" />
+    <Compile Remove="Services\EmailCreator\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <EmbeddedResource Remove="SegregatedInterfaces\**" />
+    <EmbeddedResource Remove="Services\EmailCreator\**" />
+    <None Remove="Extensions\**" />
+    <None Remove="SegregatedInterfaces\**" />
+    <None Remove="Services\EmailCreator\**" />
   </ItemGroup>
 
   <ItemGroup>

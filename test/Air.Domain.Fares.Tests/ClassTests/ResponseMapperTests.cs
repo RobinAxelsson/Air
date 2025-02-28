@@ -2,7 +2,7 @@
 using Air.Domain.Fares.Services.Ryanair.Helpers;
 using Air.Domain.Fares.Services.Ryanair.Models;
 
-namespace Air.Domain.Fares.Tests;
+namespace Air.Domain.Fares.Tests.ClassTests;
 
 public class ResponseMapperTests
 {
