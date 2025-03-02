@@ -41,7 +41,8 @@ namespace Air.Domain.Fares.DataLayer
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseInMemoryDatabase("AirFaresDb");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=Air.Db;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;");
+            //optionsBuilder.UseInMemoryDatabase("AirFaresDb");
         }
     }
 }

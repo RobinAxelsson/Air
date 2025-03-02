@@ -1,0 +1,14 @@
+services:
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: air_sql_server
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "YourStrong@Passw0rd"
+    volumes:
+      - air_data:/var/opt/mssql
+
+volumes:
+  air_data:
