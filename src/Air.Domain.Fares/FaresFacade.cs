@@ -1,10 +1,4 @@
-﻿using Air.Domain.Fares.DataLayer;
-using Air.Domain.Fares.Models;
-using Air.Domain.Fares.Services.Ryanair;
-using Air.Domain.Fares.Services.Ryanair.ResourceModel;
-
-namespace Air.Domain.Fares;
-
+﻿using Air.Domain;
 public sealed class FaresFacade
 {
     private readonly Func<HttpMessageHandler> _httpMessageHandlerFactory;

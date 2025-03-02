@@ -1,9 +1,6 @@
-﻿using Air.Domain.Fares.Services.Ryanair.ResourceModel;
+﻿using Air.Domain;
 
-namespace Air.Domain.Fares.Services.Ryanair.Dtos
+public record RyanairFareResult
 {
-    public record RyanairFareResult
-    {
-        public required RyanairFare[] Fares { get; init; }
-    }
+    public required RyanairFare[] Fares { get; init; }
 }

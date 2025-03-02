@@ -1,7 +1,7 @@
 ﻿#pragma warning disable CS8618
 using System.Text.Json.Serialization;
 
-namespace Air.Domain.Fares.Services.Ryanair.Models;
+namespace Air.Domain;
 
 internal class TripDate
 {

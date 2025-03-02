@@ -1,6 +1,5 @@
-﻿namespace Air.Domain.Fares.Validators
+﻿namespace Air.Domain;
+
+internal static class FlightFareValidator
 {
-    internal static class FlightFareValidator
-    {
-    }
 }

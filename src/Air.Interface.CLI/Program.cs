@@ -1,6 +1,4 @@
-﻿using Air.Domain.Fares;
-
-namespace Air.Interface.CLI;
+﻿namespace Air.Interface.CLI;
 internal class Program
 {
     internal static async Task<int> Main(string[] args)

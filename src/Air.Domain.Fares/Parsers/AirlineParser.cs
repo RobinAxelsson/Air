@@ -7,9 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Air.Domain.Fares.Parsers
+namespace Air.Domain;
+
+internal class AirlineParser
 {
-    internal class AirlineParser
-    {
-    }
 }

@@ -3,25 +3,24 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace Air.Domain.Fares.Exceptions
+namespace Air.Domain;
+
+[ExcludeFromCodeCoverage]
+public abstract class AirFaresBaseException : Exception
 {
-    [ExcludeFromCodeCoverage]
-    public abstract class AirFaresBaseException : Exception
+    public abstract string Reason { get; }
+
+    protected AirFaresBaseException()
     {
-        public abstract string Reason { get; }
+    }
 
-        protected AirFaresBaseException()
-        {
-        }
+    protected AirFaresBaseException(string message)
+        : base(message)
+    {
+    }
 
-        protected AirFaresBaseException(string message)
-            : base(message)
-        {
-        }
-
-        protected AirFaresBaseException(string message, Exception inner)
-            : base(message, inner)
-        {
-        }
+    protected AirFaresBaseException(string message, Exception inner)
+        : base(message, inner)
+    {
     }
 }

@@ -1,9 +1,5 @@
 ﻿using System.Text.Json;
-using Air.Domain.Fares.Services.Ryanair.Dtos;
-using Air.Domain.Fares.Services.Ryanair.Helpers;
-using Air.Domain.Fares.Services.Ryanair.Models;
-
-namespace Air.Domain.Fares.Services.Ryanair;
+using Air.Domain;
 
 internal class RyanairClient
 {

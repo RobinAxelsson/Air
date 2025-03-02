@@ -1,8 +1,7 @@
-namespace Air.Domain.Fares.Enums
+namespace Air.Domain;
+
+public enum Airline
 {
-    public enum Airline
-    {
-        Unknown = 0,
-        Ryanair = 1
-    }
+    Unknown = 0,
+    Ryanair = 1
 }

@@ -7,9 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Air.Domain.Fares.DataLayer.Managers
+namespace Air.Domain;
+
+internal class FlightFareDataManager
 {
-    internal class FlightFareDataManager
-    {
-    }
 }
