@@ -5,6 +5,9 @@
 
 # Air specific:
 */**/out/*
+*/**/TestCoverage/*
+coverage-report/*
+
 
 # User-specific files
 *.rsuser

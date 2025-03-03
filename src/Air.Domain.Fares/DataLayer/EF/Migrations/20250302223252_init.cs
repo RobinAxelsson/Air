@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Air.Domain;
 
 /// <inheritdoc />
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 public partial class init : Migration
 {
     /// <inheritdoc />

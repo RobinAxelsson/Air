@@ -3,6 +3,9 @@
 ## Tools
 
 - install vs code mermaid extension to view the diagrams
+- dotnet tool install --global dotnet-ef
+- dotnet tool install --global dotnet-reportgenerator-globaltool
+- python for serving coverage report
 
 ## User Stories - Maintained on GitHub Kanban
 

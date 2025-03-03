@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Air.Domain
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [DbContext(typeof(AirDbContext))]
     partial class AirDbContextModelSnapshot : ModelSnapshot
     {

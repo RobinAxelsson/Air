@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-#nullable disable
 
+#nullable disable
 namespace Air.Domain.Fares.DataLayer.EF.Migrations
 {
     [DbContext(typeof(AirDbContext))]

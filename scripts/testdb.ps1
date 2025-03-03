@@ -1,6 +1,5 @@
 #!/usr/bin/env pwsh
 
-#validate args
 if($args.Length -eq 0 -or $args.Length -gt 1 -or ($args -notcontains "update" -and $args -notcontains "drop")){
     Write-Host "Usage: ef-testdb <update|drop>"
     exit 1

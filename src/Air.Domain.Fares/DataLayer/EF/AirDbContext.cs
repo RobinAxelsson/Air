@@ -8,6 +8,7 @@ public class AirDbContext : DbContext
     {
     }
 
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public AirDbContext(DbContextOptions<AirDbContext> options) : base(options)
     {
     }

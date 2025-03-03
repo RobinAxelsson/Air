@@ -5,6 +5,7 @@
 namespace Air.Domain.Fares.DataLayer.EF.Migrations
 {
     /// <inheritdoc />
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class FlightFare_Created_AirCreated : Migration
     {
         /// <inheritdoc />

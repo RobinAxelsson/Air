@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Air.Domain.Fares.DataLayer.EF.Migrations
 {
     /// <inheritdoc />
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class FlightFare_AddCreated : Migration
     {
         /// <inheritdoc />
