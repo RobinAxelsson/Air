@@ -21,6 +21,7 @@ public sealed class FlightFare
     public required DateTime Departure { get; init; }
     //public required DateTime DepartureUtc { get; init; }
     public required DateTime Arrival { get; init; }
+    public required DateTime AirCreated { get; init; }
     //public required DateTime ArrivalUtc { get; init; }
     //public required DateTime CollectedUtc { get; init; }
     //public required int? FaresLeft { get; init; }

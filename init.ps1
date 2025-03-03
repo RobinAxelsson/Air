@@ -12,6 +12,7 @@ AddDirToPath "scripts"
 AddDirToPath "test\EndToEndIntegrationTests"
 
 $env:_REPO_NAME_ = "Air"
+$env:_REPO_ROOT_ = $PSScriptRoot
 
 $env:_EF_PROJ_PATH_ = Join-Path $PSScriptRoot "src" "Air.Domain.Fares"
 $env:_CLI_PROJ_PATH_ = Join-Path $PSScriptRoot "src" "Air.Interface.CLI"

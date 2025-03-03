@@ -32,6 +32,7 @@ public class AirDbContext : DbContext
             entity.Property(e => e.Departure).IsRequired();
             //entity.Property(e => e.DepartureUtc).IsRequired();
             entity.Property(e => e.Arrival).IsRequired();
+            entity.Property(e => e.AirCreated).IsRequired();
             //entity.Property(e => e.ArrivalUtc).IsRequired();
             //entity.Property(e => e.CollectedUtc).IsRequired();
             //entity.Property(e => e.FaresLeft).IsRequired(false);

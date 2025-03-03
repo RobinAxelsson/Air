@@ -46,7 +46,8 @@ public sealed class FaresFacade
             Destination = x.Destination,
             Fare = x.Amount,
             FlightNumber = x.FlightNumber,
-            Origin = x.Origin
+            Origin = x.Origin,
+            AirCreated = DateTime.UtcNow
         });
     }
 }
