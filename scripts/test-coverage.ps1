@@ -1,50 +1,28 @@
 #!/usr/bin/env pwsh
 
-# create a varible for a filename where the datetime is the name
+# Generates a test coverage report for both dotnet and pwsh tests and creates a merged html report in $report_dir
+# Since we dont want to see this as often as normal test run we dont need a watch script for this
+$report_dir = Join-Path $env:_REPO_ROOT_ report coverage
 
-if($args.Length -eq 0 -or $args.Length -gt 1 -or ($args -notcontains "serve" -and $args -notcontains "collect")){
-    Write-Host "Usage: test-coverage <collect|serve>"
-    exit 1
+$coverageDotnetTestsPath = Join-Path $env:_REPO_ROOT_ temp "test-coverage" "dotnet.cobertura.xml"
+$coveragePwshTestsPath = Join-Path $env:_REPO_ROOT_ temp "test-coverage" "pwsh.cobertura.xml"
+
+dotnet-coverage collect -f cobertura -o $coverageDotnetTestsPath -- dotnet test
+test-cli.ps1 $coveragePwshTestsPath
+
+if(-not (Test-Path $coverageDotnetTestsPath)){
+    throw $coverageDotnetTestsPath "not found"
 }
 
-$report_dir = Join-Path $env:_REPO_ROOT_ "coverage-report"
-
-if ($args[0] -eq "collect") {
-    $coveragePath = Join-Path $env:_REPO_ROOT_ test "TestCoverage" "$(Get-Date -f yyyy-MM-dd_HHmm).cobertura.xml"
-    $tempXunit = Join-Path $env:_REPO_ROOT_ temp "TestCoverage" "xunit.cobertura.xml"
-    $tempCli = Join-Path $env:_REPO_ROOT_ temp "TestCoverage" "cli.cobertura.xml"
-
-    dotnet-coverage collect -f cobertura -o $tempXunit -- dotnet test
-    test-cli.ps1 $tempCli
-
-    if(-not (Test-Path $tempXunit)){
-        Write-Host $tempXunit "not found"
-    }
-
-    if(-not (Test-Path $tempCli)){
-        Write-Host $tempCli "not found"
-    }
-
-    if(-not (Test-Path $tempXunit) -or -not (Test-Path $tempCli)){
-        exit 1
-    }
-
-    dotnet-coverage merge $tempXunit $tempCli -o $coveragePath -f cobertura
-
-    if (Test-Path $report_dir) {
-        Remove-Item $report_dir -Recurse -Force
-    }
-
-    Write-Host "Generating report..."
-    reportgenerator -reports:"$coveragePath" -targetdir:coverage-report
-    exit(0)
+if(-not (Test-Path $coveragePwshTestsPath)){
+    throw $coveragePwshTestsPath "not found"
 }
 
-if ($args[0] -eq "serve") {
-    Write-Host "Starting server on localhost:8833..."
-    python -m http.server 8833 --directory $report_dir
-    exit(0)
+dotnet-coverage merge $coverageDotnetTestsPath $coveragePwshTestsPath -o $tempMerged -f cobertura
+
+if (Test-Path $report_dir) {
+    Remove-Item $(Join-Path $report_dir "*") -Recurse -Force -Exclude "index.html"
 }
 
-Write-Host "Not implemented exception"
-exit 1
+Write-Host "Generating report..."
+reportgenerator -reports:"$tempMerged" -targetdir:"$($report_dir)"
