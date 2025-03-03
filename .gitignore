@@ -7,6 +7,7 @@
 */**/out/*
 */**/TestCoverage/*
 coverage-report/*
+temp/*
 
 
 # User-specific files
