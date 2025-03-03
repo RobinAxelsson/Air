@@ -6,7 +6,7 @@
 # Air specific:
 */**/out/*
 */**/TestCoverage/*
-coverage-report/*
+report/*
 temp/*
 
 
