@@ -7,24 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Extensions\**" />
-    <Compile Remove="SegregatedInterfaces\**" />
-    <Compile Remove="Services\EmailCreator\**" />
-    <EmbeddedResource Remove="Extensions\**" />
-    <EmbeddedResource Remove="SegregatedInterfaces\**" />
-    <EmbeddedResource Remove="Services\EmailCreator\**" />
-    <None Remove="Extensions\**" />
-    <None Remove="SegregatedInterfaces\**" />
-    <None Remove="Services\EmailCreator\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.2" />

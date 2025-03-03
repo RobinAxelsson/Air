@@ -2,13 +2,12 @@
 
 namespace Air.Domain.Fares.Tests.AcceptanceTests.TestDoubles;
 
-internal sealed class HttpMessageHandlerSpy : DelegatingHandler
+internal sealed class HttpMessageHandlerForRyanAirClientStub : DelegatingHandler
 {
     //private readonly TestMediator _testMediator = testMeditor;
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-
         var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
         {
             Content = new StringContent(GetFaresFromJson())

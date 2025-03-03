@@ -52,7 +52,7 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests
             */
 
             //Arrange
-            var faresFacade = new FaresFacade(() => new HttpMessageHandlerSpy());
+            var faresFacade = new FaresFacade(() => new HttpMessageHandlerForRyanAirClientStub());
 
             //Act
             await faresFacade.SyncSurfFares();
