@@ -13,7 +13,8 @@
     </Content>
     <Content Include="TestData\booking-response.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>  </ItemGroup>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2" />

@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Air.Domain.Fares.Tests" />
+    <InternalsVisibleTo Include="Air.Domain.Fares.AcceptanceTests" />
   </ItemGroup>
 
 </Project>
