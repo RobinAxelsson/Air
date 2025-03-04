@@ -16,5 +16,8 @@ if($args.Length -eq 1){
     $coveragePath = $args[0]
     dotnet-coverage collect -f cobertura -o $coveragePath -- $exe
 }
+else {
+    Invoke-Expression $exe
+}
 
 sql-select-fares.ps1

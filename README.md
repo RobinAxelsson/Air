@@ -3,9 +3,10 @@
 ## Tools
 
 - install vs code mermaid extension to view the diagrams
+- install vs code liveserver to have updating report pages
 - dotnet tool install --global dotnet-ef
 - dotnet tool install --global dotnet-reportgenerator-globaltool
-- python for serving coverage report
+- pip install junit2html
 
 ## User Stories - Maintained on GitHub Kanban
 

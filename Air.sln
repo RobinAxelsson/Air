@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Domain.Fares.Tests", "t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Domain.Fares", "src\Air.Domain.Fares\Air.Domain.Fares.csproj", "{7A079EED-CEA8-45EA-ABE3-4C784CF67908}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{6E80377B-55FC-48EE-A571-4F1C70909535}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Watch", "tools\Air.Watch\Air.Watch.csproj", "{08B4EA17-85CD-4080-9602-CF504FE202E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,10 @@ Global
 		{7A079EED-CEA8-45EA-ABE3-4C784CF67908}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A079EED-CEA8-45EA-ABE3-4C784CF67908}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A079EED-CEA8-45EA-ABE3-4C784CF67908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08B4EA17-85CD-4080-9602-CF504FE202E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08B4EA17-85CD-4080-9602-CF504FE202E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08B4EA17-85CD-4080-9602-CF504FE202E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08B4EA17-85CD-4080-9602-CF504FE202E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,5 +47,6 @@ Global
 		{75B3C5AB-9507-4C6A-B6BC-2C81DB02CB8D} = {03AAE447-71F0-4929-84CE-A763F991CA24}
 		{E74826E5-ED49-49CC-A1D8-1387843577E7} = {77A19DDD-9D43-4750-8035-D5CF9EFA39C0}
 		{7A079EED-CEA8-45EA-ABE3-4C784CF67908} = {03AAE447-71F0-4929-84CE-A763F991CA24}
+		{08B4EA17-85CD-4080-9602-CF504FE202E1} = {6E80377B-55FC-48EE-A571-4F1C70909535}
 	EndGlobalSection
 EndGlobal
