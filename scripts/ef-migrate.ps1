@@ -17,9 +17,9 @@ if (-not (Test-Path $migrationsDir)) {
 $confirmation = Read-Host "Are you sure you want to add a new migration named '$($args[0])'? (y/n)"
 if ($confirmation -ne "y") {
     Write-Host "Aborted."
-    exit 1
+    exit 0
 }
 
 dotnet-ef migrations add --startup-project $env:_EF_PROJ_PATH_ $args[0] --output-dir $migrationsDir
 
-# To undo this action, use 'ef migrations remove'
+Write-Host "To undo this action, use 'dotnet-ef migrations remove'"

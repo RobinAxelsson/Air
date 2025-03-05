@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 # if not set the script does not stop on thrown exceptions inside functions
 
 function RunTest(){
-    InitPwshEnv
+    InitDevEnv
 
     Write-Host "Running tests for CLI"
     $out_dir = Join-Path $PSScriptRoot "out" "cli"
@@ -37,7 +37,7 @@ function RunTest(){
     sql-select-fares.ps1
 }
 
-function InitPwshEnv(){
+function InitDevEnv(){
     $scriptPath = $PSScriptRoot
 
     while ($null -ne $scriptPath) {
@@ -46,7 +46,7 @@ function InitPwshEnv(){
         if (Test-Path $initPath) {
             . $initPath
 
-            if(!($env:_pwsh_env_initialized_ -eq $true)){
+            if(!($env:_DEV_ENV_INITIALIZED_)){
                 throw "init.ps1 did not initialize the environment"
             }
 

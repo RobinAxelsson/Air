@@ -11,11 +11,11 @@ dotnet-coverage collect -f cobertura -o $coverageDotnetTestsPath -- dotnet test
 test-cli.ps1 $coveragePwshTestsPath
 
 if(-not (Test-Path $coverageDotnetTestsPath)){
-    throw $coverageDotnetTestsPath "not found"
+    throw "$coverageDotnetTestsPath not found"
 }
 
 if(-not (Test-Path $coveragePwshTestsPath)){
-    throw $coveragePwshTestsPath "not found"
+    throw "$coveragePwshTestsPath not found"
 }
 
 dotnet-coverage merge $coverageDotnetTestsPath $coveragePwshTestsPath -o $tempMerged -f cobertura

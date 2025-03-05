@@ -4,28 +4,46 @@
 # if 'Stop' not set the script does not stop on thrown exceptions inside functions
 $ErrorActionPreference = 'Stop'
 
-# wrap the functions to avoid polluting the global
-function InitRepositoryEnvironment(){
+# wrap the functions to avoid polluting the global scope
+function InitDevEnvironment()
+{
     function Main(){
-        $scriptsPath = Join-Path $PSScriptRoot scripts
-        $airInterfaceCliProcessTests = Join-Path $PSScriptRoot test Air.Interface.CLI.ProcessTests
-        $airDomainFaresPath = Join-Path $PSScriptRoot src Air.Domain.Fares
-        $airInterfaceCliPath = Join-Path $PSScriptRoot src Air.Interface.CLI
-        $testResultsPath = Join-Path $PSScriptRoot temp test-results
+        SetupEnvironementVariables
+        Invoke-Expression check-dev-dependencies.ps1
+    }
 
-        EnsurePathsExist $scriptsPath, $airDomainFaresPath, $airInterfaceCliPath, $airInterfaceCliProcessTests, $testResultsPath
+    function SetupEnvironementVariables(){
+        $root = $PSScriptRoot
+        $scriptsPath = Join-Path $root scripts
+        $airInterfaceCliProcessTests = Join-Path $root test Air.Interface.CLI.ProcessTests
+        $airDomainFaresPath = Join-Path $root src Air.Domain.Fares
+        $airInterfaceCliPath = Join-Path $root src Air.Interface.CLI
+        $toolsPath = Join-Path $root tools
+        $testResultsPath = Join-Path $root temp test-results
+
+        EnsurePathsExist @(
+            $scriptsPath,
+            $airDomainFaresPath,
+            $airInterfaceCliPath,
+            $airInterfaceCliProcessTests,
+            $testResultsPath,
+            $toolsPath)
 
         # add script paths to run dev scripts
         AddDirToEnvPath $scriptsPath
         AddDirToEnvPath $airInterfaceCliProcessTests
+        AddDirToEnvPath $toolsPath
 
         # add environment variables (some scripts depend on these)
-        $env:_PWSH_ENV_INITIALIZED_ = $true
+        $env:_DEV_ENV_INITIALIZED_ = $true
         $env:_REPO_NAME_ = "Air"
-        $env:_REPO_ROOT_ = $PSScriptRoot
+        $env:_REPO_ROOT_ = $root
         $env:_EF_PROJ_PATH_ = $airDomainFaresPath
         $env:_CLI_PROJ_PATH_ = $airInterfaceCliPath
         $env:_TEST_RESULTS_PATH_ = $testResultsPath
+        $env:_TOOLS_PATH_ = $toolsPath
+
+        Write-Host "✅ Dev Path updated and environment variables initialized"
     }
 
     function AddDirToEnvPath($dir){
@@ -56,5 +74,5 @@ function InitRepositoryEnvironment(){
 
     Main
 }
-#nest these functions to avoid polluting the global scope
-InitRepositoryEnvironment
+
+InitDevEnvironment

@@ -1,12 +1,17 @@
 # Surf fares
 
-## Tools
+## Dev environment
+
+The dev environment is bootstrapped with dot sourcing the root/init.ps1 script. Dot source it with . .\init.ps1 or . ./init.ps1.
+
+## Dev tools
+
+Dev tools dependencies and environment are maintained in script (/scripts/_check-dev-dependencies.ps1). It will get checked when dot sourcing init.ps1.
+
+## Helpful VS Code extensions
 
 - install vs code mermaid extension to view the diagrams
 - install vs code liveserver to have updating report pages
-- dotnet tool install --global dotnet-ef
-- dotnet tool install --global dotnet-reportgenerator-globaltool
-- pip install junit2html
 
 ## User Stories - Maintained on GitHub Kanban
 

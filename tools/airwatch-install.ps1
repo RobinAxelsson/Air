@@ -12,8 +12,13 @@ if ($toolList -match $airWatchTool) {
 }
 
 $outDir = Join-Path $PSScriptRoot "out"
+$projPath = Join-Path $PSScriptRoot "Air.Tools.Watch"
 
-dotnet pack -c Release -o $outDir
+if(-not (Test-Path $projPath)){
+    throw "Could not find the project at $projPath"
+}
+
+dotnet pack $projPath -c Release -o $outDir
 
 if($LASTEXITCODE -ne 0){
     throw "Could not pack the project"
