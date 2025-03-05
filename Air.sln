@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Domain.Fares.ClassTests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Domain.Fares.Shared", "test\Air.Domain.Fares.Shared\Air.Domain.Fares.Shared.csproj", "{E3699CF9-F378-4B47-9F58-674E816C9D46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Interface.CLI.ProcessTests", "test\Air.Interface.CLI.ProcessTests\Air.Interface.CLI.ProcessTests.csproj", "{C07D1858-43D1-41DD-A941-7406CF80B629}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{E3699CF9-F378-4B47-9F58-674E816C9D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3699CF9-F378-4B47-9F58-674E816C9D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3699CF9-F378-4B47-9F58-674E816C9D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C07D1858-43D1-41DD-A941-7406CF80B629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C07D1858-43D1-41DD-A941-7406CF80B629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C07D1858-43D1-41DD-A941-7406CF80B629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C07D1858-43D1-41DD-A941-7406CF80B629}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,5 +59,6 @@ Global
 		{668994DF-1AF7-404C-B7E5-AFCF04EDD653} = {77A19DDD-9D43-4750-8035-D5CF9EFA39C0}
 		{918190DC-0B4C-4368-8BA1-EEB6D83D132C} = {77A19DDD-9D43-4750-8035-D5CF9EFA39C0}
 		{E3699CF9-F378-4B47-9F58-674E816C9D46} = {77A19DDD-9D43-4750-8035-D5CF9EFA39C0}
+		{C07D1858-43D1-41DD-A941-7406CF80B629} = {77A19DDD-9D43-4750-8035-D5CF9EFA39C0}
 	EndGlobalSection
 EndGlobal
