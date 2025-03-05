@@ -1,25 +1,26 @@
 #!/usr/bin/env pwsh
+# dot source this script to initialize the environment > . ./init.ps1
 
-#nest these functions to avoid polluting the global scope
-function init_repository_environment(){
-    function main(){
+# if 'Stop' not set the script does not stop on thrown exceptions inside functions
+$ErrorActionPreference = 'Stop'
+
+# wrap the functions to avoid polluting the global
+function InitRepositoryEnvironment(){
+    function Main(){
         $scriptsPath = Join-Path $PSScriptRoot scripts
-        $endToEndIntegrationTests = Join-Path $PSScriptRoot test EndToEndIntegrationTests
+        $airInterfaceCliProcessTests = Join-Path $PSScriptRoot test Air.Interface.CLI.ProcessTests
         $airDomainFaresPath = Join-Path $PSScriptRoot src Air.Domain.Fares
         $airInterfaceCliPath = Join-Path $PSScriptRoot src Air.Interface.CLI
         $testResultsPath = Join-Path $PSScriptRoot temp test-results
 
-        EnsurePathExists $scriptsPath
-        EnsurePathExists $airDomainFaresPath
-        EnsurePathExists $airInterfaceCliPath
-        EnsurePathExists $endToEndIntegrationTests
-        EnsurePathExists $testResultsPath
+        EnsurePathsExist $scriptsPath, $airDomainFaresPath, $airInterfaceCliPath, $airInterfaceCliProcessTests, $testResultsPath
 
         # add script paths to run dev scripts
         AddDirToEnvPath $scriptsPath
-        AddDirToEnvPath $endToEndIntegrationTests
+        AddDirToEnvPath $airInterfaceCliProcessTests
 
         # add environment variables (some scripts depend on these)
+        $env:_PWSH_ENV_INITIALIZED_ = $true
         $env:_REPO_NAME_ = "Air"
         $env:_REPO_ROOT_ = $PSScriptRoot
         $env:_EF_PROJ_PATH_ = $airDomainFaresPath
@@ -33,13 +34,27 @@ function init_repository_environment(){
         }
     }
 
-    function EnsurePathExists($path){
-        if (-not (Test-Path $path)) {
-            throw "Path does not exist: $path"
+    function EnsurePathsExist {
+        [CmdletBinding()]
+        param (
+            [Parameter(Mandatory = $true)]
+            [string[]]$paths
+        )
+
+        $invalidPaths = @()
+
+        foreach ($item in $paths) {
+            if (-not (Test-Path $item)) {
+                $invalidPaths += $item
+            }
+        }
+
+        if($invalidPaths.Count -gt 0){
+            throw "Some paths that the powershell script environment needs are missing : $invalidPaths"
         }
     }
 
-    main
+    Main
 }
-
-init_repository_environment
+#nest these functions to avoid polluting the global scope
+InitRepositoryEnvironment
