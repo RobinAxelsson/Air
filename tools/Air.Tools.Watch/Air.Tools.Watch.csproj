@@ -9,7 +9,9 @@
     <InvariantGlobalization>true</InvariantGlobalization>
 
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>airwatch</ToolCommandName>
+    <ToolCommandName>air-watch</ToolCommandName>
+    <PackageType>DotnetTool</PackageType>
+    <PackageId>AirWatchTool</PackageId>
   </PropertyGroup>
   
 </Project>

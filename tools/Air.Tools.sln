@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Tools.Watch", "Air.Tools.Watch\Air.Tools.Watch.csproj", "{1EDF5192-1280-47FA-B09A-7ABD70C5F523}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Tools.Watch.Tests", "Air.Tools.Watch.Tests\Air.Tools.Watch.Tests.csproj", "{4CE0EC1C-2901-447E-BF7B-FD9C16105A39}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{1EDF5192-1280-47FA-B09A-7ABD70C5F523}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EDF5192-1280-47FA-B09A-7ABD70C5F523}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EDF5192-1280-47FA-B09A-7ABD70C5F523}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4CE0EC1C-2901-447E-BF7B-FD9C16105A39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CE0EC1C-2901-447E-BF7B-FD9C16105A39}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CE0EC1C-2901-447E-BF7B-FD9C16105A39}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CE0EC1C-2901-447E-BF7B-FD9C16105A39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
