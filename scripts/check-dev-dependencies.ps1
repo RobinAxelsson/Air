@@ -13,6 +13,7 @@ function EnsureDevDependenciesInstalled() {
         'git'              = 'Install Git: https://git-scm.com/downloads'
         'python'           = 'Install Python: https://www.python.org/downloads/'
         'docker'           = 'Install Docker: https://www.docker.com/get-started'
+        'sqlcmd'           = 'Install SQL Server Command Line Tools: https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility'
         'junit2html'       = 'pip install junit2html'
         'air-watch'        = 'airwatch-install -else .\tools\airwatch-install.ps1'
         'dotnet-ef'        = 'dotnet tool install --global dotnet-ef'
