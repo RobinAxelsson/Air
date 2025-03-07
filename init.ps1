@@ -14,12 +14,13 @@ function InitDevEnvironment()
 
     function SetupEnvironementVariables(){
         $root = $PSScriptRoot
-        $scriptsPath = Join-Path $root scripts
-        $airInterfaceCliProcessTests = Join-Path $root test Air.Interface.CLI.ProcessTests
-        $airDomainFaresPath = Join-Path $root src Air.Domain.Fares
-        $airInterfaceCliPath = Join-Path $root src Air.Interface.CLI
-        $toolsPath = Join-Path $root tools
-        $testResultsPath = Join-Path $root temp test-results
+        Write-Host "root: $root"
+        $scriptsPath = Join-Path $root "scripts"
+        $airInterfaceCliProcessTests = Join-Path $root "test" "Air.Interface.CLI.ProcessTests"
+        $airDomainFaresPath = Join-Path $root "src" "Air.Domain.Fares"
+        $airInterfaceCliPath = Join-Path $root "src" "Air.Interface.CLI"
+        $toolsPath = Join-Path $root "tools"
+        $testResultsPath = Join-Path $root "temp" "test-results"
 
         EnsurePathsExist @(
             $scriptsPath,
