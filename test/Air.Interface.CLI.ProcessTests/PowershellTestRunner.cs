@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Text;
 using Xunit.Abstractions;
 
-namespace Air.Tools.Watch;
+namespace Air.Interface.CLI.ProcessTests;
 
 public class PowerShellTests
 {
@@ -16,6 +16,7 @@ public class PowerShellTests
         _testOutput = testOutput;
     }
     [Fact]
+    [Trait("", "ProcessTest")]
     public void Test_PowerShellScriptExecution()
     {
         var filePath = GetFullTestPath("test-cli.ps1");
@@ -47,7 +48,7 @@ public class PowerShellTests
     {
         string scriptPath = Path.Combine(Directory.GetCurrentDirectory(), filePath);
 
-        if(!File.Exists(scriptPath)) throw new FileNotFoundException("PowerShell script file not found", scriptPath);
+        if (!File.Exists(scriptPath)) throw new FileNotFoundException("PowerShell script file not found", scriptPath);
 
         ProcessStartInfo psi = new ProcessStartInfo
         {

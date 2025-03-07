@@ -13,5 +13,9 @@
     <PackageType>DotnetTool</PackageType>
     <PackageId>AirWatchTool</PackageId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CliWrap" Version="3.8.2" />
+  </ItemGroup>
   
 </Project>
