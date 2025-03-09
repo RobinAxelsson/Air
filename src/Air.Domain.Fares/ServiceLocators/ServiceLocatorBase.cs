@@ -3,15 +3,15 @@
 namespace Air.Domain;
 internal abstract class ServiceLocatorBase
 {
-    //public RyanairClient CreateImdbServiceGateway()
-    //{
-    //    return CreateImdbServiceGatewayCore();
-    //}
+    public RyanairGateway CreateRyanairGateway()
+    {
+        return CreateRyanirGatewayCore();
+    }
 
-    //public ConfigurationProviderBase CreateConfigurationProvider()
-    //{
-    //    return CreateConfigurationProviderCore();
-    //}
+    public ConfigurationProviderBase CreateConfigurationProvider()
+    {
+        return CreateConfigurationProviderCore();
+    }
 
     public HttpMessageHandler CreateHttpMessageHandler()
     {
@@ -20,7 +20,7 @@ internal abstract class ServiceLocatorBase
 
     protected abstract HttpMessageHandler CreateHttpMessageHandlerCore();
 
-    //protected abstract ConfigurationProviderBase CreateConfigurationProviderCore();
+    protected abstract ConfigurationProviderBase CreateConfigurationProviderCore();
 
-    //protected abstract RyanairClient CreateImdbServiceGatewayCore();
+    protected abstract RyanairGateway CreateRyanirGatewayCore();
 }

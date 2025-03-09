@@ -1,10 +1,21 @@
-﻿namespace Air.Interface.CLI;
+﻿using System.Text.Json;
+using Air.Domain;
+
+namespace Air.Interface.CLI;
 internal class Program
 {
     internal static async Task<int> Main(string[] args)
     {
         var faresFacade = new FaresFacade();
-        await faresFacade.SyncSurfFares();
+
+        var flightFares = await faresFacade.SyncFlightFares(new TripSpec() {
+            Date = new DateTime(2025, 04, 22),
+            Origin = Airport.GOT,
+            Destination = Airport.STN
+        });
+
+        Console.WriteLine(JsonSerializer.Serialize(flightFares, new JsonSerializerOptions { WriteIndented = true }));
+
         return 0;
 
         //if (args[0] == "--help" || args[0] == "-h")

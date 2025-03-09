@@ -1,53 +1,17 @@
-﻿using Air.Domain;
+﻿namespace Air.Domain;
 public sealed class FaresFacade
 {
-    private readonly Func<HttpMessageHandler> _httpMessageHandlerFactory;
+    private FlightFareManager FlightFareManager { get; }
 
-    public FaresFacade() : this(HttpMessageHandlerFactory) { }
+    public FaresFacade() : this(new ServiceLocator()) { }
 
-    internal FaresFacade(Func<HttpMessageHandler> httpMessageHandlerFactory)
+    internal FaresFacade(ServiceLocatorBase serviceLocator)
     {
-        _httpMessageHandlerFactory = httpMessageHandlerFactory;
+        FlightFareManager = new FlightFareManager(serviceLocator);
     }
 
-    public async Task SyncSurfFares()
+    public async Task<IEnumerable<FlightFareEntity>> SyncFlightFares(TripSpec tripSpec)
     {
-        var ryanairClient = new RyanairClient(_httpMessageHandlerFactory);
-
-        var result = await ryanairClient.GetRyanairFare("STN", "LIS", "2025-03-05");
-
-        var flightFares = MapToFlightFare(result.Fares);
-
-        await PersistFlightFares(flightFares);
-    }
-
-    private static HttpMessageHandler HttpMessageHandlerFactory()
-    {
-        return new SocketsHttpHandler()
-        {
-            PooledConnectionLifetime = TimeSpan.FromMinutes(15),
-        };
-    }
-
-    private async Task PersistFlightFares(IEnumerable<FlightFare> flightFares)
-    {
-        using var dbContext = new AirDbContext();
-        await dbContext.FlightFares.AddRangeAsync(flightFares);
-        await dbContext.SaveChangesAsync();
-    }
-
-    private IEnumerable<FlightFare> MapToFlightFare(RyanairFare[] fares)
-    {
-        return fares.Select(x => new FlightFare
-        {
-            Arrival = x.Arrival,
-            Currency = x.Currency,
-            Departure = x.Departure,
-            Destination = x.Destination,
-            Fare = x.Amount,
-            FlightNumber = x.FlightNumber,
-            Origin = x.Origin,
-            AirCreated = DateTime.UtcNow
-        });
+        return await FlightFareManager.SyncFlightFares(tripSpec);
     }
 }

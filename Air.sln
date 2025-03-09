@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Domain.Fares.Shared", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Interface.CLI.ProcessTests", "test\Air.Interface.CLI.ProcessTests\Air.Interface.CLI.ProcessTests.csproj", "{C07D1858-43D1-41DD-A941-7406CF80B629}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Fake.WebApiServices", "test\Air.Fake.WebApiServices\Air.Fake.WebApiServices.csproj", "{E0986FAA-FF19-49D4-8B59-4100D42863B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{C07D1858-43D1-41DD-A941-7406CF80B629}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C07D1858-43D1-41DD-A941-7406CF80B629}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C07D1858-43D1-41DD-A941-7406CF80B629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0986FAA-FF19-49D4-8B59-4100D42863B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0986FAA-FF19-49D4-8B59-4100D42863B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0986FAA-FF19-49D4-8B59-4100D42863B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0986FAA-FF19-49D4-8B59-4100D42863B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{918190DC-0B4C-4368-8BA1-EEB6D83D132C} = {77A19DDD-9D43-4750-8035-D5CF9EFA39C0}
 		{E3699CF9-F378-4B47-9F58-674E816C9D46} = {77A19DDD-9D43-4750-8035-D5CF9EFA39C0}
 		{C07D1858-43D1-41DD-A941-7406CF80B629} = {77A19DDD-9D43-4750-8035-D5CF9EFA39C0}
+		{E0986FAA-FF19-49D4-8B59-4100D42863B0} = {77A19DDD-9D43-4750-8035-D5CF9EFA39C0}
 	EndGlobalSection
 EndGlobal

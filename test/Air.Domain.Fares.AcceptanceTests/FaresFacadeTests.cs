@@ -1,15 +1,23 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using Air.Domain.Fares.Tests.AcceptanceTests.TestDoubles;
-using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using Xunit.Abstractions;
 
 namespace Air.Domain.Fares.Tests.AcceptanceTests
 {
     public class FaresFacadeTests
     {
+        private readonly ITestOutputHelper _testOutputHelper;
+
+        public FaresFacadeTests(ITestOutputHelper testOutputHelper)
+        {
+            _testOutputHelper = testOutputHelper;
+        }
+
+        [Trait("", "AcceptanceTest")]
         [Fact]
-        public async Task SyncFares_WhenCalled_FaresUpdatedInDb()
+        public async Task SyncFares_WhenCalled_xFaresUpdatedInDb()
         {
             /*
              * Give me new Fares for the configured surf routes and output it to a file
@@ -51,16 +59,17 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests
              *
             */
 
-            //Arrange
-            var faresFacade = new FaresFacade(() => new HttpMessageHandlerForRyanAirClientStub());
+            var faresFacade = new FaresFacade();
 
-            //Act
-            await faresFacade.SyncSurfFares();
+            var fares = await faresFacade.SyncFlightFares(new TripSpec() {
+                Date = DateTime.Today.AddDays(7),
+                Origin = Airport.GOT,
+                Destination = Airport.STN,
+            });
 
-            //Assert
-            var dbContext = new AirDbContext();
-            var flightFares = await dbContext.FlightFares.ToListAsync();
-            Assert.NotEmpty(flightFares);
+            Assert.NotEmpty(fares);
+            var faresJson = JsonSerializer.Serialize(fares, new JsonSerializerOptions { WriteIndented = true });
+            _testOutputHelper.WriteLine(faresJson);
         }
     }
 }

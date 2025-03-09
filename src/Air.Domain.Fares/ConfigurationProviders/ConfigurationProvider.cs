@@ -23,6 +23,39 @@ internal sealed class ConfigurationProvider : ConfigurationProviderBase
     [ExcludeFromCodeCoverage]
     internal ConfigurationProvider(IConfigurationRoot configurationRoot) => _configurationRoot = configurationRoot;
 
+    protected override string RetrieveConfigurationSettingValueThrowIfMissingCore(string key)
+    {
+        var valueAsRetrieved = _configurationRoot["AppSettings:" + key];
+
+        if (valueAsRetrieved == null)
+        {
+            throw new ConfigurationSettingException($"The Configuration Setting with Key: {key}, is Missing from the Configuration file in json object: {{  \"Appsettings\": }} ");
+        }
+        else if (valueAsRetrieved.Length == 0)
+        {
+            throw new ConfigurationSettingException($"The Configuration Setting with Key: {key}, Exists but its value is Empty");
+        }
+        else if (IsWhiteSpaces(valueAsRetrieved))
+        {
+            throw new ConfigurationSettingException($"The Configuration Setting with Key: {key}, Exists but its value is White spaces.");
+        }
+
+        return valueAsRetrieved!;
+    }
+
+    private static bool IsWhiteSpaces(string valueAsRetrieved)
+    {
+        foreach (var chr in valueAsRetrieved)
+        {
+            if (!char.IsWhiteSpace(chr))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private static void LoadEnvironmentSpecificAppSettings(ConfigurationBuilder configurationBuilder)
     {
         var aspNetCoreEnvironment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -31,10 +64,5 @@ internal sealed class ConfigurationProvider : ConfigurationProviderBase
         {
             configurationBuilder.AddJsonFile(environmentBasedSettingsFile);
         }
-    }
-
-    protected override string? RetrieveConfigurationSettingValue(string key)
-    {
-        return _configurationRoot["AppSettings:" + key];
     }
 }

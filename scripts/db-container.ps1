@@ -5,17 +5,23 @@ param(
 $ErrorActionPreference = 'Stop'
 
 function Main(){
-    function HelpText(){
+    function ShowUsage(){
         Write-Host "Bad arguments, usage: db-container <create|remove|start|stop>"
     }
 
     if(-not $action -or $args.Length -gt 1){
-       HelpText
+       ShowUsage
        Exit 1
     }
 
+    $null = Invoke-Expression "docker ps -a"
+    if($LASTEXITCODE -ne 0){
+        Write-Host "Docker is not installed or not running, on windows try starting docker desktop"
+        Exit 1
+    }
+
     if($action -ne "create" -and $action -ne "remove" -and $action -ne "start" -and $action -ne "stop"){
-        HelpText
+        ShowUsage
         Exit 1
     }
 
@@ -64,10 +70,6 @@ function CreateRemoveDbContainer(){
 
     if($action -eq "create"){
         docker-compose -f $dockerCompose up -d
-
-        Start-Sleep 2
-        Write-Host "$ Updating with database with dotnet-ef..."
-        dotnet-ef database update --startup-project $env:_EF_PROJ_PATH_
         return
     }
 
