@@ -51,8 +51,7 @@ internal class RyanairServiceGateway
 
         var body = await response.Content.ReadAsStringAsync();
         var responseDto = HttpResponseParser.Parse(response, body);
-        var responseJson = JsonSerializer.Serialize(responseDto, jsonSerializerOptionsForHttpResponseSerialization);
 
-        throw new RyanairServiceRequestException($"The ryanair Service call failed with response: {responseJson}");
+        throw new RyanairServiceRequestException($"The ryanair Service call failed with response:", responseDto);
     }
 }

@@ -18,44 +18,27 @@ internal class AirFlightManager
         DataFacade = new DataFacade(ConfigurationProvider.GetDbConnectionString());
     }
 
-    public async Task<AirFlight[]> SyncFlightFares(FlightSpecDto tripSpec)
+    public async Task<SyncFlightFaresResult> SyncFlightFares(FlightSpecDto tripSpec)
     {
-        TripSpecValidator.EnsureTripSpecIsValid(tripSpec);
-        var flightFares = await RyanairGateway.GetFlightFares(tripSpec);
-        AirFlightFareDtoValidator.EnsureValid(flightFares);
-        var oldFlightFlights = await DataFacade.GetAirFlights(tripSpec);
-        var (updatedAirFlights, flightFareDtosToCreate) = AirFlightsIdentifyer.IdentifyUpdateAndCreate(oldFlightFlights, flightFares);
-
-
-        //Update or create new fares
-        //Persist the fares
-        //Create a result object
-        //Return the result object
-
-        throw new NotImplementedException();
-        //return await DataFacade.PersistAirFlights(flightFares);
+        TripSpecValidator.EnsureValid(tripSpec);
+        var newFlightFares = await RyanairGateway.GetFlightFares(tripSpec);
+        AirFlightFareDtoValidator.EnsureValid(newFlightFares); //What validation belong to the dto
+        var oldAirFlights = await DataFacade.GetAirFlights(tripSpec);
+        var (airFlightsToUpdate, airFlightsToCreate) = AirFlightsIdentifyer.IdentifyUpdateAndCreate(oldAirFlights, newFlightFares);
+        AirFlightValidator.EnsureValid(airFlightsToUpdate); //What validation belong to the entity
+        AirFlightValidator.EnsureValid(airFlightsToCreate);
+        await DataFacade.UpdateAirFlights(airFlightsToUpdate);
+        await DataFacade.CreateAirFlights(airFlightsToCreate);
+        return new SyncFlightFaresResult { FlightsUpdated = airFlightsToUpdate.Length, FlightsCreated = airFlightsToCreate.Length };
     }
 }
 
 internal static class AirFlightsIdentifyer
 {
-    internal static (AirFlight[] updatedAirFlights, AirFlightFareDto[] flightFareDtosToCreate) IdentifyUpdateAndCreate(AirFlight[] oldFlights, AirFlightFareDto[] newFlightFares)
+    internal static (AirFlight[] airFlightsToUpdate, AirFlight[] airFlightsToCreate) IdentifyUpdateAndCreate(AirFlight[] oldFlights, AirFlightFareDto[] newFlightFares)
     {
-        var toBeUpdated = new List<(AirFlight oldFlight, AirFlightFareDto newFlight)>();
-        var toBeCreated = new List<AirFlightFareDto>();
-
-        void EnsureSimilarFlightDuration(AirFlight oldFlight, AirFlightFareDto newFlightFare)
-        {
-            const double maxAllowedFlightDurationDifferenceInMinutes = 30;
-            var oldFlightDuration = oldFlight.ArrivalUtc - oldFlight.DepartureUtc;
-            var newFlightDuration = newFlightFare.ArrivalUtc - newFlightFare.DepartureUtc;
-            var durationDifference = Math.Abs(oldFlightDuration.TotalMinutes - newFlightDuration.TotalMinutes);
-
-            if (durationDifference > maxAllowedFlightDurationDifferenceInMinutes)
-            {
-                throw new FlightDurationComparisonException($"New and old flight duration have to large diff", new { OldDurationMin = oldFlightDuration.TotalMinutes, NewDurationMinutes = newFlightDuration.TotalMinutes, OldFlight = oldFlight, NewFlightFare = newFlightFare });
-            }
-        }
+        var matchedFlightsToUpdate = new List<(AirFlight oldFlight, AirFlightFareDto newFlight)>();
+        var toBeCreatedDtos = new List<AirFlightFareDto>();
 
         foreach (var newFlight in newFlightFares)
         {
@@ -68,24 +51,51 @@ internal static class AirFlightsIdentifyer
 
             if (oldFlightMatchings.Length == 0)
             {
-                toBeCreated.Add(newFlight);
+                toBeCreatedDtos.Add(newFlight);
             }
 
             if (oldFlightMatchings.Length > 1)
             {
-                throw new InvalidFlightMatchException("It was more then one flight found in the same direction with similar arrival and departure", new { oldFlightMatchings });
+                throw new InvalidFlightMatchException("It was more then one flight found in the same direction with similar arrival and departure, should not be possible", new { oldFlightMatchings });
             }
 
             if (oldFlightMatchings.Length == 1)
             {
-                EnsureSimilarFlightDuration(oldFlightMatchings[0], newFlight);
-                toBeUpdated.Add((oldFlightMatchings[0], newFlight));
+                matchedFlightsToUpdate.Add((oldFlightMatchings[0], newFlight));
             }
         }
 
-        foreach (var (oldFlight, newFlight) in toBeUpdated)
+        foreach (var (oldFlight, newFlight) in matchedFlightsToUpdate)
         {
             var newFare = new AirFare { Currency = newFlight.Currency, Fare = newFlight.Fare, Source = newFlight.SourceUrl };
+
+            var newButDuplicatedFare = oldFlight.Fares.FirstOrDefault(f => f.Currency == newFare.Currency && f.Fare == newFare.Fare && f.Source == newFare.Source);
+            if (newButDuplicatedFare != null)
+            {
+                newButDuplicatedFare.LastObservedUtc = DateTime.UtcNow;
+                break;
+            }
+
+            oldFlight.Fares.Add(newFare);
         }
+
+        var airFlightsToCreate = toBeCreatedDtos.Select(MapToAirFlight).ToArray();
+        var airFlightsToUpdate = matchedFlightsToUpdate.Select(m => m.oldFlight).ToArray();
+
+        return (airFlightsToUpdate, airFlightsToCreate);
+    }
+
+    private static AirFlight MapToAirFlight(AirFlightFareDto flightFare)
+    {
+        return new AirFlight
+        {
+            Airline = flightFare.Airline,
+            ArrivalUtc = flightFare.ArrivalUtc,
+            DepartureUtc = flightFare.DepartureUtc,
+            Destination = flightFare.Destination,
+            Fares = new List<AirFare> { new AirFare { Currency = flightFare.Currency, Fare = flightFare.Fare, Source = flightFare.SourceUrl } },
+            FlightNumber = flightFare.FlightNumber,
+            Origin = flightFare.Origin
+        };
     }
 }

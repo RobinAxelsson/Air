@@ -3,6 +3,8 @@
 
 namespace Air.Domain;
 
-internal class FlightFareDataManager
+public sealed record SyncFlightFaresResult
 {
+    public int FlightsUpdated { get; init; }
+    public int FlightsCreated { get; init; }
 }

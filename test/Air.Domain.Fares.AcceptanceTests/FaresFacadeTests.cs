@@ -61,14 +61,14 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests
 
             var faresFacade = new FaresFacade();
 
-            var fares = await faresFacade.SyncFlightFares(new FlightSpecDto() {
+            var syncFlightFaresResult = await faresFacade.SyncFlightFares(new FlightSpecDto() {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(7)),
                 Origin = Airport.GOT,
                 Destination = Airport.STN,
             });
 
-            Assert.NotEmpty(fares);
-            var faresJson = JsonSerializer.Serialize(fares, new JsonSerializerOptions { WriteIndented = true });
+            Assert.NotNull(syncFlightFaresResult);
+            var faresJson = JsonSerializer.Serialize(syncFlightFaresResult, new JsonSerializerOptions { WriteIndented = true });
             _testOutputHelper.WriteLine(faresJson);
         }
     }

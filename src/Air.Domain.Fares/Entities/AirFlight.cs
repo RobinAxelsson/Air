@@ -2,6 +2,7 @@ namespace Air.Domain;
 
 public sealed class AirFlight
 {
+    public int Id { get; set; }
     public required string Airline { get; init; }
     public required Airport Origin { get; init; }
     public required Airport Destination { get; init; }

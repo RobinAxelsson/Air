@@ -23,9 +23,4 @@ public abstract class AirFaresBaseException : Exception
         : base(message, inner)
     {
     }
-
-    public AirFaresBaseException(string message, object serializable, Exception inner): base(message, inner)
-    {
-
-    }
 }

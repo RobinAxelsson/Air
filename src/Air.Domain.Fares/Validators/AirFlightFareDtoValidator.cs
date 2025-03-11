@@ -32,20 +32,6 @@ internal static class AirFlightFareDtoValidator
         return errorMessages;
     }
 
-    private static AirFlight MapToAirFlight(AirFlightFareDto flightFare)
-    {
-        return new AirFlight
-        {
-            Airline = flightFare.Airline,
-            ArrivalUtc = flightFare.ArrivalUtc,
-            DepartureUtc = flightFare.DepartureUtc,
-            Destination = flightFare.Destination,
-            Fares = new List<AirFare> { new AirFare { Currency = flightFare.Currency, Fare = flightFare.Fare, Source = flightFare.SourceUrl } },
-            FlightNumber = flightFare.FlightNumber,
-            Origin = flightFare.Origin
-        };
-    }
-
     private static string? ValidateProperties(AirFlightFareDto flightFare)
     {
         const int maxLengthFlightNumber = 7;

@@ -8,13 +8,13 @@ internal static class AirFlightFareDtoParser
         PropertyNameCaseInsensitive = true
     };
 
-    public static AirFlightFareDto[] ParseHttpResponseContent(string content, string baseUrl)
+    public static AirFlightFareDto[] ParseHttpResponseContent(string content, string sourceUrl)
     {
         var availability = JsonSerializer.Deserialize<Availability>(content, jsonSerializerOptionsForFlightFareDeserialization);
 
         if (availability == null)
         {
-            throw new RyanairServiceRequestException($"Failed to deserialize response: {content}");
+            throw new RyanairServiceRequestException($"Failed to deserialize http content:", content);
         }
 
         var trip = availability.Trips[0];
@@ -37,7 +37,7 @@ internal static class AirFlightFareDtoParser
                     FlightNumber = flight.FlightNumber,
                     DepartureUtc = flight.TimeUTC[0],
                     ArrivalUtc = flight.TimeUTC[1],
-                    SourceUrl = baseUrl,
+                    SourceUrl = sourceUrl,
                     Airline = "Ryanair",
                 };
 

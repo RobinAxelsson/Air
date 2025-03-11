@@ -3,7 +3,7 @@
 internal static class TripSpecValidator
 {
     private static readonly string _n = Environment.NewLine;
-    public static void EnsureTripSpecIsValid(FlightSpecDto tripSpec)
+    public static void EnsureValid(FlightSpecDto tripSpec)
     {
         var errors = ValidateProperties(tripSpec);
         EnsureNoErrors(errors);

@@ -13,7 +13,7 @@ namespace Air.Domain
         {
             EnsureHostIsUp(cs);
 
-            EnsureServerIsUp(cs);
+            EnsureDbServerIsUp(cs);
 
             SqlConnection connection = null!;
             try
@@ -41,7 +41,7 @@ namespace Air.Domain
             }
         }
 
-        private static void EnsureServerIsUp(SqlConnectionString cs)
+        private static void EnsureDbServerIsUp(SqlConnectionString cs)
         {
             try
             {

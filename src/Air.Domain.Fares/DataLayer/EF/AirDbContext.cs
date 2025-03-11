@@ -20,6 +20,7 @@ internal class AirDbContext : DbContext
     }
 
     public DbSet<AirFlight> AirFlights { get; set; }
+    public DbSet<AirFare> AirFares { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -27,24 +28,57 @@ internal class AirDbContext : DbContext
 
         modelBuilder.Entity<AirFlight>(entity =>
         {
-            entity.ToTable("FlightFares");
+            entity.HasKey(e => e.Id);
 
-            // EF creates a shadow property "Id" and this to sepparate domain layer AirId from EF Id
-            entity.Property<int>("Id")
-                  .ValueGeneratedOnAdd();
+            entity.Property(e => e.Airline)
+                .IsRequired()
+                .HasMaxLength(100);
 
-            entity.HasKey("Id");
+            entity.Property(e => e.FlightNumber)
+                .IsRequired()
+                .HasMaxLength(10);
 
-            //entity.HasIndex(e => e.AirId).IsUnique();
-            entity.Property(e => e.Airline).IsRequired();
-            //entity.Property(e => e.Currency).IsRequired();
-            entity.Property(e => e.Origin).IsRequired();
-            entity.Property(e => e.Destination).IsRequired();
-            //entity.Property(e => e.Fare).IsRequired();
-            entity.Property(e => e.FlightNumber).IsRequired();
-            entity.Property(e => e.DepartureUtc).IsRequired();
-            entity.Property(e => e.ArrivalUtc).IsRequired();
+            entity.Property(e => e.DepartureUtc)
+                .IsRequired();
+
+            entity.Property(e => e.ArrivalUtc)
+                .IsRequired();
+
+            entity.Property(e => e.CreatedUtc)
+                .HasDefaultValueSql("GETUTCDATE()");
+
+            entity.HasMany(e => e.Fares)
+                .WithOne()
+                .HasForeignKey("AirFlightId")
+                .OnDelete(DeleteBehavior.Cascade);
         });
+
+        modelBuilder.Entity<AirFare>(entity =>
+        {
+            entity.HasKey(e => e.FlightFareId);
+
+            entity.Property(e => e.Fare)
+                .IsRequired()
+                .HasColumnType("decimal(18,2)");
+
+            entity.Property(e => e.Source)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.Property(e => e.CreatedUtc)
+                .HasDefaultValueSql("GETUTCDATE()");
+
+            entity.Property(e => e.LastObservedUtc)
+                .HasDefaultValueSql("GETUTCDATE()");
+        });
+
+        // Optional: Configuring indexes
+        modelBuilder.Entity<AirFlight>()
+            .HasIndex(e => new { e.FlightNumber, e.DepartureUtc })
+            .IsUnique();
+
+        modelBuilder.Entity<AirFare>()
+            .HasIndex(e => e.Source);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

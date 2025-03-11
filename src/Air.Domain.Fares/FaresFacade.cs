@@ -10,7 +10,7 @@ public sealed class FaresFacade
         FlightFareManager = new AirFlightManager(serviceLocator);
     }
 
-    public async Task<IEnumerable<AirFlight>> SyncFlightFares(FlightSpecDto tripSpec)
+    public async Task<SyncFlightFaresResult> SyncFlightFares(FlightSpecDto tripSpec)
     {
         return await FlightFareManager.SyncFlightFares(tripSpec);
     }
