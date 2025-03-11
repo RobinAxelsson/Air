@@ -9,5 +9,5 @@ internal class RegularFare
     public string FareKey { get; set; }
 
     [JsonPropertyName("fares")]
-    public List<Fare> Fares { get; set; }
+    public List<RyanairFare> Fares { get; set; }
 }

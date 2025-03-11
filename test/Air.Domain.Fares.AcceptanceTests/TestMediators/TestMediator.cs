@@ -5,7 +5,7 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests.TestMediators
 {
     internal sealed class TestMediator
     {
-        public IEnumerable<FlightFareEntity>? MoviesForGetAllMovies { get; set; }
+        public IEnumerable<AirFlight>? MoviesForGetAllMovies { get; set; }
 
         public ExceptionInformation? ExceptionInformation { get; set; }
     }

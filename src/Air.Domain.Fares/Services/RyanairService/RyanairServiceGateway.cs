@@ -2,7 +2,7 @@
 using System.Text.Json;
 using Air.Domain;
 
-internal class RyanairGateway
+internal class RyanairServiceGateway
 {
     private readonly HttpClient _httpClient;
 
@@ -12,26 +12,26 @@ internal class RyanairGateway
         WriteIndented = true
     };
 
-    public RyanairGateway(Func<HttpMessageHandler> httpMessageHandlerFactory, string baseUrl)
+    public RyanairServiceGateway(Func<HttpMessageHandler> httpMessageHandlerFactory, string baseUrl)
     {
         _httpClient = new HttpClient(httpMessageHandlerFactory());
         _httpClient.BaseAddress = new Uri(baseUrl);
     }
 
-    public async Task<FlightFareEntity[]> GetFlightFares(TripSpec tripSpec)
+    public async Task<AirFlightFareDto[]> GetFlightFares(FlightSpecDto tripSpec)
     {
-        string requestUrl = GetRequestUrl(tripSpec.Origin.ToString(), tripSpec.Destination.ToString(), tripSpec.Date.ToString("yyyy-MM-dd"));
+        string endpointUrl = GetEndpointUrl(tripSpec.Origin.ToString(), tripSpec.Destination.ToString(), tripSpec.Date.ToString("yyyy-MM-dd"));
 
-        var httpResponseMessage = await _httpClient.GetAsync(requestUrl);
+        var httpResponseMessage = await _httpClient.GetAsync(endpointUrl);
 
         await EnsureSuccess(httpResponseMessage);
 
         string content = await httpResponseMessage.Content.ReadAsStringAsync();
 
-        return RyanairFlightFareParser.ParseHttpContent(content);
+        return AirFlightFareDtoParser.ParseHttpResponseContent(content, _httpClient.BaseAddress + endpointUrl);
     }
 
-    private static string GetRequestUrl(string origin, string destination, string dateOut)
+    private static string GetEndpointUrl(string origin, string destination, string dateOut)
     {
         //Make sure that the URL does not start with a slash!
         return $"api/booking/v4/sv-se/availability?" +

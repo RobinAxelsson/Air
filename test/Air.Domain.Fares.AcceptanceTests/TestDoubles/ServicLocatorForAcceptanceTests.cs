@@ -7,6 +7,6 @@ namespace Air.Domain.Fares.AcceptanceTests.TestDoubles
     {
         protected override ConfigurationProviderBase CreateConfigurationProviderCore() => throw new NotImplementedException();
         protected override HttpMessageHandler CreateHttpMessageHandlerCore() => throw new NotImplementedException();
-        protected override RyanairGateway CreateRyanirGatewayCore() => throw new NotImplementedException();
+        protected override RyanairServiceGateway CreateRyanirGatewayCore() => throw new NotImplementedException();
     }
 }

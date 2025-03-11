@@ -3,7 +3,7 @@
 namespace Air.Domain;
 internal abstract class ServiceLocatorBase
 {
-    public RyanairGateway CreateRyanairGateway()
+    public RyanairServiceGateway CreateRyanairGateway()
     {
         return CreateRyanirGatewayCore();
     }
@@ -22,5 +22,5 @@ internal abstract class ServiceLocatorBase
 
     protected abstract ConfigurationProviderBase CreateConfigurationProviderCore();
 
-    protected abstract RyanairGateway CreateRyanirGatewayCore();
+    protected abstract RyanairServiceGateway CreateRyanirGatewayCore();
 }

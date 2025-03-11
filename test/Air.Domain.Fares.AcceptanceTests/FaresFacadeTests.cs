@@ -61,8 +61,8 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests
 
             var faresFacade = new FaresFacade();
 
-            var fares = await faresFacade.SyncFlightFares(new TripSpec() {
-                Date = DateTime.Today.AddDays(7),
+            var fares = await faresFacade.SyncFlightFares(new FlightSpecDto() {
+                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(7)),
                 Origin = Airport.GOT,
                 Destination = Airport.STN,
             });

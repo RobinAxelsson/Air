@@ -1,8 +1,8 @@
-using Air.Domain.Fares.Models.atomic;
+﻿using Air.Domain.Fares.Models.atomic;
 
 namespace Air.Domain;
 
-public sealed class FlightFareEntity : EntityBase
+public sealed record AirFlightFareDto
 {
     public required string Airline { get; init; }
     public required Currency Currency { get; init; }
@@ -12,5 +12,6 @@ public sealed class FlightFareEntity : EntityBase
     public required string FlightNumber { get; init; }
     public required DateTime DepartureUtc { get; init; }
     public required DateTime ArrivalUtc { get; init; }
+    public required string SourceUrl { get; init; }
     public DateTime CreatedUtc { get; } = DateTime.UtcNow;
 }

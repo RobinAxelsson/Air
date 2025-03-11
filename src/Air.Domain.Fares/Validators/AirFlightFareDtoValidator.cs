@@ -1,20 +1,17 @@
 ﻿namespace Air.Domain;
 
-internal static class FlightFareValidator
+internal static class AirFlightFareDtoValidator
 {
-    private static readonly int maxLengthFlightNumber = 7;
     private static readonly string _n = Environment.NewLine;
-    public static void EnsureFlightFareIsValid(FlightFareEntity flightFare)
+    public static void EnsureValid(IEnumerable<AirFlightFareDto> flightFares)
     {
-        EnsureFlightFareIsNotNull(flightFare);
-        var errorMessages = ValidateProperties(flightFare);
+        EnsureFlightFaresAreNotNull(flightFares);
+        string? errorMessages = ValidateProperties(flightFares);
         EnsureNoErrors(errorMessages);
     }
 
-    public static void EnsureFlightFaresAreValid(IEnumerable<FlightFareEntity> flightFares)
+    private static string? ValidateProperties(IEnumerable<AirFlightFareDto> flightFares)
     {
-        EnsureFlightFaresAreNotNull(flightFares);
-
         var errorMessagesSb = StringBuilderCache.Acquire();
         foreach (var flightFare in flightFares)
         {
@@ -32,15 +29,32 @@ internal static class FlightFareValidator
             errorMessages = null;
         }
 
-        EnsureNoErrors(errorMessages);
+        return errorMessages;
     }
 
-    private static string? ValidateProperties(FlightFareEntity flightFare)
+    private static AirFlight MapToAirFlight(AirFlightFareDto flightFare)
     {
+        return new AirFlight
+        {
+            Airline = flightFare.Airline,
+            ArrivalUtc = flightFare.ArrivalUtc,
+            DepartureUtc = flightFare.DepartureUtc,
+            Destination = flightFare.Destination,
+            Fares = new List<AirFare> { new AirFare { Currency = flightFare.Currency, Fare = flightFare.Fare, Source = flightFare.SourceUrl } },
+            FlightNumber = flightFare.FlightNumber,
+            Origin = flightFare.Origin
+        };
+    }
+
+    private static string? ValidateProperties(AirFlightFareDto flightFare)
+    {
+        const int maxLengthFlightNumber = 7;
+
         var originErrorMessage = ValidateAirport(flightFare.Origin);
         var destinationErrorMessage = ValidateAirport(flightFare.Destination);
-        var flightNumberErrorMessage = StringValidator.Validate(nameof(FlightFareEntity.FlightNumber), flightFare.FlightNumber, maxLengthFlightNumber);
-        var airlineErrorMessage = StringValidator.Validate(nameof(FlightFareEntity.Airline), flightFare.Airline);
+        var flightNumberErrorMessage = StringValidator.Validate(nameof(AirFlightFareDto.FlightNumber), flightFare.FlightNumber, maxLengthFlightNumber);
+
+        var airlineErrorMessage = StringValidator.Validate(nameof(AirFlightFareDto.Airline), flightFare.Airline);
         var travelYearErrorMessage = ValidateTravelYear(flightFare.DepartureUtc, flightFare.ArrivalUtc);
         var travelOrderErrorMessage = ValidateTravelOrder(flightFare.DepartureUtc, flightFare.ArrivalUtc);
         var fareErrorMessage = ValidateFare(flightFare.Fare);
@@ -57,15 +71,7 @@ internal static class FlightFareValidator
         }
     }
 
-    private static void EnsureFlightFareIsNotNull(FlightFareEntity? flightFare)
-    {
-        if (flightFare == null)
-        {
-            throw new InvalidFlightFareException("The flightFare parameter can not be null.");
-        }
-    }
-
-    private static void EnsureFlightFaresAreNotNull(IEnumerable<FlightFareEntity> flightFares)
+    private static void EnsureFlightFaresAreNotNull(IEnumerable<AirFlightFareDto> flightFares)
     {
         if (!flightFares.Any())
         {

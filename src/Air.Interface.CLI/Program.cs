@@ -7,9 +7,9 @@ internal class Program
     internal static async Task<int> Main(string[] args)
     {
         var faresFacade = new FaresFacade();
-
-        var flightFares = await faresFacade.SyncFlightFares(new TripSpec() {
-            Date = new DateTime(2025, 04, 22),
+        
+        var flightFares = await faresFacade.SyncFlightFares(new FlightSpecDto() {
+            Date = new DateOnly(2025, 04, 22),
             Origin = Airport.GOT,
             Destination = Airport.STN
         });
@@ -88,13 +88,13 @@ internal class Program
         //return 0;
     }
 
-    private static void PrintHelpText()
-    {
-        Console.WriteLine("Missing arguments. Usage: <command> <week> <year>");
-        Console.WriteLine("Commands:");
-        Console.WriteLine("  update-surf-fares <week> <year>  - Updates weekly surf fares");
-        Console.WriteLine("  create-weekend-report <week> <year>  - Creates a weekend surf report");
-        Console.WriteLine("  get-weekend-report <week> <year>  - Retrieves and saves the weekend surf report");
-        Console.WriteLine("  send-emails  - Sends notification emails (TODO: Implement)");
-    }
+    //private static void PrintHelpText()
+    //{
+    //    Console.WriteLine("Missing arguments. Usage: <command> <week> <year>");
+    //    Console.WriteLine("Commands:");
+    //    Console.WriteLine("  update-surf-fares <week> <year>  - Updates weekly surf fares");
+    //    Console.WriteLine("  create-weekend-report <week> <year>  - Creates a weekend surf report");
+    //    Console.WriteLine("  get-weekend-report <week> <year>  - Retrieves and saves the weekend surf report");
+    //    Console.WriteLine("  send-emails  - Sends notification emails (TODO: Implement)");
+    //}
 }

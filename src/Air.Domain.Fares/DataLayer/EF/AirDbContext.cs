@@ -19,13 +19,13 @@ internal class AirDbContext : DbContext
     {
     }
 
-    public DbSet<FlightFareEntity> FlightFares { get; set; }
+    public DbSet<AirFlight> AirFlights { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<FlightFareEntity>(entity =>
+        modelBuilder.Entity<AirFlight>(entity =>
         {
             entity.ToTable("FlightFares");
 
@@ -35,12 +35,12 @@ internal class AirDbContext : DbContext
 
             entity.HasKey("Id");
 
-            entity.HasIndex(e => e.AirId).IsUnique();
+            //entity.HasIndex(e => e.AirId).IsUnique();
             entity.Property(e => e.Airline).IsRequired();
-            entity.Property(e => e.Currency).IsRequired();
+            //entity.Property(e => e.Currency).IsRequired();
             entity.Property(e => e.Origin).IsRequired();
             entity.Property(e => e.Destination).IsRequired();
-            entity.Property(e => e.Fare).IsRequired();
+            //entity.Property(e => e.Fare).IsRequired();
             entity.Property(e => e.FlightNumber).IsRequired();
             entity.Property(e => e.DepartureUtc).IsRequired();
             entity.Property(e => e.ArrivalUtc).IsRequired();

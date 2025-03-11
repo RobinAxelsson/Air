@@ -3,13 +3,13 @@
 internal static class TripSpecValidator
 {
     private static readonly string _n = Environment.NewLine;
-    public static void EnsureTripSpecIsValid(TripSpec tripSpec)
+    public static void EnsureTripSpecIsValid(FlightSpecDto tripSpec)
     {
         var errors = ValidateProperties(tripSpec);
         EnsureNoErrors(errors);
     }
 
-    private static string? ValidateProperties(TripSpec tripSpec)
+    private static string? ValidateProperties(FlightSpecDto tripSpec)
     {
         var originErrorMessage = ValidateAirport(tripSpec.Origin);
         var destinationErrorMessage = ValidateAirport(tripSpec.Destination);
@@ -27,11 +27,11 @@ internal static class TripSpecValidator
         }
     }
 
-    private static string? ValidateTravelYear(DateTime date)
+    private static string? ValidateTravelYear(DateOnly date)
     {
         const int minimumYear = 1914; // The year of the first commercial flight
 
-        bool WithinTimeSpan(DateTime date) => date.Year >= minimumYear && date.Year <= (DateTime.Today.Year + 10);
+        bool WithinTimeSpan(DateOnly date) => date.Year >= minimumYear && date.Year <= (DateTime.Today.Year + 10);
 
         return WithinTimeSpan(date) ? null
             : $"Flight must be between year {minimumYear} and {DateTime.Today.Year + 10} (inclusive)" + _n;

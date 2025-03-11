@@ -9,5 +9,5 @@ internal class TripDate
     public DateTime DateOut { get; set; }
 
     [JsonPropertyName("flights")]
-    public List<Flight> Flights { get; set; }
+    public List<RyanairFlight> Flights { get; set; }
 }

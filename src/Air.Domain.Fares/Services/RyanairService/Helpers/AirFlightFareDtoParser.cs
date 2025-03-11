@@ -1,14 +1,14 @@
 using System.Text.Json;
 
 namespace Air.Domain;
-internal static class RyanairFlightFareParser
+internal static class AirFlightFareDtoParser
 {
     private static readonly JsonSerializerOptions jsonSerializerOptionsForFlightFareDeserialization = new()
     {
         PropertyNameCaseInsensitive = true
     };
 
-    public static FlightFareEntity[] ParseHttpContent(string content)
+    public static AirFlightFareDto[] ParseHttpResponseContent(string content, string baseUrl)
     {
         var availability = JsonSerializer.Deserialize<Availability>(content, jsonSerializerOptionsForFlightFareDeserialization);
 
@@ -23,12 +23,12 @@ internal static class RyanairFlightFareParser
         var currency = availability.Currency;
         var dates = trip.Dates;
 
-        var fares = new List<FlightFareEntity>();
+        var fares = new List<AirFlightFareDto>();
         foreach (var date in dates)
         {
             foreach (var flight in date.Flights)
             {
-                var fare = new FlightFareEntity()
+                var fare = new AirFlightFareDto()
                 {
                     Origin = AirportParser.ParseAirportCode(origin),
                     Destination = AirportParser.ParseAirportCode(destination),
@@ -37,6 +37,7 @@ internal static class RyanairFlightFareParser
                     FlightNumber = flight.FlightNumber,
                     DepartureUtc = flight.TimeUTC[0],
                     ArrivalUtc = flight.TimeUTC[1],
+                    SourceUrl = baseUrl,
                     Airline = "Ryanair",
                 };
 

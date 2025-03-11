@@ -17,8 +17,8 @@ internal sealed class ServiceLocator : ServiceLocatorBase
         };
     }
 
-    protected override RyanairGateway CreateRyanirGatewayCore()
+    protected override RyanairServiceGateway CreateRyanirGatewayCore()
     {
-        return new RyanairGateway(CreateHttpMessageHandlerCore, CreateConfigurationProvider().GetRyanairServiceBaseUrl());
+        return new RyanairServiceGateway(CreateHttpMessageHandlerCore, CreateConfigurationProvider().GetRyanairServiceBaseUrl());
     }
 }

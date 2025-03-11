@@ -3,10 +3,10 @@
 
 namespace Air.Domain
 {
-    public sealed record TripSpec
+    public sealed record FlightSpecDto
     {
         public required Airport Origin { get; init; }
         public required Airport Destination { get; init; }
-        public required DateTime Date { get; init; }
+        public required DateOnly Date { get; init; }
     }
 }
