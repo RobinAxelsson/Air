@@ -35,7 +35,7 @@ internal static class AirportCodeValidator
 
         if (!Enum.TryParse(airportCode, out AirportCode result))
         {
-            errors.AppendLine($"AirportCode code '{airportCode}' is not valid. Valid codes are: {_airportCodes.JsonSerializerSerializeWriteIndentedUnsafeRelaxedJsonEscaping}");
+            errors.AppendLine($"AirportCode code '{airportCode}' is not valid. Valid codes are: {_airportCodes.JsonSerializerSerializePretty}");
         }
 
         return errors.Length != 0 ? errors.ToString() : null;

@@ -12,7 +12,7 @@ public sealed class FlightDurationComparisonException : AirFaresBusinessBaseExce
 {
     public override string Reason => "Flight duration difference";
 
-    public FlightDurationComparisonException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializeWriteIndentedUnsafeRelaxedJsonEscaping())
+    public FlightDurationComparisonException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty())
     {
     }
 }
@@ -54,7 +54,7 @@ public sealed class InvalidCurrencyException : AirFaresBusinessBaseException
 [ExcludeFromCodeCoverage]
 public sealed class InvalidFlightMatchException : AirFaresBusinessBaseException
 {
-    public InvalidFlightMatchException(string message, object properties) : base(message += Environment.NewLine + JsonSerializer.Serialize(properties, new JsonSerializerOptions { WriteIndented = true }))
+    public InvalidFlightMatchException(string message, object properties) : base(message + Environment.NewLine + properties.JsonSerializerSerializePretty())
     {
     }
 
@@ -99,4 +99,15 @@ public sealed class InvalidTripSpecException : AirFaresBusinessBaseException
     }
 
     public override string Reason => "Invalid trip spec";
+}
+
+[ExcludeFromCodeCoverage]
+public sealed class FlightFareNotFollowingSpecificationException : AirFaresBusinessBaseException
+{
+    public FlightFareNotFollowingSpecificationException(string message)
+        : base(message)
+    {
+    }
+
+    public override string Reason => "Flights not following trip spec";
 }

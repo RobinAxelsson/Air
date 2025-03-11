@@ -32,11 +32,11 @@ internal class AirDbContext : DbContext
 
             entity.Property(e => e.Airline)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(50);
 
             entity.Property(e => e.FlightNumber)
                 .IsRequired()
-                .HasMaxLength(10);
+                .HasMaxLength(6);
 
             entity.Property(e => e.Origin)
                 .IsRequired()
@@ -71,7 +71,7 @@ internal class AirDbContext : DbContext
 
             entity.Property(e => e.Source)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(500);
 
             entity.Property(e => e.CreatedUtc)
                 .HasDefaultValueSql("GETUTCDATE()");

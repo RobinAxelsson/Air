@@ -12,17 +12,8 @@ public sealed class InvalidConnectionStringException : AirFaresTechnicalBaseExce
 {
     public override string Reason => "Invalid connedction string";
 
-    public InvalidConnectionStringException()
-    {
-    }
-
     public InvalidConnectionStringException(string message)
         : base(message)
-    {
-    }
-
-    public InvalidConnectionStringException(string message, Exception inner)
-        : base(message, inner)
     {
     }
 }
@@ -33,11 +24,7 @@ public sealed class RyanairServiceRequestException : AirFaresTechnicalBaseExcept
 {
     public override string Reason => "Configuration Setting Missing";
 
-    public RyanairServiceRequestException() : base()
-    {
-    }
-
-    public RyanairServiceRequestException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializeWriteIndentedUnsafeRelaxedJsonEscaping())
+    public RyanairServiceRequestException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty())
     {
     }
 }
@@ -47,17 +34,7 @@ public sealed class DbContextReturnNullException : AirFaresTechnicalBaseExceptio
 {
     public override string Reason => "Data access read failed";
 
-    public DbContextReturnNullException()
-    {
-    }
-
-    public DbContextReturnNullException(string message)
-        : base(message)
-    {
-    }
-
-    public DbContextReturnNullException(string message, Exception inner)
-        : base(message, inner)
+    public DbContextReturnNullException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty())
     {
     }
 }
@@ -67,17 +44,8 @@ public sealed class ConfigurationSettingException : AirFaresTechnicalBaseExcepti
 {
     public override string Reason => "Configuration Setting Missing";
 
-    public ConfigurationSettingException()
-    {
-    }
-
     public ConfigurationSettingException(string message)
         : base(message)
-    {
-    }
-
-    public ConfigurationSettingException(string message, Exception inner)
-        : base(message, inner)
     {
     }
 }
@@ -87,15 +55,6 @@ public sealed class AirSqlConnectionException : AirFaresTechnicalBaseException
 {
     public override string Reason => "Unable to connect to sql server";
 
-    public AirSqlConnectionException()
-    {
-    }
-
-    public AirSqlConnectionException(string message)
-        : base(message)
-    {
-    }
-
     public AirSqlConnectionException(string message, Exception inner)
         : base(message, inner)
     {
@@ -103,10 +62,28 @@ public sealed class AirSqlConnectionException : AirFaresTechnicalBaseException
 }
 
 [ExcludeFromCodeCoverage]
-public sealed class DbContextAddAirFlightsException : AirFaresTechnicalBaseException
+public sealed class DbContextCreateAirFlightsException : AirFaresTechnicalBaseException
 {
-    public override string Reason => "Configuration Setting Missing";
-    public DbContextAddAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializerSerializeWriteIndentedUnsafeRelaxedJsonEscaping(), inner)
+    public override string Reason => "";
+    public DbContextCreateAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty(), inner)
+    {
+    }
+}
+
+[ExcludeFromCodeCoverage]
+public sealed class DbContextUpdateAirFlightsException : AirFaresTechnicalBaseException
+{
+    public override string Reason => "";
+    public DbContextUpdateAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty(), inner)
+    {
+    }
+}
+
+[ExcludeFromCodeCoverage]
+public sealed class DbContextGetAirFlightsException : AirFaresTechnicalBaseException
+{
+    public override string Reason => "";
+    public DbContextGetAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty(), inner)
     {
     }
 }

@@ -17,15 +17,28 @@ internal class AirFlightDataManager
     internal async Task<AirFlight[]> GetAirFlights(FlightSpecDto flightSpecDto)
     {
         using var dbContext = new AirDbContext(_dbConnectionString.ToString());
-
-        var flights = await dbContext.AirFlights
-            .Where(f => f.Origin == flightSpecDto.Origin.ToString() && f.Destination == flightSpecDto.Destination.ToString() && DateOnly.FromDateTime(f.DepartureUtc) == flightSpecDto.Date)
-            .ToListAsync();
-
-        if(flights == null)
+        List<AirFlight> flights = null!;
+        try
         {
-            throw new DbContextReturnNullException();
+             flights = await dbContext.AirFlights
+             .Where(f => f.Origin == flightSpecDto.Origin.ToString() && f.Destination == flightSpecDto.Destination.ToString() && DateOnly.FromDateTime(f.DepartureUtc) == flightSpecDto.Date)
+             .Include(f => f.Fares)
+             .ToListAsync();
+
+            if (flights == null)
+            {
+                throw new DbContextReturnNullException($"Dbcontext returned null with following {nameof(flightSpecDto)}", flightSpecDto);
+            }
         }
+        catch(Exception ex)
+        {
+            throw new DbContextGetAirFlightsException("Failed to get air flights, see inner exception", flightSpecDto, ex);
+        }
+        finally
+        {
+            dbContext.Dispose();
+        }
+     
 
         return flights.ToArray();
     }
@@ -40,21 +53,29 @@ internal class AirFlightDataManager
         }
         catch(Exception ex)
         {
-            throw new DbContextAddAirFlightsException("Failed to create air flights", airFlights, ex);
+            throw new DbContextCreateAirFlightsException("Failed to create air flights, see inner exception", airFlights, ex);
         }
         finally
         {
             dbContext.Dispose();
         }
-
     }
 
     internal async Task UpdateAirFlights(AirFlight[] airFlights)
     {
         using var dbContext = new AirDbContext(_dbConnectionString.ToString());
-
-        dbContext.AirFlights.UpdateRange(airFlights);
-
-        await dbContext.SaveChangesAsync();
+        try
+        {
+            dbContext.AirFlights.UpdateRange(airFlights);
+            await dbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new DbContextUpdateAirFlightsException("Failed to update air flights, see inner exception", airFlights, ex);
+        }
+        finally
+        {
+            dbContext.Dispose();
+        }
     }
 }
