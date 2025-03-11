@@ -19,7 +19,7 @@ internal class AirFlightDataManager
         using var dbContext = new AirDbContext(_dbConnectionString.ToString());
 
         var flights = await dbContext.AirFlights
-            .Where(f => f.Origin == flightSpecDto.Origin && f.Destination == flightSpecDto.Destination && DateOnly.FromDateTime(f.DepartureUtc) == flightSpecDto.Date)
+            .Where(f => f.Origin == flightSpecDto.Origin.ToString() && f.Destination == flightSpecDto.Destination.ToString() && DateOnly.FromDateTime(f.DepartureUtc) == flightSpecDto.Date)
             .ToListAsync();
 
         if(flights == null)
@@ -32,11 +32,21 @@ internal class AirFlightDataManager
 
     internal async Task CreateAirFlights(AirFlight[] airFlights)
     {
-        using var dbContext = new AirDbContext(_dbConnectionString.ToString());
+        var dbContext = new AirDbContext(_dbConnectionString.ToString());
+        try
+        {
+            await dbContext.AirFlights.AddRangeAsync(airFlights);
+            await dbContext.SaveChangesAsync();
+        }
+        catch(Exception ex)
+        {
+            throw new DbContextAddAirFlightsException("Failed to create air flights", airFlights, ex);
+        }
+        finally
+        {
+            dbContext.Dispose();
+        }
 
-        await dbContext.AirFlights.AddRangeAsync(airFlights);
-
-        await dbContext.SaveChangesAsync();
     }
 
     internal async Task UpdateAirFlights(AirFlight[] airFlights)

@@ -1,5 +1,5 @@
 namespace Air.Domain;
-public enum Airport
+public enum AirportCode
 {
     Unknown = 0,
     STN = 1,

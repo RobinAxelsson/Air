@@ -38,6 +38,14 @@ internal class AirDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(10);
 
+            entity.Property(e => e.Origin)
+                .IsRequired()
+                .HasMaxLength(5);
+
+            entity.Property(e => e.Destination)
+                .IsRequired()
+                .HasMaxLength(5);
+
             entity.Property(e => e.DepartureUtc)
                 .IsRequired();
 

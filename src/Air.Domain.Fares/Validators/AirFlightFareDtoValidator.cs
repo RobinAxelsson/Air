@@ -36,8 +36,8 @@ internal static class AirFlightFareDtoValidator
     {
         const int maxLengthFlightNumber = 7;
 
-        var originErrorMessage = ValidateAirport(flightFare.Origin);
-        var destinationErrorMessage = ValidateAirport(flightFare.Destination);
+        var originErrorMessage = AirportCodeValidator.ValidateWithErrorResult(flightFare.Origin);
+        var destinationErrorMessage = AirportCodeValidator.ValidateWithErrorResult(flightFare.Destination);
         var flightNumberErrorMessage = StringValidator.Validate(nameof(AirFlightFareDto.FlightNumber), flightFare.FlightNumber, maxLengthFlightNumber);
 
         var airlineErrorMessage = StringValidator.Validate(nameof(AirFlightFareDto.Airline), flightFare.Airline);
@@ -84,15 +84,4 @@ internal static class AirFlightFareDtoValidator
     }
 
     private static string? ValidateFare(decimal fare) => fare <= 0 ? "The fare must be greater than 0" + _n : null;
-
-    private static string? ValidateAirport(Airport airport)
-    {
-        var errorMessage = AirportParser.ValidationMessage(airport);
-        if (errorMessage != null)
-        {
-            errorMessage += _n;
-        }
-
-        return errorMessage;
-    }
 }

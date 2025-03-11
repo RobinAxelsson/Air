@@ -1,16 +1,8 @@
-﻿using System.Text.Encodings.Web;
-using System.Text.Json;
-using Air.Domain;
+﻿using Air.Domain;
 
 internal class RyanairServiceGateway
 {
     private readonly HttpClient _httpClient;
-
-    private static readonly JsonSerializerOptions jsonSerializerOptionsForHttpResponseSerialization = new()
-    {
-        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        WriteIndented = true
-    };
 
     public RyanairServiceGateway(Func<HttpMessageHandler> httpMessageHandlerFactory, string baseUrl)
     {

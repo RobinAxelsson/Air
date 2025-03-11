@@ -63,8 +63,8 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests
 
             var syncFlightFaresResult = await faresFacade.SyncFlightFares(new FlightSpecDto() {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(7)),
-                Origin = Airport.GOT,
-                Destination = Airport.STN,
+                Origin = AirportCode.GOT,
+                Destination = AirportCode.STN,
             });
 
             Assert.NotNull(syncFlightFaresResult);

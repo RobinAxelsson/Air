@@ -6,8 +6,8 @@ public sealed record AirFlightFareDto
 {
     public required string Airline { get; init; }
     public required Currency Currency { get; init; }
-    public required Airport Origin { get; init; }
-    public required Airport Destination { get; init; }
+    public required string Origin { get; init; }
+    public required string Destination { get; init; }
     public required decimal Fare { get; init; }
     public required string FlightNumber { get; init; }
     public required DateTime DepartureUtc { get; init; }

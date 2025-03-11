@@ -37,7 +37,7 @@ public sealed class RyanairServiceRequestException : AirFaresTechnicalBaseExcept
     {
     }
 
-    public RyanairServiceRequestException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializeWriteIndented())
+    public RyanairServiceRequestException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializeWriteIndentedUnsafeRelaxedJsonEscaping())
     {
     }
 }
@@ -98,6 +98,15 @@ public sealed class AirSqlConnectionException : AirFaresTechnicalBaseException
 
     public AirSqlConnectionException(string message, Exception inner)
         : base(message, inner)
+    {
+    }
+}
+
+[ExcludeFromCodeCoverage]
+public sealed class DbContextAddAirFlightsException : AirFaresTechnicalBaseException
+{
+    public override string Reason => "Configuration Setting Missing";
+    public DbContextAddAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializerSerializeWriteIndentedUnsafeRelaxedJsonEscaping(), inner)
     {
     }
 }

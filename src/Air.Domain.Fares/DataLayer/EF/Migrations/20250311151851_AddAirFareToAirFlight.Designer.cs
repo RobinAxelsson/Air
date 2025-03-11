@@ -4,6 +4,7 @@ using Air.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Air.Domain.Fares.DataLayer.EF.Migrations
 {
     [DbContext(typeof(AirDbContext))]
-    partial class AirDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250311151851_AddAirFareToAirFlight")]
+    partial class AddAirFareToAirFlight
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

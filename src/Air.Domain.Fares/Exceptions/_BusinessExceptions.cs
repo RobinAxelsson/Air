@@ -12,7 +12,7 @@ public sealed class FlightDurationComparisonException : AirFaresBusinessBaseExce
 {
     public override string Reason => "Flight duration difference";
 
-    public FlightDurationComparisonException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializeWriteIndented())
+    public FlightDurationComparisonException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializeWriteIndentedUnsafeRelaxedJsonEscaping())
     {
     }
 }

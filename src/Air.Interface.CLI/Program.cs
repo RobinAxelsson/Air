@@ -10,8 +10,8 @@ internal class Program
         
         var flightFares = await faresFacade.SyncFlightFares(new FlightSpecDto() {
             Date = new DateOnly(2025, 04, 22),
-            Origin = Airport.GOT,
-            Destination = Airport.STN
+            Origin = AirportCode.GOT,
+            Destination = AirportCode.STN
         });
 
         Console.WriteLine(JsonSerializer.Serialize(flightFares, new JsonSerializerOptions { WriteIndented = true }));

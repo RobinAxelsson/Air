@@ -37,9 +37,9 @@ internal static class TripSpecValidator
             : $"Flight must be between year {minimumYear} and {DateTime.Today.Year + 10} (inclusive)" + _n;
     }
 
-    private static string? ValidateAirport(Airport airport)
+    private static string? ValidateAirport(AirportCode airport)
     {
-        var errorMessage = AirportParser.ValidationMessage(airport);
+        var errorMessage = AirportCodeValidator.ValidateWithErrorResult(airport.ToString());
         if (errorMessage != null)
         {
             errorMessage += _n;

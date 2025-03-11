@@ -28,10 +28,12 @@ internal static class AirFlightFareDtoParser
         {
             foreach (var flight in date.Flights)
             {
+                AirportCodeValidator.EnsureValid(origin);
+                AirportCodeValidator.EnsureValid(destination);
                 var fare = new AirFlightFareDto()
                 {
-                    Origin = AirportParser.ParseAirportCode(origin),
-                    Destination = AirportParser.ParseAirportCode(destination),
+                    Origin = origin,
+                    Destination = destination,
                     Currency = CurrencyParser.ParseCurrencyCode(currency),
                     Fare = flight.RegularFare.Fares.First().Amount,
                     FlightNumber = flight.FlightNumber,
@@ -39,7 +41,7 @@ internal static class AirFlightFareDtoParser
                     ArrivalUtc = flight.TimeUTC[1],
                     SourceUrl = sourceUrl,
                     Airline = "Ryanair",
-                };
+                }; 
 
                 fares.Add(fare);
             }

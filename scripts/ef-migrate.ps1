@@ -3,14 +3,15 @@ $ErrorActionPreference = 'Stop'
 
 function Show-Usage {
     Write-Host "Usage: ef-migration <create|remove|list>"
+    Write-Host "Input arguments will be prompted, only provide action."
     exit 1
 }
 
-if ($args.Length -ne 1) {
+$action = $args[0]
+if($args.Length -ne 1){
     Show-Usage
 }
 
-$action = $args[0]
 if ($action -ne "create" -and $action -ne "remove" -and $action -ne "list") {
     Show-Usage
     exit 1
