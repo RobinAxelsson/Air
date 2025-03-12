@@ -67,7 +67,7 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests
                 Destination = AirportCode.STN,
             });
 
-            Assert.NotNull(syncFlightFaresResult);
+            Assert.True(syncFlightFaresResult.FlightsCreated > 0 || syncFlightFaresResult.FlightsUpdated > 0);
             var faresJson = JsonSerializer.Serialize(syncFlightFaresResult, new JsonSerializerOptions { WriteIndented = true });
             _testOutputHelper.WriteLine(faresJson);
         }

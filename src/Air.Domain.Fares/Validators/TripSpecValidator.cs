@@ -2,7 +2,6 @@
 
 internal static class TripSpecValidator
 {
-    private static readonly string _n = Environment.NewLine;
     public static void EnsureValid(FlightSpecDto tripSpec)
     {
         var errors = ValidateProperties(tripSpec);
@@ -34,17 +33,11 @@ internal static class TripSpecValidator
         bool WithinTimeSpan(DateOnly date) => date.Year >= minimumYear && date.Year <= (DateTime.Today.Year + 10);
 
         return WithinTimeSpan(date) ? null
-            : $"Flight must be between year {minimumYear} and {DateTime.Today.Year + 10} (inclusive)" + _n;
+            : $"Flight must be between year {minimumYear} and {DateTime.Today.Year + 10} (inclusive)";
     }
 
     private static string? ValidateAirport(AirportCode airport)
     {
-        var errorMessage = AirportCodeValidator.ValidateWithErrorResult(airport.ToString());
-        if (errorMessage != null)
-        {
-            errorMessage += _n;
-        }
-
-        return errorMessage;
+        return AirportCodeValidator.ValidateWithErrorResult(airport.ToString());
     }
 }

@@ -20,7 +20,10 @@ internal class RyanairServiceGateway
 
         string content = await httpResponseMessage.Content.ReadAsStringAsync();
 
-        return AirFlightFareDtoParser.ParseHttpResponseContent(content, _httpClient.BaseAddress + endpointUrl);
+        var airFlightDtos = AirFlightFareDtoParser.ParseHttpResponseContent(content, _httpClient.BaseAddress + endpointUrl);
+        return 
+        //Ryanair API returns more flights then the days we enter in the dateout property in the request
+        return airFlightDtos.Where(x => DateOnly.FromDateTime(x.DepartureUtc) == tripSpec.Date && x.Origin == tripSpec.Origin.ToString() && x.Destination == tripSpec.Destination.ToString()).ToArray();
     }
 
     private static string GetEndpointUrl(string origin, string destination, string dateOut)

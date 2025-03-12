@@ -9,7 +9,7 @@ internal class Program
         var faresFacade = new FaresFacade();
         
         var flightFares = await faresFacade.SyncFlightFares(new FlightSpecDto() {
-            Date = new DateOnly(2025, 04, 22),
+            Date = new DateOnly(2025, 03, 22),
             Origin = AirportCode.GOT,
             Destination = AirportCode.STN
         });

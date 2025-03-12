@@ -81,7 +81,7 @@ namespace Air.Domain
             }
             catch (SqlException ex)
             {
-                throw new AirSqlConnectionException($"Could NOT access database from valid login. database: '{cs.Database}' server: '{cs.Host}' userId: '{cs.UserId}' , TrustServerCertificate: '{cs.TrustServerCertificate}'", ex);
+                throw new AirSqlConnectionException($"Could successfully login to given sql server '{cs.Host}' on port '{cs.Port}' with username '{cs.UserId}' and TrustServerCertificate set to: '{cs.TrustServerCertificate}' but could not access the database '{cs.Database}'", ex);
             }
         }
     }

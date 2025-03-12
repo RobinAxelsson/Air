@@ -23,11 +23,9 @@ internal class AirFlightManager
         TripSpecValidator.EnsureValid(tripSpec);
         var newFlightFares = await RyanairGateway.GetFlightFares(tripSpec);
         AirFlightFareDtoValidator.EnsureValid(newFlightFares);
-        AirFlightFareDtoValidator.EnsureAllFollowSpecification(newFlightFares, tripSpec);
+        TripSpecAirFlightValidator.EnsureValid(newFlightFares, tripSpec);
         var oldAirFlights = await DataFacade.GetAirFlights(tripSpec);
         var (airFlightsToUpdate, airFlightsToCreate) = AirFlightsIdentifyer.IdentifyUpdateAndCreate(oldAirFlights, newFlightFares);
-        //AirFlightValidator.EnsureValid(airFlightsToUpdate); //What validation belong to the entity
-        //AirFlightValidator.EnsureValid(airFlightsToCreate);
         await DataFacade.UpdateAirFlights(airFlightsToUpdate);
         await DataFacade.CreateAirFlights(airFlightsToCreate);
         return new SyncFlightFaresResult { FlightsUpdated = airFlightsToUpdate.Length, FlightsCreated = airFlightsToCreate.Length };
