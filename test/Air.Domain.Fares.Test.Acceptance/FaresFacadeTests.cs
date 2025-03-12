@@ -4,22 +4,14 @@
 using System.Text.Json;
 using Air.Domain.Fares.AcceptanceTests.TestDoubles;
 using Air.Domain.Fares.Tests.AcceptanceTests.TestMediators;
-using Xunit.Abstractions;
 
 namespace Air.Domain.Fares.Tests.AcceptanceTests
 {
     public class FaresFacadeTests
     {
-        private readonly ITestOutputHelper _testOutputHelper;
-
-        public FaresFacadeTests(ITestOutputHelper testOutputHelper)
-        {
-            _testOutputHelper = testOutputHelper;
-        }
-
-        [Trait("", "AcceptanceTest")]
-        [Fact]
-        public async Task SyncFares_WhenCalled_xFaresUpdatedInDb()
+        [Category("AcceptanceTests")]
+        [Test]
+        public async Task SyncFares_WhenCalledWithGotToStn_xFaresUpdatedOrCreatedInDb()
         {
             var faresFacade = new FaresFacade(new ServiceLocatorForAcceptanceTesting(new TestMediator()));
 
@@ -29,9 +21,9 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests
                 Destination = AirportCode.STN,
             });
 
-            Assert.True(syncFlightFaresResult.FlightsCreated > 0 || syncFlightFaresResult.FlightsUpdated > 0);
+            await Assert.That(syncFlightFaresResult.FlightsCreated > 0 || syncFlightFaresResult.FlightsUpdated > 0).IsTrue();
             var faresJson = JsonSerializer.Serialize(syncFlightFaresResult, new JsonSerializerOptions { WriteIndented = true });
-            _testOutputHelper.WriteLine(faresJson);
+            Console.WriteLine(faresJson);
         }
     }
 }

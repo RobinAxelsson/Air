@@ -7,6 +7,21 @@ function Show-Usage {
     exit 1
 }
 
+function NormalizePath {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string] $path
+    )
+
+    $separator = [IO.Path]::DirectorySeparatorChar
+    $invalidSeparator = [IO.Path]::AltDirectorySeparatorChar
+    $path = $path -replace $invalidSeparator, $separator
+
+    return $path
+}
+
+
 $action = $args[0]
 if($args.Length -ne 1){
     Show-Usage
@@ -34,7 +49,7 @@ if($action -eq "remove"){
 }
 
 if($action -eq "create"){
-    $migrationsDir = Join-Path $env:_EF_PROJ_PATH_ DataLayer EF Migrations
+    $migrationsDir = NormalizePath "$env:_EF_PROJ_PATH_/DataLayer/EF/Migrations"
 
     if (-not (Test-Path $migrationsDir)) {
         Write-Host "Migrationsfolder not found in path: $migrationsDir"

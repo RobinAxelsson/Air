@@ -57,7 +57,7 @@ function StartStopDbContainer(){
 }
 
 function CreateRemoveDbContainer(){
-    $dockerCompose = Join-Path $PSScriptRoot subs docker-compose.db.yml
+    $dockerCompose = NormalizePath "$PSScriptRoot/subs/docker-compose.db.yml"
 
     if (-not (Test-Path $dockerCompose)) {
         throw "docker-compose not found in path: $dockerCompose"
@@ -75,5 +75,20 @@ function CreateRemoveDbContainer(){
 
     throw "Not implemented"
 }
+
+function NormalizePath {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string] $path
+    )
+
+    $separator = [IO.Path]::DirectorySeparatorChar
+    $invalidSeparator = [IO.Path]::AltDirectorySeparatorChar
+    $path = $path -replace $invalidSeparator, $separator
+
+    return $path
+}
+
 
 Main

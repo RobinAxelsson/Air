@@ -8,10 +8,6 @@ The dev environment is bootstrapped with dot sourcing the root/init.ps1 script. 
 
 Dev tools dependencies and environment are maintained in script (/scripts/_check-dev-dependencies.ps1). It will get checked when dot sourcing init.ps1.
 
-## TUnit - Unit testing with source genarators
-
-Install template 'dotnet new install TUnit.Templates'
-
 ## Helpful VS Code extensions
 
 - install vs code mermaid extension to view the diagrams

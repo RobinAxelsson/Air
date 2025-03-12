@@ -3,26 +3,47 @@
 
 using System.Diagnostics;
 using System.Text;
-using Xunit.Abstractions;
+using System.Text.Json;
+using Air.Domain;
 
 namespace Air.Interface.CLI.ProcessTests;
 
 public class PowerShellTests
 {
-    private readonly ITestOutputHelper _testOutput;
-
-    public PowerShellTests(ITestOutputHelper testOutput)
-    {
-        _testOutput = testOutput;
-    }
-    [Fact]
-    [Trait("", "ProcessTest")]
-    public void Test_PowerShellScriptExecution()
+    [Test]
+    [Category("Build&Run")]
+    public async Task Test_PowerShellScriptExecution()
     {
         var filePath = GetFullTestPath("test-cli.ps1");
-        (bool error, string processOutput) = RunPowershellScriptTest(filePath);
-        // _testOutput.WriteLine(processOutput);
-        Assert.True(!error, processOutput);
+        (bool error, string powershellOutput) = RunPowershellScriptTest(filePath);
+
+        if (error)
+        {
+            Console.WriteLine(powershellOutput);
+        }
+
+        await Assert.That(error).IsFalse();
+
+        var filteredOutput = FilterCliOutput(powershellOutput);
+        Console.WriteLine(filteredOutput);
+
+        var syncFlightFaresResult = JsonSerializer.Deserialize<SyncFlightFaresResult>(filteredOutput);
+
+        await Assert.That(syncFlightFaresResult).IsNotNull();
+        await Assert.That(syncFlightFaresResult!.FlightsCreated > 0 || syncFlightFaresResult.FlightsUpdated > 0).IsTrue();
+    }
+
+    private string FilterCliOutput(string powershellOutput)
+    {
+        const string start = "-----Start running CLI-----";
+        const string end   = "--------CLI exited---------";
+
+        if (!powershellOutput.Contains(start) || !powershellOutput.Contains(end))
+        {
+            throw new ArgumentException($"Failed trying to filter output from powershell script, script file must 'Write-Host {start}' and 'Write-Host {end}'. The total out put was: {powershellOutput}");
+        }
+
+        return powershellOutput.Split("-----Start running CLI-----")[^1].Split("--------CLI exited---------")[0];
     }
 
     private string GetFullTestPath(string filePath)
@@ -68,7 +89,7 @@ public class PowerShellTests
             {
                 if (e.Data != null)
                 {
-                    output.AppendLine("Out: " + e.Data);
+                    output.AppendLine(e.Data);
                 }
             };
             process.ErrorDataReceived += (sender, e) =>

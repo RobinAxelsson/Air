@@ -16,11 +16,13 @@ function InitDevEnvironment()
         $root = $PSScriptRoot
         Write-Host "root: $root"
         $scriptsPath = Join-Path $root "scripts"
-        $airInterfaceCliProcessTests = Join-Path $root "test" "Air.Interface.CLI.ProcessTests"
-        $airDomainFaresPath = Join-Path $root "src" "Air.Domain.Fares"
-        $airInterfaceCliPath = Join-Path $root "src" "Air.Interface.CLI"
-        $toolsPath = Join-Path $root "tools"
-        $testResultsPath = Join-Path $root "temp" "test-results"
+
+        # Avoid Join-Path to normalize the path (bug when having dots in the path)
+        $airInterfaceCliProcessTests = NormalizePath "$root/test/Air.Interface.CLI.Test.Process"
+        $airDomainFaresPath = NormalizePath "$root/src/Air.Domain.Fares"
+        $airInterfaceCliPath = NormalizePath "$root/src/Air.Interface.CLI"
+        $toolsPath = NormalizePath "$root/tools"
+        $testResultsPath = NormalizePath "$root/temp/test-results"
 
         EnsurePathsExist @(
             $scriptsPath,
@@ -51,6 +53,20 @@ function InitDevEnvironment()
         if (-not ($env:Path -split [System.IO.Path]::PathSeparator -contains $dir)) {
             $env:Path += [System.IO.Path]::PathSeparator + $dir
         }
+    }
+
+    function NormalizePath {
+        [CmdletBinding()]
+        param (
+            [Parameter(Mandatory = $true)]
+            [string] $path
+        )
+
+        $separator = [IO.Path]::DirectorySeparatorChar
+        $invalidSeparator = [IO.Path]::AltDirectorySeparatorChar
+        $path = $path -replace $invalidSeparator, $separator
+
+        return $path
     }
 
     function EnsurePathsExist {
