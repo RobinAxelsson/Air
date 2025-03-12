@@ -10,11 +10,11 @@ internal static class AirFlightFareDtoParser
 
     public static AirFlightFareDto[] ParseHttpResponseContent(string content, string sourceUrl)
     {
-        var availability = JsonSerializer.Deserialize<Availability>(content, jsonSerializerOptionsForFlightFareDeserialization);
+        var availability = JsonSerializer.Deserialize<RyanairAvailability>(content, jsonSerializerOptionsForFlightFareDeserialization);
 
         if (availability == null)
         {
-            throw new RyanairServiceRequestException($"Failed to deserialize http content:", content);
+            throw new RyanairServiceRequestException($"{nameof(RyanairAvailability)} was null failed to deserialize http content '{content}'");
         }
 
         var trip = availability.Trips[0];

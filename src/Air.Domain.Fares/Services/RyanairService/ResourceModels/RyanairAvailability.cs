@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Air.Domain;
 
-internal class Availability
+internal class RyanairAvailability
 {
     [JsonPropertyName("termsOfUse")]
     public string TermsOfUse { get; set; }

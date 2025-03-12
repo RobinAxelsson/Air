@@ -1,4 +1,6 @@
-﻿using Air.Domain;
+﻿using System.Net.NetworkInformation;
+using Air.Domain;
+
 
 internal class RyanairServiceGateway
 {
@@ -6,7 +8,8 @@ internal class RyanairServiceGateway
 
     public RyanairServiceGateway(Func<HttpMessageHandler> httpMessageHandlerFactory, string baseUrl)
     {
-        _httpClient = new HttpClient(httpMessageHandlerFactory());
+        _httpClient = new HttpClient(new ValidateAbsoluteUriDelegatingHandler(httpMessageHandlerFactory(), baseUrl));
+        EnsureDomainIsValid(baseUrl);
         _httpClient.BaseAddress = new Uri(baseUrl);
     }
 
@@ -20,8 +23,13 @@ internal class RyanairServiceGateway
 
         string content = await httpResponseMessage.Content.ReadAsStringAsync();
 
+        if(string.IsNullOrEmpty(content) || content == "null")
+        {
+            throw new RyanairServiceRequestException($"The response content was empty or null for the request '{_httpClient.BaseAddress + endpointUrl}'");
+        }
+
         var airFlightDtos = AirFlightFareDtoParser.ParseHttpResponseContent(content, _httpClient.BaseAddress + endpointUrl);
-        return 
+
         //Ryanair API returns more flights then the days we enter in the dateout property in the request
         return airFlightDtos.Where(x => DateOnly.FromDateTime(x.DepartureUtc) == tripSpec.Date && x.Origin == tripSpec.Origin.ToString() && x.Destination == tripSpec.Destination.ToString()).ToArray();
     }
@@ -29,7 +37,7 @@ internal class RyanairServiceGateway
     private static string GetEndpointUrl(string origin, string destination, string dateOut)
     {
         //Make sure that the URL does not start with a slash!
-        return $"api/booking/v4/sv-se/availability?" +
+        return $"availability?" +
             $"ADT=2&TEEN=0&CHD=0&INF=0&Origin={origin}&Destination={destination}&promoCode=" +
             $"&IncludeConnectingFlights=false&DateOut={dateOut}&DateIn=" +
             $"&FlexDaysBeforeOut=2&FlexDaysOut=2&FlexDaysBeforeIn=2&FlexDaysIn=2" +
@@ -48,5 +56,19 @@ internal class RyanairServiceGateway
         var responseDto = HttpResponseParser.Parse(response, body);
 
         throw new RyanairServiceRequestException($"The ryanair Service call failed with response:", responseDto);
+    }
+
+    private static void EnsureDomainIsValid(string baseAddress)
+    {
+        try
+        {
+            var domain = new Uri(baseAddress).Host;
+            using var ping = new Ping();
+            ping.Send(domain);
+        }
+        catch (PingException ex)
+        {
+            throw new RyanairPingException($"Failed to ping base address '{baseAddress}'", ex);
+        }
     }
 }

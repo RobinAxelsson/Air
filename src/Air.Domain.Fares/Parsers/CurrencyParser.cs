@@ -20,7 +20,7 @@ internal static class CurrencyParser
 
         if (!Enum.TryParse(currencyCode, out Currency result))
         {
-            throw new InvalidAirportException($"AirportCode code '{currencyCode}' is not valid. Valid codes are: {_currencyCodes}");
+            throw new InvalidCurrencyException($"Currency code '{currencyCode}' is not valid. Valid codes are: {_currencyCodes}");
         }
 
         return result;

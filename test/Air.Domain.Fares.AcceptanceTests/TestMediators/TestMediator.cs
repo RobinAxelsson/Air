@@ -5,7 +5,7 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests.TestMediators
 {
     internal sealed class TestMediator
     {
-        public IEnumerable<AirFlight>? MoviesForGetAllMovies { get; set; }
+        public IEnumerable<AirFlightFareDto>? AirFlightFareDtoForSyncFlightFare { get; set; }
 
         public ExceptionInformation? ExceptionInformation { get; set; }
     }
@@ -17,6 +17,7 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests.TestMediators
 
     internal enum ExceptionReason
     {
+        NotSet = 0,
         NotFond = 404,
         BadRequest = 400,
         ProxyAuthenticationRequired = 407,

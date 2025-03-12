@@ -39,6 +39,7 @@ public sealed class InvalidAirportException : AirFaresBusinessBaseException
 [ExcludeFromCodeCoverage]
 public sealed class InvalidCurrencyException : AirFaresBusinessBaseException
 {
+    public override string Reason => "Invalid airport code";
     public InvalidCurrencyException()
     {
     }
@@ -48,22 +49,23 @@ public sealed class InvalidCurrencyException : AirFaresBusinessBaseException
     {
     }
 
-    public override string Reason => "Invalid airport code";
 }
 
 [ExcludeFromCodeCoverage]
 public sealed class InvalidFlightMatchException : AirFaresBusinessBaseException
 {
+    public override string Reason => "More flight numbers";
+
     public InvalidFlightMatchException(string message, object properties) : base(message + Environment.NewLine + properties.JsonSerializerSerializePretty())
     {
     }
 
-    public override string Reason => "More flight numbers";
 }
 
 [ExcludeFromCodeCoverage]
 public sealed class InvalidFlightFareException : AirFaresBusinessBaseException
 {
+    public override string Reason => "Invalid flight fare";
     public InvalidFlightFareException()
     {
     }
@@ -78,12 +80,13 @@ public sealed class InvalidFlightFareException : AirFaresBusinessBaseException
     {
     }
 
-    public override string Reason => "Invalid flight fare";
 }
 
 [ExcludeFromCodeCoverage]
 public sealed class InvalidTripSpecException : AirFaresBusinessBaseException
 {
+    public override string Reason => "Invalid trip spec";
+
     public InvalidTripSpecException()
     {
     }
@@ -98,16 +101,16 @@ public sealed class InvalidTripSpecException : AirFaresBusinessBaseException
     {
     }
 
-    public override string Reason => "Invalid trip spec";
 }
 
 [ExcludeFromCodeCoverage]
 public sealed class FlightFareNotFollowingSpecificationException : AirFaresBusinessBaseException
 {
+    public override string Reason => "Flights not following trip spec";
+
     public FlightFareNotFollowingSpecificationException(string message)
         : base(message)
     {
     }
 
-    public override string Reason => "Flights not following trip spec";
 }

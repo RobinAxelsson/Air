@@ -22,7 +22,11 @@ public sealed class InvalidConnectionStringException : AirFaresTechnicalBaseExce
 [ExcludeFromCodeCoverage]
 public sealed class RyanairServiceRequestException : AirFaresTechnicalBaseException
 {
-    public override string Reason => "Configuration Setting Missing";
+    public override string Reason => "Ryanair http request failed";
+
+    public RyanairServiceRequestException(string message) : base(message)
+    {
+    }
 
     public RyanairServiceRequestException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty())
     {
@@ -40,11 +44,33 @@ public sealed class DbContextReturnNullException : AirFaresTechnicalBaseExceptio
 }
 
 [ExcludeFromCodeCoverage]
-public sealed class ConfigurationSettingException : AirFaresTechnicalBaseException
+public sealed class ConfigurationSettingInvalidException : AirFaresTechnicalBaseException
 {
     public override string Reason => "Configuration Setting Missing";
 
-    public ConfigurationSettingException(string message)
+    public ConfigurationSettingInvalidException(string message)
+        : base(message)
+    {
+    }
+}
+
+[ExcludeFromCodeCoverage]
+public sealed class ConfigurationSettingValueEmptyException : AirFaresTechnicalBaseException
+{
+    public override string Reason => "Configuration Setting value is empty";
+
+    public ConfigurationSettingValueEmptyException(string message)
+        : base(message)
+    {
+    }
+}
+
+[ExcludeFromCodeCoverage]
+public sealed class ConfigurationSettingMissingException : AirFaresTechnicalBaseException
+{
+    public override string Reason => "Configuration Setting Missing";
+
+    public ConfigurationSettingMissingException(string message)
         : base(message)
     {
     }
@@ -57,6 +83,16 @@ public sealed class AirSqlConnectionException : AirFaresTechnicalBaseException
 
     public AirSqlConnectionException(string message, Exception inner)
         : base(message, inner)
+    {
+    }
+}
+
+[ExcludeFromCodeCoverage]
+public sealed class RyanairPingException : AirFaresTechnicalBaseException
+{
+    public override string Reason => "Unable to connect to ryanair";
+
+    public RyanairPingException(string message, Exception inner): base(message, inner)
     {
     }
 }
