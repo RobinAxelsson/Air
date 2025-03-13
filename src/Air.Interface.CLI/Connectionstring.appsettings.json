@@ -1,0 +1,16 @@
+{
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft": "Warning",
+            "Microsoft.Hosting.Lifetime": "Information"
+        }
+    },
+
+    "Appsettings": {
+        "DbConnectionString": "Server=localhost,1433;Database=Air.ProdDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;",
+        "RyanairBaseUrl": "https://www.ryanair.com/api/booking/v4/sv-se/"
+    },
+
+    "AllowedHosts": "*"
+}

@@ -1,6 +1,4 @@
-﻿using Air.Domain.Fares.Models.atomic;
-
-namespace Air.Domain;
+﻿namespace Air.Domain;
 
 public sealed record AirFlightFareDto
 {

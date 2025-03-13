@@ -8,7 +8,7 @@ internal class RyanairAvailability
     [JsonPropertyName("termsOfUse")]
     public string TermsOfUse { get; set; }
 
-    [JsonPropertyName("currency")]
+    [JsonPropertyName("Currency")]
     public string Currency { get; set; }
 
     [JsonPropertyName("currPrecision")]

@@ -4,7 +4,7 @@ using Air.Domain;
 
 internal class RyanairServiceGateway : IDisposable
 {
-    private HttpClient? _httpClient;
+    private HttpClient _httpClient;
     private bool _disposed;
 
     public RyanairServiceGateway(Func<HttpMessageHandler> httpMessageHandlerFactory, string baseUrl)

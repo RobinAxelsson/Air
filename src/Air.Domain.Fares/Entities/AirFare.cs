@@ -1,4 +1,4 @@
-﻿using Air.Domain.Fares.Models.atomic;
+﻿using Air.Domain;
 
 namespace Air.Domain;
 

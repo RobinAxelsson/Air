@@ -10,8 +10,8 @@ internal static class TripSpecValidator
 
     private static string? ValidateProperties(FlightSpecDto tripSpec)
     {
-        var originErrorMessage = ValidateAirport(tripSpec.Origin);
-        var destinationErrorMessage = ValidateAirport(tripSpec.Destination);
+        var originErrorMessage = AirportCodeValidator.ValidateWithErrorResult(tripSpec.Origin);
+        var destinationErrorMessage = AirportCodeValidator.ValidateWithErrorResult(tripSpec.Destination);
         var yearOfTravelErrorMessage = ValidateTravelYear(tripSpec.Date);
 
         var errorMessages = originErrorMessage + destinationErrorMessage + yearOfTravelErrorMessage;
@@ -34,10 +34,5 @@ internal static class TripSpecValidator
 
         return WithinTimeSpan(date) ? null
             : $"Flight must be between year {minimumYear} and {DateTime.Today.Year + 10} (inclusive)";
-    }
-
-    private static string? ValidateAirport(AirportCode airport)
-    {
-        return AirportCodeValidator.ValidateWithErrorResult(airport.ToString());
     }
 }

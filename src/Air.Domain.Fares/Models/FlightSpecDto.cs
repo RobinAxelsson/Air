@@ -8,5 +8,6 @@ namespace Air.Domain
         public required AirportCode Origin { get; init; }
         public required AirportCode Destination { get; init; }
         public required DateOnly Date { get; init; }
+        public required Currency Currency { get; init; }
     }
 }

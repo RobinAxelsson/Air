@@ -3,9 +3,9 @@
 
 using System.Net.Http.Json;
 using System.Net;
-using Air.Domain.Fares.Tests.AcceptanceTests.TestMediators;
+using Air.Domain.Fares.Test.Acceptance.TestMediators;
 
-namespace Air.Domain.Fares.AcceptanceTests.TestDoubles;
+namespace Air.Domain.Fares.Test.Acceptance.TestDoubles;
 
 internal sealed class HttpMessageHandlerSpy(TestMediator testMeditor) : DelegatingHandler
 {
@@ -24,7 +24,7 @@ internal sealed class HttpMessageHandlerSpy(TestMediator testMeditor) : Delegati
             return WriteFlightFareToResponse(request, flightFareDtos);
         }
 
-        if(_testMediator.ExceptionInformation.ExceptionReason != ExceptionReason.NotSet)
+        if (_testMediator.ExceptionInformation.ExceptionReason != ExceptionReason.NotSet)
         {
             var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
             {
