@@ -1,17 +1,34 @@
 ﻿namespace Air.Domain;
-public sealed class FaresFacade
+public sealed class FaresFacade : IDisposable
 {
-    private AirFlightManager FlightFareManager { get; }
+    private bool _disposed;
+
+    private AirFlightManager AirFlightManager { get; }
 
     public FaresFacade() : this(new ServiceLocator()) { }
 
     internal FaresFacade(ServiceLocatorBase serviceLocator)
     {
-        FlightFareManager = new AirFlightManager(serviceLocator);
+        AirFlightManager = new AirFlightManager(serviceLocator);
     }
 
     public async Task<SyncFlightFaresResult> SyncFlightFares(FlightSpecDto tripSpec)
     {
-        return await FlightFareManager.SyncFlightFares(tripSpec);
+        return await AirFlightManager.SyncFlightFares(tripSpec);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing && !_disposed && AirFlightManager != null)
+        {
+            AirFlightManager.Dispose();
+            _disposed = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

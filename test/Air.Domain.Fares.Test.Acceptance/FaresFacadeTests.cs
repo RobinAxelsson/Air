@@ -21,17 +21,23 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests
         {
             var (mediator, faresFacade) = CreateFaresFacade();
 
-            mediator.EnableRealServiceEndpoint = true;
+            try
+            {
+                mediator.EnableRealServiceEndpoint = true;
+                var syncFlightFaresResult = await faresFacade.SyncFlightFares(new FlightSpecDto() {
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(7)),
+                    Origin = AirportCode.GOT,
+                    Destination = AirportCode.STN,
+                });
 
-            var syncFlightFaresResult = await faresFacade.SyncFlightFares(new FlightSpecDto() {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(7)),
-                Origin = AirportCode.GOT,
-                Destination = AirportCode.STN,
-            });
-
-            await Assert.That(syncFlightFaresResult.FlightsCreated > 0 || syncFlightFaresResult.FlightsUpdated > 0).IsTrue();
-            var faresJson = JsonSerializer.Serialize(syncFlightFaresResult, new JsonSerializerOptions { WriteIndented = true });
-            Console.WriteLine(faresJson);
+                await Assert.That(syncFlightFaresResult.FlightsCreated > 0 || syncFlightFaresResult.FlightsUpdated > 0).IsTrue();
+                var faresJson = JsonSerializer.Serialize(syncFlightFaresResult, new JsonSerializerOptions { WriteIndented = true });
+                Console.WriteLine(faresJson);
+            }
+            finally
+            {
+                faresFacade.Dispose();
+            }
         }
     }
 }

@@ -2,9 +2,10 @@
 using Air.Domain;
 
 
-internal class RyanairServiceGateway
+internal class RyanairServiceGateway : IDisposable
 {
-    private readonly HttpClient _httpClient;
+    private HttpClient? _httpClient;
+    private bool _disposed;
 
     public RyanairServiceGateway(Func<HttpMessageHandler> httpMessageHandlerFactory, string baseUrl)
     {
@@ -70,5 +71,22 @@ internal class RyanairServiceGateway
         {
             throw new RyanairPingException($"Failed to ping base address '{baseAddress}'", ex);
         }
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing && !_disposed && _httpClient != null)
+        {
+            var localHttpClient = _httpClient;
+            localHttpClient.Dispose();
+            _httpClient = null!;
+            _disposed = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

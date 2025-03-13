@@ -3,11 +3,13 @@
 
 namespace Air.Domain;
 
-internal class AirFlightManager
+internal class AirFlightManager : IDisposable
 {
     private readonly ServiceLocatorBase _serviceLocator;
-    private RyanairServiceGateway? _ryanairGateway;
-    private RyanairServiceGateway RyanairGateway => _ryanairGateway ??= _serviceLocator.CreateRyanairGateway();
+    private RyanairServiceGateway? _ryanairServiceGateway;
+    private bool _disposed;
+
+    private RyanairServiceGateway RyanairGateway => _ryanairServiceGateway ??= _serviceLocator.CreateRyanairGateway();
 
     private ConfigurationProviderBase ConfigurationProvider { get; }
     private DataFacade DataFacade { get; }
@@ -30,71 +32,21 @@ internal class AirFlightManager
         await DataFacade.CreateAirFlights(airFlightsToCreate);
         return new SyncFlightFaresResult { FlightsUpdated = airFlightsToUpdate.Length, FlightsCreated = airFlightsToCreate.Length };
     }
-}
 
-internal static class AirFlightsIdentifyer
-{
-    internal static (AirFlight[] airFlightsToUpdate, AirFlight[] airFlightsToCreate) IdentifyUpdateAndCreate(AirFlight[] oldFlights, AirFlightFareDto[] newFlightFares)
+    private void Dispose(bool disposing)
     {
-        var matchedFlightsToUpdate = new List<(AirFlight oldFlight, AirFlightFareDto newFlight)>();
-        var toBeCreatedDtos = new List<AirFlightFareDto>();
-
-        foreach (var newFlight in newFlightFares)
+        if (disposing && !_disposed && _ryanairServiceGateway != null)
         {
-            var oldFlightMatchings = oldFlights.Where(f =>
-                f.FlightNumber == newFlight.FlightNumber &&
-                f.Origin == newFlight.Origin &&
-                f.Destination == newFlight.Destination &&
-                f.DepartureUtc.Date == newFlight.DepartureUtc.Date
-                ).ToArray();
-
-            if (oldFlightMatchings.Length == 0)
-            {
-                toBeCreatedDtos.Add(newFlight);
-            }
-
-            if (oldFlightMatchings.Length > 1)
-            {
-                throw new InvalidFlightMatchException("It was more then one flight found in the same direction with similar arrival and departure, should not be possible", new { oldFlightMatchings });
-            }
-
-            if (oldFlightMatchings.Length == 1)
-            {
-                matchedFlightsToUpdate.Add((oldFlightMatchings[0], newFlight));
-            }
+            var localImdbServiceGateway = _ryanairServiceGateway;
+            localImdbServiceGateway.Dispose();
+            _ryanairServiceGateway = null;
+            _disposed = true;
         }
-
-        foreach (var (oldFlight, newFlight) in matchedFlightsToUpdate)
-        {
-            var newFare = new AirFare { Currency = newFlight.Currency, Fare = newFlight.Fare, Source = newFlight.SourceUrl };
-
-            var newButDuplicatedFare = oldFlight.Fares.FirstOrDefault(f => f.Currency == newFare.Currency && f.Fare == newFare.Fare && f.Source == newFare.Source);
-            if (newButDuplicatedFare != null)
-            {
-                newButDuplicatedFare.LastObservedUtc = DateTime.UtcNow;
-                break;
-            }
-
-            oldFlight.Fares.Add(newFare);
-        }
-
-        var airFlightsToCreate = toBeCreatedDtos.Select(MapToAirFlight).ToArray();
-        var airFlightsToUpdate = matchedFlightsToUpdate.Select(m => m.oldFlight).ToArray();
-
-        return (airFlightsToUpdate, airFlightsToCreate);
     }
 
-    private static AirFlight MapToAirFlight(AirFlightFareDto flightFare)
+    public void Dispose()
     {
-        return new AirFlight
-        {
-            Airline = flightFare.Airline,
-            ArrivalUtc = flightFare.ArrivalUtc,
-            DepartureUtc = flightFare.DepartureUtc,
-            Destination = flightFare.Destination,
-            Fares = new List<AirFare> { new AirFare { Currency = flightFare.Currency, Fare = flightFare.Fare, Source = flightFare.SourceUrl } },
-            FlightNumber = flightFare.FlightNumber,
-            Origin = flightFare.Origin
-        };
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

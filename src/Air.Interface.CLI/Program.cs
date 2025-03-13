@@ -6,7 +6,7 @@ internal class Program
 {
     internal static async Task<int> Main(string[] args)
     {
-        var faresFacade = new FaresFacade();
+        using var faresFacade = new FaresFacade();
          
         var flightFares = await faresFacade.SyncFlightFares(new FlightSpecDto() {
             Date = new DateOnly(2025, 03, 22),
