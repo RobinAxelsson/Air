@@ -9,11 +9,19 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests
 {
     public class FaresFacadeTests
     {
+        private static (TestMediator mediator, FaresFacade faresFacade) CreateFaresFacade()
+        {
+            var testMediator = new TestMediator();
+            return (testMediator, new FaresFacade(new ServiceLocatorForAcceptanceTesting(testMediator)));
+        }
+
         [Category("AcceptanceTests")]
         [Test]
         public async Task SyncFares_WhenCalledWithGotToStn_xFaresUpdatedOrCreatedInDb()
         {
-            var faresFacade = new FaresFacade(new ServiceLocatorForAcceptanceTesting(new TestMediator()));
+            var (mediator, faresFacade) = CreateFaresFacade();
+
+            mediator.EnableRealServiceEndpoint = true;
 
             var syncFlightFaresResult = await faresFacade.SyncFlightFares(new FlightSpecDto() {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(7)),

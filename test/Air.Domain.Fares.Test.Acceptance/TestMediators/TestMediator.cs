@@ -8,6 +8,7 @@ namespace Air.Domain.Fares.Tests.AcceptanceTests.TestMediators
         public IEnumerable<AirFlightFareDto>? AirFlightFareDtoForSyncFlightFare { get; set; }
 
         public ExceptionInformation? ExceptionInformation { get; set; }
+        public bool EnableRealServiceEndpoint { get; internal set; }
     }
 
     internal sealed class ExceptionInformation

@@ -10,12 +10,10 @@ namespace Air.Domain.Fares.AcceptanceTests.TestDoubles;
 internal sealed class HttpMessageHandlerSpy(TestMediator testMeditor) : DelegatingHandler
 {
     private readonly TestMediator _testMediator = testMeditor;
-    private bool _onlySpyNoInterception = true;
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        //temporary implementation
-        if (_onlySpyNoInterception)
+        if (_testMediator.EnableRealServiceEndpoint)
         {
             return base.SendAsync(request, cancellationToken);
         }
@@ -37,7 +35,7 @@ internal sealed class HttpMessageHandlerSpy(TestMediator testMeditor) : Delegati
             return Task.FromResult(httpResponseMessage);
         }
 
-        throw new NotImplementedException();
+        throw new NotImplementedException("There should be an predefined property set in the _testMediator that changes the control flow");
     }
 
     private static Task<HttpResponseMessage> WriteFlightFareToResponse(HttpRequestMessage request, IEnumerable<AirFlightFareDto> flightFareDtos)
