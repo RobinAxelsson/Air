@@ -7,13 +7,17 @@ internal static class FlightSpecDtoFactory
 {
     private static bool _cloneIsValidated;
 
-    //we do all this with the clone:
-    //1. so that we can keep immutablilty in the model
-    //2. harder to break the tests
-    public static FlightSpecDto DefaultCustomizableCore(Func<FlightSpecDtoClone> func)
+    /// <summary>
+    /// The properties for the original get set with default values except the ones specified in the input action
+    /// </summary>
+    /// <param name="customize"></param>
+    /// <returns></returns>
+    public static FlightSpecDto Customizable(Action<FlightSpecDtoClone> customize)
     {
         EnsureCloneIsValidated();
-        var clone = func == null ? new FlightSpecDtoClone() : func();
+
+        var clone = new FlightSpecDtoClone();
+        customize(clone);
         return new FlightSpecDto
         {
             Currency = clone.Currency ?? Currency.SEK,
@@ -22,10 +26,7 @@ internal static class FlightSpecDtoFactory
             Origin = clone.Origin ?? AirportCode.GOT,
             Destination = clone.Destination ?? AirportCode.STN,
         };
-
     }
-
-    
 
     public static FlightSpecDto ValidStub()
     {

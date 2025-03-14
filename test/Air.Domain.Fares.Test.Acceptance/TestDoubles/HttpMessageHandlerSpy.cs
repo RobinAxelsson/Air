@@ -13,49 +13,44 @@ internal sealed class HttpMessageHandlerSpy(TestMediator testMeditor) : Delegati
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        if (_testMediator.EnableRealServiceEndpoint)
-        {
-            return base.SendAsync(request, cancellationToken);
-        }
+        return base.SendAsync(request, cancellationToken);
 
-        if (_testMediator.ExceptionInformation == null)
-        {
-            var flightFareDtos = _testMediator.AirFlightFareDtoForSyncFlightFare!;
-            return WriteFlightFareToResponse(request, flightFareDtos);
-        }
+        //if (_testMediator.ExceptionInformation == null)
+        //{
+        //    var flightFareDtos = _testMediator.RyanairResponseForSyncFlightFare!;
+        //    return WriteFlightFareToResponse(request, flightFareDtos);
+        //}
 
-        if (_testMediator.ExceptionInformation.ExceptionReason != ExceptionReason.NotSet)
-        {
-            var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                StatusCode = (HttpStatusCode)_testMediator.ExceptionInformation.ExceptionReason,
-                Content = new StringContent("Exception Occured")
-            };
+        //if (_testMediator.ExceptionInformation.ExceptionReason != null)
+        //{
+        //    var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
+        //    {
+        //        StatusCode = (HttpStatusCode)_testMediator.ExceptionInformation.ExceptionReason,
+        //        Content = new StringContent("Exception Occured")
+        //    };
 
-            return Task.FromResult(httpResponseMessage);
-        }
-
-        throw new NotImplementedException("There should be an predefined property set in the _testMediator that changes the control flow");
+        //    return Task.FromResult(httpResponseMessage);
+        //}
     }
 
-    private static Task<HttpResponseMessage> WriteFlightFareToResponse(HttpRequestMessage request, IEnumerable<AirFlightFareDto> flightFareDtos)
-    {
-        RyanairAvailability availability = default!;
+    //private static Task<HttpResponseMessage> WriteFlightFareToResponse(HttpRequestMessage request, IEnumerable<AirFlightFareDto> flightFareDtos)
+    //{
+    //    RyanairAvailability availability = default!;
 
-        var absolutePath = request.RequestUri!.AbsolutePath;
+    //    var absolutePath = request.RequestUri!.AbsolutePath;
 
-        if (absolutePath.Contains("/availability?"))
-        {
-            availability = MapAirFlightFareDtoToAvailability(flightFareDtos);
-        }
+    //    if (absolutePath.Contains("/availability?"))
+    //    {
+    //        availability = MapAirFlightFareDtoToAvailability(flightFareDtos);
+    //    }
 
-        var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
-        {
-            Content = JsonContent.Create(availability)
-        };
+    //    var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
+    //    {
+    //        Content = JsonContent.Create(availability)
+    //    };
 
-        return Task.FromResult(httpResponseMessage);
-    }
+    //    return Task.FromResult(httpResponseMessage);
+    //}
 
-    private static RyanairAvailability MapAirFlightFareDtoToAvailability(IEnumerable<AirFlightFareDto> flightFareDtos) => throw new NotImplementedException();
+    //private static RyanairAvailability MapAirFlightFareDtoToAvailability(IEnumerable<AirFlightFareDto> flightFareDtos) => throw new NotImplementedException();
 }

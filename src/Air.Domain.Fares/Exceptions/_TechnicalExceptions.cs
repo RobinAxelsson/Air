@@ -10,7 +10,7 @@ namespace Air.Domain;
 [ExcludeFromCodeCoverage]
 public sealed class InvalidConnectionStringException : AirFaresTechnicalBaseException
 {
-    public override string Reason => "Invalid connedction string";
+    public override string HttpReason => "Invalid connedction string";
 
     public InvalidConnectionStringException(string message)
         : base(message)
@@ -20,25 +20,11 @@ public sealed class InvalidConnectionStringException : AirFaresTechnicalBaseExce
 
 
 [ExcludeFromCodeCoverage]
-public sealed class RyanairServiceRequestException : AirFaresTechnicalBaseException
-{
-    public override string Reason => "Ryanair http request failed";
-
-    public RyanairServiceRequestException(string message) : base(message)
-    {
-    }
-
-    public RyanairServiceRequestException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty())
-    {
-    }
-}
-
-[ExcludeFromCodeCoverage]
 public sealed class DbContextReturnNullException : AirFaresTechnicalBaseException
 {
-    public override string Reason => "Data access read failed";
+    public override string HttpReason => "Data access read failed";
 
-    public DbContextReturnNullException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty())
+    public DbContextReturnNullException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializePretty())
     {
     }
 }
@@ -46,7 +32,7 @@ public sealed class DbContextReturnNullException : AirFaresTechnicalBaseExceptio
 [ExcludeFromCodeCoverage]
 public sealed class ConfigurationSettingInvalidException : AirFaresTechnicalBaseException
 {
-    public override string Reason => "Configuration Setting Missing";
+    public override string HttpReason => "Configuration Setting Missing";
 
     public ConfigurationSettingInvalidException(string message)
         : base(message)
@@ -57,7 +43,7 @@ public sealed class ConfigurationSettingInvalidException : AirFaresTechnicalBase
 [ExcludeFromCodeCoverage]
 public sealed class ConfigurationSettingValueEmptyException : AirFaresTechnicalBaseException
 {
-    public override string Reason => "Configuration Setting value is empty";
+    public override string HttpReason => "Configuration Setting value is empty";
 
     public ConfigurationSettingValueEmptyException(string message)
         : base(message)
@@ -68,7 +54,7 @@ public sealed class ConfigurationSettingValueEmptyException : AirFaresTechnicalB
 [ExcludeFromCodeCoverage]
 public sealed class ConfigurationSettingMissingException : AirFaresTechnicalBaseException
 {
-    public override string Reason => "Configuration Setting Missing";
+    public override string HttpReason => "Configuration Setting Missing";
 
     public ConfigurationSettingMissingException(string message)
         : base(message)
@@ -79,7 +65,7 @@ public sealed class ConfigurationSettingMissingException : AirFaresTechnicalBase
 [ExcludeFromCodeCoverage]
 public sealed class AirSqlConnectionException : AirFaresTechnicalBaseException
 {
-    public override string Reason => "Unable to connect to sql server";
+    public override string HttpReason => "Unable to connect to sql server";
 
     public AirSqlConnectionException(string message, Exception inner)
         : base(message, inner)
@@ -88,11 +74,25 @@ public sealed class AirSqlConnectionException : AirFaresTechnicalBaseException
 }
 
 [ExcludeFromCodeCoverage]
-public sealed class RyanairPingException : AirFaresTechnicalBaseException
+public sealed class RyanairServiceConnectionException : AirFaresTechnicalBaseException
 {
-    public override string Reason => "Unable to connect to ryanair";
+    public override string HttpReason => "Unable to connect to service";
 
-    public RyanairPingException(string message, Exception inner): base(message, inner)
+    public RyanairServiceConnectionException(string message, Exception inner): base(message, inner)
+    {
+    }
+}
+
+[ExcludeFromCodeCoverage]
+public sealed class RyanairServiceRequestException : AirFaresTechnicalBaseException
+{
+    public override string HttpReason => "Ryanair http request failed";
+
+    public RyanairServiceRequestException(string message) : base(message)
+    {
+    }
+
+    public RyanairServiceRequestException(string message, Exception ex) : base()
     {
     }
 }
@@ -100,8 +100,8 @@ public sealed class RyanairPingException : AirFaresTechnicalBaseException
 [ExcludeFromCodeCoverage]
 public sealed class DbContextCreateAirFlightsException : AirFaresTechnicalBaseException
 {
-    public override string Reason => "";
-    public DbContextCreateAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty(), inner)
+    public override string HttpReason => "Failed creating flights";
+    public DbContextCreateAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializePretty(), inner)
     {
     }
 }
@@ -109,8 +109,8 @@ public sealed class DbContextCreateAirFlightsException : AirFaresTechnicalBaseEx
 [ExcludeFromCodeCoverage]
 public sealed class DbContextUpdateAirFlightsException : AirFaresTechnicalBaseException
 {
-    public override string Reason => "";
-    public DbContextUpdateAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty(), inner)
+    public override string HttpReason => "Failed updating flights";
+    public DbContextUpdateAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializePretty(), inner)
     {
     }
 }
@@ -118,8 +118,8 @@ public sealed class DbContextUpdateAirFlightsException : AirFaresTechnicalBaseEx
 [ExcludeFromCodeCoverage]
 public sealed class DbContextGetAirFlightsException : AirFaresTechnicalBaseException
 {
-    public override string Reason => "";
-    public DbContextGetAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty(), inner)
+    public override string HttpReason => "Failed retrieving flights";
+    public DbContextGetAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializePretty(), inner)
     {
     }
 }

@@ -5,20 +5,19 @@ namespace Air.Domain.Fares.Test.Acceptance.TestMediators
 {
     internal sealed class TestMediator
     {
-        public IEnumerable<AirFlightFareDto>? AirFlightFareDtoForSyncFlightFare { get; set; }
+        public IEnumerable<AirFlightFareDto>? RyanairResponseForSyncFlightFare { get; set; }
 
         public ExceptionInformation? ExceptionInformation { get; set; }
-        public bool EnableRealServiceEndpoint { get; internal set; }
+        public bool UseDefaultRequest { get; internal set; }
     }
 
     internal sealed class ExceptionInformation
     {
-        public ExceptionReason ExceptionReason { get; set; }
+        public ExceptionReason? ExceptionReason { get; set; }
     }
 
     internal enum ExceptionReason
     {
-        NotSet = 0,
         NotFond = 404,
         BadRequest = 400,
         ProxyAuthenticationRequired = 407,

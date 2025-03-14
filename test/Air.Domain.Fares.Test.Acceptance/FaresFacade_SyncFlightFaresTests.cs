@@ -15,15 +15,14 @@ public class FaresFacade_SyncFlightFaresTests
         return (new FaresFacade(new ServiceLocatorForAcceptanceTesting(testMediator)), testMediator);
     }
 
-    [Category("Acceptance Origin")]
+    [Category("Acceptance Test")]
     [Test]
     public async Task SyncFlightFares_WhenCalledWithGotToStn_xFaresUpdatedOrCreatedInDb()
     {
-        var (faresFacade, mediator) = CreateDomainFacade();
+        var (faresFacade, _) = CreateDomainFacade();
 
         try
         {
-            mediator.EnableRealServiceEndpoint = true;
             var syncFlightFaresResult = await faresFacade.SyncFlightFares(FlightSpecDtoFactory.ValidStub());
 
             await Assert.That(syncFlightFaresResult.FlightsCreated > 0 || syncFlightFaresResult.FlightsUpdated > 0).IsTrue();
@@ -37,26 +36,19 @@ public class FaresFacade_SyncFlightFaresTests
     }
 
     [Test]
-    [Category("Acceptance Origin")]
-    public async Task SyncFlightFare_WhenCalledWithAnInvalidAirport_ShouldThrow()
+    [Category("Acceptance Test")]
+    public async Task SyncFlightFares_WhenCalledWithAnInvalidAirport_ShouldThrow()
     {
         // Arrange
         var (domainFacade, _) = CreateDomainFacade();
         var invalidAirport = (AirportCode)int.MaxValue;
-        var irrelevantDate = DateOnly.FromDateTime(DateTime.Now.AddDays(7));
-        var flightSpecDto = new FlightSpecDto()
-        {
-            Date = irrelevantDate,
-            Origin = invalidAirport,
-            Destination = AirportCode.STN,
-            Currency = Currency.SEK
-        };
+        var flightSpecDto = FlightSpecDtoFactory.Customizable(flightSpec => flightSpec.Origin = invalidAirport);
 
         try
         {
             // Act
             await domainFacade.SyncFlightFares(flightSpecDto);
-            Assert.Fail("We were expecting an InvalidAirportException expection to be thrown but no exception was thrown");
+            Assert.Fail($"We were expecting an {nameof(InvalidTripSpecException)} expection to be thrown but no exception was thrown");
         }
         catch (InvalidTripSpecException e)
         {
@@ -67,35 +59,4 @@ public class FaresFacade_SyncFlightFaresTests
             domainFacade.Dispose();
         }
     }
-
-    //[Origin]
-    //[Category("Acceptance Origin")]
-    //public async Task SyncFlightFares_WhenCalledWithAnInvalidGenre_ShouldThrow()
-    //{
-    //    // Arrange
-    //    var (domainFacade, _) = CreateDomainFacade();
-    //    var invalidAirport = (AirportCode)int.MaxValue;
-    //    var irrelevantDate = DateOnly.FromDateTime(DateTime.Now.AddDays(7));
-    //    var flightSpecDto = new FlightSpecDtoClone()
-    //    {
-    //        Date = irrelevantDate,
-    //        Origin = invalidAirport,
-    //        Destination = AirportCode.STN,
-    //    };
-
-    //    try
-    //    {
-    //        // Act
-    //        await domainFacade.SyncFlightFares(flightSpecDto);
-    //        Assert.Fail("We were expecting an InvalidAirportException expection to be thrown but no exception was thrown");
-    //    }
-    //    catch (InvalidTripSpecException e)
-    //    {
-    //        await Assert.That(e.Message).Contains($"AirportCode code '{invalidAirport}' is not valid");
-    //    }
-    //    finally
-    //    {
-    //        domainFacade.Dispose();
-    //    }
-    //}
 }

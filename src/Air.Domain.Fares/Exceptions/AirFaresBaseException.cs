@@ -8,7 +8,7 @@ namespace Air.Domain;
 [ExcludeFromCodeCoverage]
 public abstract class AirFaresBaseException : Exception
 {
-    public abstract string Reason { get; }
+    public abstract string HttpReason { get; }
 
     protected AirFaresBaseException()
     {

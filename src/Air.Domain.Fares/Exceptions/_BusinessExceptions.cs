@@ -10,9 +10,9 @@ namespace Air.Domain;
 [ExcludeFromCodeCoverage]
 public sealed class FlightDurationComparisonException : AirFaresBusinessBaseException
 {
-    public override string Reason => "Flight duration difference";
+    public override string HttpReason => "Flight duration difference";
 
-    public FlightDurationComparisonException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializerSerializePretty())
+    public FlightDurationComparisonException(string message, object properties) : base(message += Environment.NewLine + properties.JsonSerializePretty())
     {
     }
 }
@@ -20,7 +20,7 @@ public sealed class FlightDurationComparisonException : AirFaresBusinessBaseExce
 [ExcludeFromCodeCoverage]
 public sealed class InvalidAirportException : AirFaresBusinessBaseException
 {
-    public override string Reason => "Invalid airport code";
+    public override string HttpReason => "Invalid airport code";
     public InvalidAirportException()
     {
     }
@@ -39,7 +39,7 @@ public sealed class InvalidAirportException : AirFaresBusinessBaseException
 [ExcludeFromCodeCoverage]
 public sealed class InvalidCurrencyException : AirFaresBusinessBaseException
 {
-    public override string Reason => "Invalid airport code";
+    public override string HttpReason => "Invalid airport code";
     public InvalidCurrencyException()
     {
     }
@@ -54,9 +54,9 @@ public sealed class InvalidCurrencyException : AirFaresBusinessBaseException
 [ExcludeFromCodeCoverage]
 public sealed class InvalidFlightMatchException : AirFaresBusinessBaseException
 {
-    public override string Reason => "More flight numbers";
+    public override string HttpReason => "More flight numbers";
 
-    public InvalidFlightMatchException(string message, object properties) : base(message + Environment.NewLine + properties.JsonSerializerSerializePretty())
+    public InvalidFlightMatchException(string message, object properties) : base(message + Environment.NewLine + properties.JsonSerializePretty())
     {
     }
 
@@ -65,7 +65,7 @@ public sealed class InvalidFlightMatchException : AirFaresBusinessBaseException
 [ExcludeFromCodeCoverage]
 public sealed class InvalidFlightFareException : AirFaresBusinessBaseException
 {
-    public override string Reason => "Invalid flight fare";
+    public override string HttpReason => "Invalid flight fare";
     public InvalidFlightFareException()
     {
     }
@@ -85,7 +85,7 @@ public sealed class InvalidFlightFareException : AirFaresBusinessBaseException
 [ExcludeFromCodeCoverage]
 public sealed class InvalidTripSpecException : AirFaresBusinessBaseException
 {
-    public override string Reason => "Invalid trip spec";
+    public override string HttpReason => "Invalid trip spec";
 
     public InvalidTripSpecException()
     {
@@ -106,7 +106,7 @@ public sealed class InvalidTripSpecException : AirFaresBusinessBaseException
 [ExcludeFromCodeCoverage]
 public sealed class FlightFareNotFollowingSpecificationException : AirFaresBusinessBaseException
 {
-    public override string Reason => "Flights not following trip spec";
+    public override string HttpReason => "Flights not following trip spec";
 
     public FlightFareNotFollowingSpecificationException(string message)
         : base(message)

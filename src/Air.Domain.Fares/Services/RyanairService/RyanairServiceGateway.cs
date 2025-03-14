@@ -10,8 +10,8 @@ internal class RyanairServiceGateway : IDisposable
     public RyanairServiceGateway(Func<HttpMessageHandler> httpMessageHandlerFactory, string baseUrl)
     {
         _httpClient = new HttpClient(new ValidateAbsoluteUriDelegatingHandler(httpMessageHandlerFactory(), baseUrl));
-        EnsureDomainIsValid(baseUrl);
         _httpClient.BaseAddress = new Uri(baseUrl);
+        EnsureRyanairConnectivity(_httpClient);
     }
 
     public async Task<AirFlightFareDto[]> GetFlightFares(FlightSpecDto tripSpec)
@@ -56,20 +56,30 @@ internal class RyanairServiceGateway : IDisposable
         var body = await response.Content.ReadAsStringAsync();
         var responseDto = HttpResponseParser.Parse(response, body);
 
-        throw new RyanairServiceRequestException($"The ryanair Service call failed with response:", responseDto);
+        throw new RyanairServiceRequestException($"The ryanair Service call failed with response:\n" + responseDto.JsonSerializePretty());
     }
 
-    private static void EnsureDomainIsValid(string baseAddress)
+    private static void EnsureRyanairConnectivity(HttpClient _httpClient)
     {
         try
         {
-            var domain = new Uri(baseAddress).Host;
+            var domain = _httpClient.BaseAddress!.Host;
             using var ping = new Ping();
             ping.Send(domain);
         }
         catch (PingException ex)
         {
-            throw new RyanairPingException($"Failed to ping base address '{baseAddress}'", ex);
+            throw new RyanairServiceConnectionException($"Failed to ping base address '{_httpClient.BaseAddress}'", ex);
+        }
+
+        try
+        {
+            var request = new HttpRequestMessage(HttpMethod.Head, _httpClient.BaseAddress);
+            _ = _httpClient.Send(request);
+        }
+        catch (Exception ex)
+        {
+            throw new RyanairServiceConnectionException($"Host reachable but failed to do a http or https request to address '{_httpClient.BaseAddress}'", ex);
         }
     }
 

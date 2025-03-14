@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 
+using System;
+
 namespace Air.Domain;
 
 internal abstract class ConfigurationProviderBase
@@ -14,6 +16,12 @@ internal abstract class ConfigurationProviderBase
     public string GetRyanairServiceBaseUrl()
     {
         var ryanairBaseUrl = RetrieveConfigurationSettingValueThrowIfMissing("RyanairBaseUrl");
+
+        if(!Uri.TryCreate(ryanairBaseUrl, UriKind.Absolute, out var uriResult) || !(uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+        {
+            throw new ConfigurationSettingInvalidException($"RyanairBaseUrl '{ryanairBaseUrl}' is not a valid url");
+        }
+
         if (!ryanairBaseUrl.EndsWith("/", StringComparison.OrdinalIgnoreCase))
         {
             throw new ConfigurationSettingInvalidException($"RyanairBaseUrl '{ryanairBaseUrl}' should end with a forward slash");
