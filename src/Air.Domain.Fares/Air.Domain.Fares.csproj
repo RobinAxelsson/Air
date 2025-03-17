@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="Air.Domain.Fares.Test.Acceptance" />
+    <InternalsVisibleTo Include="Air.Domain.Fares.Test.Class" />
   </ItemGroup>
 
 </Project>
