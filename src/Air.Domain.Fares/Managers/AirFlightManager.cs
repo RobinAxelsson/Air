@@ -1,6 +1,8 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.Collections.Immutable;
+
 namespace Air.Domain;
 
 internal class AirFlightManager : IDisposable
@@ -31,6 +33,11 @@ internal class AirFlightManager : IDisposable
         await DataFacade.UpdateAirFlights(airFlightsToUpdate);
         await DataFacade.CreateAirFlights(airFlightsToCreate);
         return new SyncFlightFaresResult { FlightsUpdated = airFlightsToUpdate.Length, FlightsCreated = airFlightsToCreate.Length };
+    }
+
+    public async Task<ImmutableList<AirFlight>> GetAirFlights()
+    {
+        return await DataFacade.GetAirFlights();
     }
 
     private void Dispose(bool disposing)

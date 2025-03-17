@@ -2,9 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Reflection;
+using Air.Domain.Fares.Test.Acceptance.TestExceptions;
 
-
-namespace Air.Domain.Fares.Test.Acceptance.Helpers;
+namespace Air.Domain.Fares.Test.Acceptance.TestDataGenerators.Helpers;
 internal static class TripSpecDtoCloneValidator
 {
     //No validation for types - that does the compiler

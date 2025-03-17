@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
 using System.Text;
-using Air.Domain.Fares.Test.Acceptance.Helpers;
+using Air.Domain.Fares.Test.Acceptance.TestExceptions;
 
-namespace Testing.Shared;
+namespace Air.Domain.Fares.Test.Acceptance.Helpers;
 
 public static class AssertEx
 {
@@ -25,7 +25,7 @@ public static class AssertEx
 
         if (somePartNotFound)
         {
-            throw new FailedExceptionAssertException(exceptionMessages.ToString(), exception);
+            throw new FailedExceptionAssertionException(exceptionMessages.ToString(), exception);
         }
     }
 
@@ -48,7 +48,7 @@ public static class AssertEx
 
         if (somePartFound)
         {
-            throw new FailedExceptionAssertException(exceptionMessages.ToString(), exception);
+            throw new FailedExceptionAssertionException(exceptionMessages.ToString(), exception);
         }
     }
 }

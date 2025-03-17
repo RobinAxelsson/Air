@@ -34,25 +34,25 @@ function RunTest(){
 
     $exe = NormalizePath "$out_dir/Air.Interface.CLI.exe"
     if(!(Test-Path $exe)){
-        throw "Could not find the dotnet exe in path: $exe"
+        throw "Could not find path '$exe' after building the CLI"
     }
 
-    if($args.Length -eq 1){
-        $coveragePath = $args[0]
-        dotnet-coverage collect -f cobertura -o $coveragePath -- $exe
-    }
-    else {
+    # if($args.Length -eq 1){
+    #     $coveragePath = $args[0]
+    #     dotnet-coverage collect -f cobertura -o $coveragePath -- "$exe sync-fares"
+    # }
+    # else {
 
         # Do not change these strings they are used to filter the output of the tests
         Write-Host "-----Start running CLI-----"
-        Invoke-Expression $exe
+        Invoke-Expression "$exe sync-fares"
         Write-Host "--------CLI exited---------"
 
         # the exception from the exe does not bubble up to the powershell script
         if($LASTEXITCODE -ne 0){
             throw "The dotnet exe file exited with code: $LASTEXITCODE path: $exe"
         }
-    }
+    # }
 }
 
 function InitDevEnv(){

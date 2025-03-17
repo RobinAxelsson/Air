@@ -4,98 +4,57 @@ using Air.Domain;
 namespace Air.Interface.CLI;
 internal class Program
 {
+    private const string Help =
+        "Usage: exe <command>\n"
+        + "Commands:\n"
+        + "  sync-fares - updates flight fares\n"
+        + "  get-fares  - get flight fares\n";
+
     internal static async Task<int> Main(string[] args)
     {
-        using var faresFacade = new FaresFacade();
+        if (args.Length == 0)
+        {
+            throw new ArgumentException($"No arguments provided\n" + Help);
+        }
+        if (args.Length > 1)
+        {
+            throw new ArgumentException($"Only one argument is allowed, arguments provided '{string.Join(", ", args)}'\n" + Help);
+        }
+
+        if (args[0] == "--help" || args[0] == "-h")
+        {
+            Console.WriteLine(Help);
+            return 0;
+        }
+
+        var action = args[0];
+
+        if(action == "sync-fares")
+        {
+            using var faresFacade = new FaresFacade();
          
-        var flightFares = await faresFacade.SyncFlightFares(new FlightSpecDto() {
-            Date = new DateOnly(2025, 03, 22),
-            Origin = AirportCode.GOT,
-            Destination = AirportCode.STN,
-            Currency = Currency.SEK
-        });
-         
-        Console.WriteLine(JsonSerializer.Serialize(flightFares, new JsonSerializerOptions { WriteIndented = true }));
+            var flightFares = await faresFacade.SyncFlightFares(new FlightSpecDto() {
+                Date = new DateOnly(2025, 03, 22),
+                Origin = AirportCode.GOT,
+                Destination = AirportCode.STN,
+                Currency = Currency.SEK
+            });
 
-        return 0;
+            Console.WriteLine(JsonSerializer.Serialize(flightFares, new JsonSerializerOptions { WriteIndented = true }));
+            return 0;
+        }
 
-        //if (args[0] == "--help" || args[0] == "-h")
-        //{
-        //    PrintHelpText();
-        //    return 0;
-        //}
 
-        //if (args.Length < 3)
-        //{
-        //    PrintHelpText();
-        //    return 1;
-        //}
+        if(action == "get-fares")
+        {
+            using var faresFacade = new FaresFacade();
 
-        //if (!int.TryParse(args[1], out int week) || week < 1 || week > 53)
-        //{
-        //    Console.WriteLine("Error: Invalid week number.");
-        //    PrintHelpText();
-        //    return 1;
-        //}
+            var airFlights = await faresFacade.GetAirFlight();
 
-        //if (!int.TryParse(args[1], out int year) || year <= 3000 || week >= 1900)
-        //{
-        //    Console.WriteLine("Error: Invalid year number.");
-        //    PrintHelpText();
-        //    return 1;
-        //}
+            Console.WriteLine(JsonSerializer.Serialize(airFlights, new JsonSerializerOptions { WriteIndented = true }));
+            return 0;
+        }
 
-        //var faresModule = new FaresFacade();
-
-        //string command = args[0];
-        //switch (command)
-        //{
-        //    case "update-surf-fares":
-        //        Console.WriteLine($"Updating weekly surf fares for week: {week}...");
-        //        await faresModule.UpdateSurfFares(week, year);
-        //        break;
-
-        //    case "create-weekend-report":
-        //        Console.WriteLine($"Creating weekend surf report for week: {week}...");
-        //        await faresModule.CreateWeekendSurfReport(week, year);
-        //        break;
-
-        //    case "get-weekend-report":
-        //        Console.WriteLine($"Getting weekend surf report for week {week}...");
-        //        var weekendSurfReport = await faresModule.GetWeekendSurfReport(week, year);
-        //        var json = JsonSerializer.Serialize(weekendSurfReport, new JsonSerializerOptions { WriteIndented = true });
-
-        //        string timestamp = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
-        //        string fileName = $"weekend-report-week-{week}-{timestamp}.json";
-        //        await File.WriteAllTextAsync(fileName, json);
-
-        //        Console.WriteLine($"Report saved to {fileName}");
-        //        break;
-
-        //    case "create-emails":
-        //        await faresModule.CreateEmails(year, week);
-        //        Console.WriteLine("Sending emails...");
-        //        break;
-
-        //    case "send-emails":
-        //        Console.WriteLine("Sending emails...");
-        //        await faresModule.SendEmails(year, week);
-        //        break;
-
-        //    default:
-        //        PrintHelpText();
-        //        return 1;
-        //}
-        //return 0;
+        throw new ArgumentException($"Invalid command: {args[0]}\n" + Help);
     }
-
-    //private static void PrintHelpText()
-    //{
-    //    Console.WriteLine("Missing arguments. Usage: <command> <week> <year>");
-    //    Console.WriteLine("Commands:");
-    //    Console.WriteLine("  update-surf-fares <week> <year>  - Updates weekly surf fares");
-    //    Console.WriteLine("  create-weekend-report <week> <year>  - Creates a weekend surf report");
-    //    Console.WriteLine("  get-weekend-report <week> <year>  - Retrieves and saves the weekend surf report");
-    //    Console.WriteLine("  send-emails  - Sends notification emails (TODO: Implement)");
-    //}
 }

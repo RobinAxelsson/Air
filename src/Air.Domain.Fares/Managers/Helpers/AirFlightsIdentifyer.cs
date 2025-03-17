@@ -5,7 +5,7 @@ namespace Air.Domain;
 
 internal static class AirFlightsIdentifyer
 {
-    internal static (AirFlight[] airFlightsToUpdate, AirFlight[] airFlightsToCreate) IdentifyUpdateAndCreate(AirFlight[] oldFlights, AirFlightFareDto[] newFlightFares)
+    internal static (AirFlight[] airFlightsToUpdate, AirFlight[] airFlightsToCreate) IdentifyUpdateAndCreate(IEnumerable<AirFlight> oldFlights, AirFlightFareDto[] newFlightFares)
     {
         var matchedFlightsToUpdate = new List<(AirFlight oldFlight, AirFlightFareDto newFlight)>();
         var toBeCreatedDtos = new List<AirFlightFareDto>();

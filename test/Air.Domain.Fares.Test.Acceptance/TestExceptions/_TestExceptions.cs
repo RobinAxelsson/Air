@@ -1,7 +1,7 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-namespace Air.Domain.Fares.Test.Acceptance.Helpers;
+namespace Air.Domain.Fares.Test.Acceptance.TestExceptions;
 
 internal abstract class AirTestException : Exception
 {
@@ -33,17 +33,17 @@ internal class InvalidTestCloneException : AirTestException
     }
 }
 
-internal class FailedExceptionAssertException : AirTestException
+internal class FailedExceptionAssertionException : AirTestException
 {
-    public FailedExceptionAssertException()
+    public FailedExceptionAssertionException()
     {
     }
 
-    public FailedExceptionAssertException(string? message) : base(message)
+    public FailedExceptionAssertionException(string? message) : base(message)
     {
     }
 
-    public FailedExceptionAssertException(string? message, Exception? innerException) : base(message, innerException)
+    public FailedExceptionAssertionException(string? message, Exception? innerException) : base(message, innerException)
     {
     }
 }

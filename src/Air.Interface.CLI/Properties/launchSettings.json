@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Air.Interface.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "get-fares"
+    }
+  }
+}

@@ -1,6 +1,8 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.Collections.Immutable;
+
 namespace Air.Domain;
 
 internal class DataFacade
@@ -15,9 +17,14 @@ internal class DataFacade
         SqlConnectionValidator.EnsureConnection(_dbConnectionString);
     }
 
-    internal async Task<AirFlight[]> GetAirFlights(FlightSpecDto tripSpec)
+    internal async Task<ImmutableList<AirFlight>> GetAirFlights(FlightSpecDto tripSpec)
     {
         return await AirFlightDataManager.GetAirFlights(tripSpec);
+    }
+
+    internal async Task<ImmutableList<AirFlight>> GetAirFlights()
+    {
+        return await AirFlightDataManager.GetAirFlights();
     }
 
     internal async Task CreateAirFlights(AirFlight[] airFlights)

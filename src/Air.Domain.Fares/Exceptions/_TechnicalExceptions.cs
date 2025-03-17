@@ -101,7 +101,7 @@ public sealed class RyanairServiceRequestException : AirFaresTechnicalBaseExcept
 public sealed class DbContextCreateAirFlightsException : AirFaresTechnicalBaseException
 {
     public override string HttpReason => "Failed creating flights";
-    public DbContextCreateAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializePretty(), inner)
+    public DbContextCreateAirFlightsException(string message, Exception inner) : base(message, inner)
     {
     }
 }
@@ -110,7 +110,7 @@ public sealed class DbContextCreateAirFlightsException : AirFaresTechnicalBaseEx
 public sealed class DbContextUpdateAirFlightsException : AirFaresTechnicalBaseException
 {
     public override string HttpReason => "Failed updating flights";
-    public DbContextUpdateAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializePretty(), inner)
+    public DbContextUpdateAirFlightsException(string message, Exception inner) : base(message, inner)
     {
     }
 }
@@ -119,7 +119,7 @@ public sealed class DbContextUpdateAirFlightsException : AirFaresTechnicalBaseEx
 public sealed class DbContextGetAirFlightsException : AirFaresTechnicalBaseException
 {
     public override string HttpReason => "Failed retrieving flights";
-    public DbContextGetAirFlightsException(string message, object properties, Exception inner) : base(message += Environment.NewLine + properties.JsonSerializePretty(), inner)
+    public DbContextGetAirFlightsException(string message, Exception inner) : base(message, inner)
     {
     }
 }

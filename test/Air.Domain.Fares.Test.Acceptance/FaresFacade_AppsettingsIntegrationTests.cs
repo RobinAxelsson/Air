@@ -2,9 +2,10 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using Air.Domain.Fares.Test.Acceptance.Helpers;
-using Testing.Shared;
+using Air.Domain.Fares.Test.Acceptance.TestDataGenerators;
+using Air.Domain.Fares.Test.Acceptance.TestExceptions;
 
-namespace Air.Domain.Fares.Origin.Acceptance;
+namespace Air.Domain.Fares.Test.Acceptance;
 
 public class FaresFacade_AppsettingsIntegrationTests
 {
@@ -34,7 +35,7 @@ public class FaresFacade_AppsettingsIntegrationTests
     [Test, NotInParallel(Order = 1)]
     public async Task InitializeConnectionString_test1WithInvalidConnectionString_Throws()
     {
-      
+
         var reset = SetAppsettingsEnvironment("test1");
         try
         {
