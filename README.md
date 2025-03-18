@@ -13,6 +13,10 @@ Dev tools dependencies and environment are maintained in script (/scripts/_check
 - install vs code mermaid extension to view the diagrams
 - install vs code liveserver to have updating report pages
 
+## Setup Rider with TUnit
+
+![alt text](/doc/img/image.png)
+
 ## User Stories - Maintained on GitHub Kanban
 
 - As a user I want to be able to get cheap fares to my favourite surf destinations.
