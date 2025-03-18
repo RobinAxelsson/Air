@@ -2,11 +2,13 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Air.Domain.Fares.Test.Acceptance.Helpers;
 using Air.Domain.Fares.Test.Acceptance.TestDataGenerators;
 
 namespace Air.Domain.Fares.Test.Acceptance;
+[SuppressMessage("ReSharper", "InconsistentNaming")]
 public class FaresFacade_SyncFlightFaresTests
 {
     [Category("Acceptance Test")]

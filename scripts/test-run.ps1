@@ -2,6 +2,7 @@
 # dependencies
 # dotnet add package JunitXml.TestLogger
 # pip install junit2html
+# WIP
 
 $testResultsDir = Join-Path $env:_REPO_ROOT_ temp "test-results"
 

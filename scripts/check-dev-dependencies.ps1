@@ -9,15 +9,13 @@ function EnsureDevDependenciesInstalled() {
     # Define dependencies with installation instructions
     $devDependencies = @{
         'dotnet'           = 'Install .NET SDK 9: https://dotnet.microsoft.com/en-us/download'
-        'pwsh'             = 'Install PowerShell: https://github.com/PowerShell/PowerShell'
-        'git'              = 'Install Git: https://git-scm.com/downloads'
-        'python'           = 'Install Python: https://www.python.org/downloads/'
+        'pwsh'             = 'Install PowerShell Core: https://github.com/PowerShell/PowerShell, sudo apt install powershell, winget install -e --id Microsoft.PowerShell --accept-package-agreements'
+        'git'              = 'Install Git: https://git-scm.com/downloads winget install -e --id Git.Git --accept-package-agreements'
         'docker'           = 'Install Docker: https://www.docker.com/get-started'
-        'sqlcmd'           = 'Install SQL Server Command Line Tools: https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility'
-        'junit2html'       = 'pip install junit2html'
-        'air-watch'        = 'airwatch-install -else .\tools\airwatch-install.ps1'
+        'sqlcmd'           = 'Install SQL Server Command Line Tools: https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility, sudo apt install sqlcmd'
         'dotnet-ef'        = 'dotnet tool install --global dotnet-ef'
         'dotnet-coverage'  = 'dotnet tool install --global dotnet-coverage'
+        'gh'               = 'sudo apt install gh, winget install -e GitHub.cli --accept-package-agreements'
     }
 
     $missingDependencies = @{}

@@ -57,7 +57,7 @@ function StartStopDbContainer(){
 }
 
 function CreateRemoveDbContainer(){
-    $dockerCompose = NormalizePath "$PSScriptRoot/subs/docker-compose.db.yml"
+    $dockerCompose = NormalizePath "$PSScriptRoot/helpers/docker-compose.db.yml"
 
     if (-not (Test-Path $dockerCompose)) {
         throw "docker-compose not found in path: $dockerCompose"

@@ -22,14 +22,12 @@ function InitDevEnvironment()
         $airDomainFaresPath = NormalizePath "$root/src/Air.Domain.Fares"
         $airInterfaceCliPath = NormalizePath "$root/src/Air.Interface.CLI"
         $toolsPath = NormalizePath "$root/tools"
-        $testResultsPath = NormalizePath "$root/temp/test-results"
 
         EnsurePathsExist @(
             $scriptsPath,
             $airDomainFaresPath,
             $airInterfaceCliPath,
             $airInterfaceCliProcessTests,
-            $testResultsPath,
             $toolsPath)
 
         # add script paths to run dev scripts
@@ -50,8 +48,8 @@ function InitDevEnvironment()
     }
 
     function AddDirToEnvPath($dir){
-        if (-not ($env:Path -split [System.IO.Path]::PathSeparator -contains $dir)) {
-            $env:Path += [System.IO.Path]::PathSeparator + $dir
+        if (-not ($env:PATH -split [System.IO.Path]::PathSeparator -contains $dir)) {
+            $env:PATH += [System.IO.Path]::PathSeparator + $dir
         }
     }
 
