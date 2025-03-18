@@ -30,20 +30,26 @@ public class PowerShellTests
         var syncFlightFaresResult = JsonSerializer.Deserialize<SyncFlightFaresResult>(filteredOutput);
 
         await Assert.That(syncFlightFaresResult).IsNotNull();
+
         await Assert.That(syncFlightFaresResult!.FlightsCreated > 0 || syncFlightFaresResult.FlightsUpdated > 0).IsTrue();
     }
 
     private string FilterCliOutput(string powershellOutput)
     {
-        const string start = "-----Start running CLI-----";
-        const string end   = "--------CLI exited---------";
+        Console.WriteLine("powershell output: " + powershellOutput);
+        string start = "-----Start running CLI-----";
+        string end   = "--------CLI exited---------";
 
-        if (!powershellOutput.Contains(start) || !powershellOutput.Contains(end))
+        var startMissing = !powershellOutput.Contains(start, StringComparison.OrdinalIgnoreCase);
+        var endMissing = !powershellOutput.Contains(end, StringComparison.OrdinalIgnoreCase);
+        if (endMissing || startMissing)
         {
-            throw new ArgumentException($"Failed trying to filter output from powershell script, script file must 'Write-Host {start}' and 'Write-Host {end}'. The total out put was: {powershellOutput}");
+            throw new ArgumentException($"Failed trying to filter output from powershell script, script file must 'Write-Host {start}' and 'Write-Host {end}' start missing: {startMissing}, end missing: {endMissing}. The total out put was: {powershellOutput}");
         }
 
-        return powershellOutput.Split("-----Start running CLI-----")[^1].Split("--------CLI exited---------")[0];
+        var processOutPut = powershellOutput.Split(start)[^1].Split(end)[0];
+        var json = processOutPut.Split("{")[^1].Split("}")[0];
+        return '{' + json + '}';
     }
 
     private string GetFullTestPath(string filePath)
@@ -73,7 +79,7 @@ public class PowerShellTests
 
         ProcessStartInfo psi = new ProcessStartInfo
         {
-            FileName = "powershell.exe",
+            FileName = "pwsh",
             Arguments = $"-ExecutionPolicy Bypass -File \"{scriptPath}\"",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
@@ -101,6 +107,7 @@ public class PowerShellTests
                 }
             };
 
+            Console.WriteLine("Starting process...");
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
