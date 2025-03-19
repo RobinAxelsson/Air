@@ -1,9 +1,9 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-namespace Air.Domain.Fares.Test.Acceptance.TestExceptions;
+namespace Air.Domain.Fares.Test.Shared;
 
-internal abstract class AirTestException : Exception
+public abstract class AirTestException : Exception
 {
     protected AirTestException()
     {
@@ -18,7 +18,7 @@ internal abstract class AirTestException : Exception
     }
 }
 
-internal class InvalidTestCloneException : AirTestException
+public class InvalidTestCloneException : AirTestException
 {
     public InvalidTestCloneException()
     {
@@ -33,7 +33,7 @@ internal class InvalidTestCloneException : AirTestException
     }
 }
 
-internal class FailedExceptionAssertionException : AirTestException
+public class FailedExceptionAssertionException : AirTestException
 {
     public FailedExceptionAssertionException()
     {
@@ -48,17 +48,18 @@ internal class FailedExceptionAssertionException : AirTestException
     }
 }
 
-internal class MoreThenOneTestAccessAspEnvironment : AirTestException
+public class UnexpectedExceptionThrownException : AirTestException
 {
-    public MoreThenOneTestAccessAspEnvironment()
+    public UnexpectedExceptionThrownException()
     {
     }
 
-    public MoreThenOneTestAccessAspEnvironment(string? message) : base(message)
+    public UnexpectedExceptionThrownException(string? message) : base(message)
     {
     }
 
-    public MoreThenOneTestAccessAspEnvironment(string? message, Exception? innerException) : base(message, innerException)
+    public UnexpectedExceptionThrownException(string? message, Exception? innerException) : base(message, innerException)
     {
     }
 }
+

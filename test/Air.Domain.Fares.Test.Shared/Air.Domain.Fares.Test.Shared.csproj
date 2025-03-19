@@ -11,6 +11,12 @@
     <ProjectReference Include="..\..\src\Air.Domain.Fares\Air.Domain.Fares.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="TUnit.Assertions">
+      <HintPath>..\..\..\..\.nuget\packages\tunit.assertions\0.17.0\lib\net9.0\TUnit.Assertions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <PropertyGroup>
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>

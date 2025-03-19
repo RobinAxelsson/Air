@@ -1,13 +1,13 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using Air.Domain.Fares.Test.Acceptance.TestDataGenerators.Helpers;
+using Air.Domain.Fares.Test.Shared.TestDataGenerators.Helpers;
 
-namespace Air.Domain.Fares.Test.Acceptance.TestDataGenerators;
+namespace Air.Domain.Fares.Test.Shared.TestDataGenerators;
 
-internal static class FlightSpecDtoFactory
+public static class FlightSpecDtoFactory
 {
-    private static bool _cloneIsValidated;
+    private static bool s_cloneIsValidated;
 
     /// <summary>
     /// The properties for the original get set with default values except the ones specified in the input action
@@ -46,10 +46,12 @@ internal static class FlightSpecDtoFactory
 
     private static void EnsureCloneIsValidated()
     {
-        if (!_cloneIsValidated)
+        if (s_cloneIsValidated)
         {
-            TripSpecDtoCloneValidator.EnsureCloneIsIdentical();
-            _cloneIsValidated = true;
+            return;
         }
+
+        TripSpecDtoCloneValidator.EnsureCloneIsIdentical();
+        s_cloneIsValidated = true;
     }
 }

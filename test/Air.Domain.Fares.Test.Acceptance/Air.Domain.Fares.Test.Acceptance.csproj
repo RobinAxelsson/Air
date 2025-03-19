@@ -7,21 +7,13 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
-  <Target Name="CopyAppSettingsToOutput" AfterTargets="Build">
-    <ItemGroup>
-      <AppSettingsFiles Include="Appsettings\**\*" />
-    </ItemGroup>
-
-    <Copy SourceFiles="@(AppSettingsFiles)" DestinationFolder="$(OutputPath)" />
-  </Target>
-
-
   <ItemGroup>
     <PackageReference Include="TUnit" Version="0.17.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Air.Domain.Fares\Air.Domain.Fares.csproj" />
+    <ProjectReference Include="..\Air.Domain.Fares.Test.Shared\Air.Domain.Fares.Test.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="appsettings.*.json" />
+    <Content Include="appsettings.*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <PropertyGroup>

@@ -18,6 +18,16 @@ public sealed class InvalidConnectionStringException : AirFaresTechnicalBaseExce
     }
 }
 
+[ExcludeFromCodeCoverage]
+public sealed class InvalidHttpUrlException : AirFaresTechnicalBaseException
+{
+    public override string HttpReason => "Invalid connedction string";
+
+    public InvalidHttpUrlException(string message): base(message)
+    {
+    }
+}
+
 
 [ExcludeFromCodeCoverage]
 public sealed class DbContextReturnNullException : AirFaresTechnicalBaseException

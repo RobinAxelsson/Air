@@ -1,11 +1,10 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
-using Air.Domain.Fares.Test.Acceptance.Helpers;
-using Air.Domain.Fares.Test.Acceptance.TestDataGenerators;
+using Air.Domain.Fares.Test.Shared.Asserters;
+using Air.Domain.Fares.Test.Shared.TestDataGenerators;
 
 namespace Air.Domain.Fares.Test.Acceptance;
 [SuppressMessage("ReSharper", "InconsistentNaming")]

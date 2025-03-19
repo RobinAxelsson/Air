@@ -17,15 +17,7 @@ internal abstract class ConfigurationProviderBase
     {
         var ryanairBaseUrl = RetrieveConfigurationSettingValueThrowIfMissing("RyanairBaseUrl");
 
-        if(!Uri.TryCreate(ryanairBaseUrl, UriKind.Absolute, out var uriResult) || !(uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
-        {
-            throw new ConfigurationSettingInvalidException($"RyanairBaseUrl '{ryanairBaseUrl}' is not a valid url");
-        }
-
-        if (!ryanairBaseUrl.EndsWith("/", StringComparison.OrdinalIgnoreCase))
-        {
-            throw new ConfigurationSettingInvalidException($"RyanairBaseUrl '{ryanairBaseUrl}' should end with a forward slash");
-        }
+        ServiceHttpUrlValidator.EnsureValid(ryanairBaseUrl, "RyanairService");
 
         return ryanairBaseUrl;
     }
