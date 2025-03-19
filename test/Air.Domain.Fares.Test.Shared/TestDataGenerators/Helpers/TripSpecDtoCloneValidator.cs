@@ -19,7 +19,7 @@ internal static class TripSpecDtoCloneValidator
 
         if (errors.Length != 0)
         {
-            throw new InvalidTestCloneException($"The test is initializing test data for type '{originalType.Name}' using a test clone type '{cloneType.Name}', test clones need to have the exact same properties as the originals.\n" + errors);
+            throw new TestExceptions.InvalidTestCloneException($"The test is initializing test data for type '{originalType.Name}' using a test clone type '{cloneType.Name}', test clones need to have the exact same properties as the originals.\n" + errors);
         }
     }
 

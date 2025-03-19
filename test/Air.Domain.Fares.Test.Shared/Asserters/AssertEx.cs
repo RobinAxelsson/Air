@@ -1,50 +1,9 @@
 ﻿using System.Globalization;
 using System.Text;
-using TUnit.Assertions;
 
 namespace Air.Domain.Fares.Test.Shared.Asserters;
 
-public class AssertExBuilder
-{
-    //Act Action
-    //Assert.Fail (needs action)
-    //Assert needs thrown exception
-    //Exception catch
-
-    //AssertExBuilder.Act(() => act())
-    //.AssertException<T>(ex => asserts(ex))
-    public AssertExBuilder(Action act)
-    {
-        _act = act;
-    }
-
-    private Action? _act;
-    public static AssertExBuilder Act(Action act)
-    {
-        return new AssertExBuilder(act);
-    }
-
-    public void AssertThrows<T>(Action<T> assert) where T : Exception
-    {
-        if(_act == null) throw new NullReferenceException("This should never happen");
-
-        try
-        {
-            _act();
-            Assert.Fail($"We were expecting an {typeof(T).Name} exception to be thrown but no exception was thrown");
-        }
-        catch (Exception e)
-        {
-            if (typeof(T) == e.GetType())
-            {
-                assert((T)e);
-                return;
-            }
-            throw new UnexpectedExceptionThrownException($"An unexpected exception '{e.GetType().Name}' was thrown, see inner exception, message: '{e.Message}', stack trace: {e.StackTrace}", e);
-        }
-    }
-}
-
+//The TUnit library does not seem to have a way to assert on Exception messages so we us the AssertEx helpers to give better messages
 public static class AssertEx
 {
     public static void EnsureExceptionMessageContains(Exception exception, params string[] expectedMessageParts)
@@ -66,7 +25,7 @@ public static class AssertEx
 
         if (somePartNotFound)
         {
-            throw new FailedExceptionAssertionException(exceptionMessages + "\nStack trace:\n" + exception.StackTrace, exception);
+            throw new TestExceptions.FailedExceptionAssertionException(exceptionMessages + "\nStack trace:\n" + exception.StackTrace, exception);
         }
     }
 
@@ -89,7 +48,7 @@ public static class AssertEx
 
         if (somePartFound)
         {
-            throw new FailedExceptionAssertionException(exceptionMessages + "\nStack trace:\n" + exception.StackTrace, exception);
+            throw new TestExceptions.FailedExceptionAssertionException(exceptionMessages + "\nStack trace:\n" + exception.StackTrace, exception);
         }
     }
 }

@@ -3,63 +3,67 @@
 
 namespace Air.Domain.Fares.Test.Shared;
 
-public abstract class AirTestException : Exception
+public static class TestExceptions
 {
-    protected AirTestException()
+    public abstract class AirTestException : Exception
     {
+        protected AirTestException()
+        {
+        }
+
+        protected AirTestException(string? message) : base(message)
+        {
+        }
+
+        protected AirTestException(string? message, Exception? innerException) : base(message, innerException)
+        {
+        }
     }
 
-    protected AirTestException(string? message) : base(message)
+    public class InvalidTestCloneException : AirTestException
     {
+        public InvalidTestCloneException()
+        {
+        }
+
+        public InvalidTestCloneException(string? message) : base(message)
+        {
+        }
+
+        public InvalidTestCloneException(string? message, Exception? innerException) : base(message, innerException)
+        {
+        }
     }
 
-    protected AirTestException(string? message, Exception? innerException) : base(message, innerException)
+    public class FailedExceptionAssertionException : AirTestException
     {
+        public FailedExceptionAssertionException()
+        {
+        }
+
+        public FailedExceptionAssertionException(string? message) : base(message)
+        {
+        }
+
+        public FailedExceptionAssertionException(string? message, Exception? innerException) : base(message, innerException)
+        {
+        }
+    }
+
+    public class UnexpectedExceptionThrownException : AirTestException
+    {
+        public UnexpectedExceptionThrownException()
+        {
+        }
+
+        public UnexpectedExceptionThrownException(string? message) : base(message)
+        {
+        }
+
+        public UnexpectedExceptionThrownException(string? message, Exception? innerException) : base(message, innerException)
+        {
+        }
     }
 }
 
-public class InvalidTestCloneException : AirTestException
-{
-    public InvalidTestCloneException()
-    {
-    }
-
-    public InvalidTestCloneException(string? message) : base(message)
-    {
-    }
-
-    public InvalidTestCloneException(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
-}
-
-public class FailedExceptionAssertionException : AirTestException
-{
-    public FailedExceptionAssertionException()
-    {
-    }
-
-    public FailedExceptionAssertionException(string? message) : base(message)
-    {
-    }
-
-    public FailedExceptionAssertionException(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
-}
-
-public class UnexpectedExceptionThrownException : AirTestException
-{
-    public UnexpectedExceptionThrownException()
-    {
-    }
-
-    public UnexpectedExceptionThrownException(string? message) : base(message)
-    {
-    }
-
-    public UnexpectedExceptionThrownException(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
-}
 
